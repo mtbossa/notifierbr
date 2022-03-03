@@ -1,8 +1,8 @@
 import { checkPrime } from 'crypto';
 import { BrowserContext, Page } from 'puppeteer';
+import * as cheerio from 'cheerio';
 
 const puppeteer = require('puppeteer');
-const $ = require('cheerio');
 const CronJob = require('cron').CronJob;
 const nodemailer = require('nodemailer');
 
@@ -13,19 +13,43 @@ const configureBrowser = async () => {
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
 	});
 	const page = await browser.newPage();
+	// set user agent (override the default headless User Agent)
+	await page.setUserAgent(
+		'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
+	);
 	await page.goto(url);
 	return page;
 };
 
-const checkSoldOff = async (page: Page) => {
+const isSoldOff = async (page: Page): Promise<boolean> => {
 	await page.reload();
 	let html = await page.evaluate(() => document.body.innerHTML);
-	console.log(html);
+	const $ = cheerio.load(html);
+	const soldOff = !$('.esgotado').hasClass('hidden'); // If has class hidden, means its not sold off
+	return soldOff;
 };
 
-const monitor = async () => {
+const monitorStockAvailability = async (page: Page) => {
+	const soldOff = await isSoldOff(page);
+
+	if (!soldOff) {
+		console.log('NÃO ESTÁ MAIS ESGOTADO');
+	} else {
+		console.log('CONTINUA ESGOTADO');
+	}
+};
+
+(async () => {
 	let page = await configureBrowser();
-	await checkSoldOff(page);
-};
 
-monitor();
+	const job = new CronJob(
+		'*/15 * * * * *',
+		() => monitorStockAvailability(page),
+		null,
+		true,
+		null,
+		null,
+		true
+	);
+	job.start();
+})();
