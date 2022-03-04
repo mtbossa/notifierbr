@@ -3,7 +3,12 @@ import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 import { CronJob } from 'cron';
 import client from './bot';
-import { exitHandler } from './helpers';
+import {
+	exitHandler,
+	arrayDifference as diffRecentWithCurrent,
+} from './helpers';
+
+let currentJordans: Array<string> = [];
 
 const product = {
 	name: 'Air Jordan 1	Patent Bred',
@@ -15,6 +20,10 @@ const product = {
 		'https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/ba6c1527-a9c5-4efa-af58-0930b3a8aa34',
 };
 
+const page_info = {
+	url: 'https://www.nike.com.br/lancamento-todos-110',
+};
+
 const configureBrowser = async () => {
 	const browser = await puppeteer.launch({
 		args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -24,7 +33,7 @@ const configureBrowser = async () => {
 	await page.setUserAgent(
 		'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
 	);
-	await page.goto(product.url);
+	await page.goto(page_info.url);
 
 	return page;
 };
@@ -37,6 +46,28 @@ const isSoldOff = async (page: Page): Promise<boolean> => {
 	const soldOff = !$('.esgotado').hasClass('hidden'); // If has class hidden, means its not sold off
 
 	return soldOff;
+};
+
+const getRecentJordans = ($: cheerio.CheerioAPI) => {
+	return $('.produto__nome')
+		.filter(function () {
+			const regex = new RegExp('Tênis Air Jordan');
+			const content = $(this).text();
+			return content ? regex.test(content) : false;
+		})
+		.map(function () {
+			return $(this).text();
+		})
+		.toArray();
+};
+
+const hasNewJordans = async (page: Page) => {
+	await page.reload();
+	let html = await page.evaluate(() => document.body.innerHTML);
+	const recentJordans = getRecentJordans(cheerio.load(html));
+	const diff = diffRecentWithCurrent<string>(recentJordans, currentJordans);
+
+	return diff;
 };
 
 const monitorStockAvailability = async (page: Page) => {
@@ -52,20 +83,32 @@ const monitorStockAvailability = async (page: Page) => {
 	}
 };
 
-(async () => {
-	process.stdin.resume();
+const monitorFlashDrops = async (page: Page) => {
+	const newJordans = await hasNewJordans(page);
+	if (newJordans.length > 0) console.log(newJordans);
+};
 
-	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
-
+const tests = async () => {
 	let page = await configureBrowser();
-	const job = new CronJob(
-		'*/15 * * * * *',
-		() => monitorStockAvailability(page),
-		null,
-		true,
-		undefined,
-		null,
-		true
-	);
-	job.start();
-})();
+	monitorFlashDrops(page);
+};
+
+tests();
+
+// (async () => {
+// 	process.stdin.resume();
+
+// 	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
+
+// 	let page = await configureBrowser();
+// 	const job = new CronJob(
+// 		'*/15 * * * * *',
+// 		() => monitorStockAvailability(page),
+// 		null,
+// 		true,
+// 		undefined,
+// 		null,
+// 		true
+// 	);
+// 	job.start();
+// })();
