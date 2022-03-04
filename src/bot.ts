@@ -79,6 +79,5 @@ client.on('stockRefilled', product => {
 		.setFooter({
 			text: 'Some footer text here',
 		});
-	// (channel as TextChannel).send(`Em estoque. Link: ${url}`);
 	(channel as TextChannel).send({ embeds: [exampleEmbed] });
 });
