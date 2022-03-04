@@ -2,6 +2,8 @@ import { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 import { CronJob } from 'cron';
+import client from './bot';
+import { exitHandler } from './helpers';
 
 const url = 'https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-351285';
 
@@ -32,14 +34,20 @@ const isSoldOff = async (page: Page): Promise<boolean> => {
 const monitorStockAvailability = async (page: Page) => {
 	const soldOff = await isSoldOff(page);
 
-	if (!soldOff) {
+	if (soldOff) {
 		console.log('NÃO ESTÁ MAIS ESGOTADO');
+		if (client.isReady()) client.emit('stockRefilled', url);
 	} else {
 		console.log('CONTINUA ESGOTADO');
+		client.emit('outOfStock', 'Out of stock');
 	}
 };
 
 (async () => {
+	process.stdin.resume()
+
+	process.on('SIGINT', exitHandler.bind(null, {exit:true}));
+
 	let page = await configureBrowser();
 	const job = new CronJob(
 		'*/15 * * * * *',
