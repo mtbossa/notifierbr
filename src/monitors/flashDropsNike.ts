@@ -5,3 +5,5 @@ const monitorFlashDrops = async (page: Page) => {
 	const newJordans = await FlashDropsNikeService.hasNewJordans(page);
 	if (newJordans.length > 0) console.log(newJordans);
 };
+
+export { monitorFlashDrops };

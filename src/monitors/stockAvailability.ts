@@ -24,4 +24,4 @@ const monitorStockAvailability = async (page: Page) => {
 	}
 };
 
-export default monitorStockAvailability;
+export { monitorStockAvailability };

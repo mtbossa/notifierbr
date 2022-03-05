@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer';
 import { CronJob } from 'cron';
 import { exitHandler } from './helpers/general';
-import monitorStockAvailability from './monitors/stockAvailability';
+import { monitorStockAvailability } from './monitors/stockAvailability';
 
 const page_info = {
 	url: 'https://www.nike.com.br/lancamento-todos-110',
