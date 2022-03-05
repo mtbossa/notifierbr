@@ -1,4 +1,3 @@
-import { config } from 'dotenv';
 import {
 	Client,
 	ClientOptions,
@@ -8,7 +7,6 @@ import {
 } from 'discord.js';
 import { log } from './helpers/general';
 
-config(); // Configures .env
 const prefix = '#';
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
 

@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import puppeteer from 'puppeteer';
 import { CronJob } from 'cron';
 import { exitHandler } from './helpers/general';
