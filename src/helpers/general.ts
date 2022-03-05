@@ -1,4 +1,4 @@
-import client from './bot';
+import client from '../bot';
 
 export const log = (...args: any) => {
 	console.log('-----------------------------');
@@ -13,11 +13,4 @@ export const exitHandler = (options: any, exitCode: any) => {
 		client.destroy();
 		process.exit();
 	}
-};
-
-export const arrayDifference = <T>(
-	incomeArray: Array<T>,
-	compareArray: Array<T>
-): Array<T> => {
-	return incomeArray.filter(x => !compareArray.includes(x));
 };

@@ -1,9 +1,6 @@
-import { Page } from 'puppeteer';
-import * as cheerio from 'cheerio';
 import puppeteer from 'puppeteer';
 import { CronJob } from 'cron';
-import client from './bot';
-import { exitHandler } from './helpers';
+import { exitHandler } from './helpers/general';
 import monitorStockAvailability from './monitors/stockAvailability';
 
 const page_info = {

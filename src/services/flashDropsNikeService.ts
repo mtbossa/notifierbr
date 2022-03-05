@@ -1,6 +1,6 @@
 import { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
-import { arrayDifference as diffRecentWithCurrent } from '../helpers';
+import { arrayDifference as diffRecentWithCurrent } from '../helpers/array';
 
 let currentJordans: Array<string> = [];
 

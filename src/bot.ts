@@ -6,7 +6,7 @@ import {
 	MessageEmbed,
 	TextChannel,
 } from 'discord.js';
-import { log } from './helpers';
+import { log } from './helpers/general';
 
 config(); // Configures .env
 const prefix = '#';
