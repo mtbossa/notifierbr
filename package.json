@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/index.ts",
-		"devBot": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/bot.ts",
+		"devBot": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --no-notify src/bot.ts"
 	},
 	"devDependencies": {
 		"@types/cron": "^1.7.3",
