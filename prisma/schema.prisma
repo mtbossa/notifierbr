@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model html_selectors {
+  id                 Int     @default(autoincrement())
+  price              String?
+  stock_availability String?
+  store_id           Int
+  stores             stores  @relation(fields: [store_id], references: [id], onDelete: Cascade)
+
+  @@id([id, store_id])
+}
+
+model monitors {
+  id                Int                 @id @default(autoincrement())
+  type              String              @db.VarChar(100)
+  monitors_products monitors_products[]
+}
+
+model monitors_products {
+  monitors_id Int      @default(autoincrement())
+  products_id BigInt   @default(autoincrement())
+  store_id    Int?
+  id          BigInt   @default(autoincrement())
+  monitors    monitors @relation(fields: [monitors_id], references: [id], onDelete: Cascade)
+  products    products @relation(fields: [products_id], references: [id], onDelete: Cascade)
+  stores      stores?  @relation(fields: [store_id], references: [id])
+
+  @@id([products_id, monitors_id, id])
+}
+
+model products {
+  id                   BigInt              @id @default(autoincrement())
+  name                 String              @unique @db.VarChar
+  current_lowest_prime Decimal?            @db.Decimal(12, 2)
+  monitors_products    monitors_products[]
+  products_stores      products_stores[]
+}
+
+model products_stores {
+  products_id   BigInt   @default(autoincrement())
+  stores_id     Int      @default(autoincrement())
+  product_url   String   @unique
+  current_price Decimal? @db.Decimal(12, 2)
+  id            BigInt   @default(autoincrement())
+  products      products @relation(fields: [products_id], references: [id], onDelete: Cascade)
+  stores        stores   @relation(fields: [stores_id], references: [id], onDelete: Cascade)
+
+  @@id([products_id, stores_id, id])
+}
+
+model stores {
+  id                Int                 @id @default(autoincrement())
+  name              String              @unique @db.VarChar(255)
+  url               String              @unique @db.VarChar(255)
+  html_selectors    html_selectors[]
+  monitors_products monitors_products[]
+  products_stores   products_stores[]
+}
