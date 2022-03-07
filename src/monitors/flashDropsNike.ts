@@ -6,7 +6,7 @@ import { Client } from 'discord.js';
 
 export class NikeFlashDropsMonitor implements Monitor {
 	private browser: Browser | null = null;
-	private page: Page | null = null;
+	page: Page | null = null;
 
 	constructor(private client: Client) {}
 
@@ -28,7 +28,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 
 	async start() {
 		const job = new CronJob(
-			'* * * * * *', // Every 1 minute
+			'* * * * *', // Every 1 minute
 			() => this._check(),
 			null,
 			true,
@@ -36,7 +36,6 @@ export class NikeFlashDropsMonitor implements Monitor {
 			null,
 			true
 		);
-		job.start();
 	}
 
 	private async _check() {

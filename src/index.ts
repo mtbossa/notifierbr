@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { exitHandler } from './helpers/general';
 import { NikeFlashDropsMonitor } from './monitors/flashDropsNike';
-import client from './bot';
+import client from './bot'; // Runs code when imported (bot.ts runs code when called)
 
 // Starts all process
 (async () => {
