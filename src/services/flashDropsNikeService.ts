@@ -18,11 +18,11 @@ export class FlashDropsNikeService {
 		let html = await page.evaluate(() => document.body.innerHTML);
 		const recentJordans = this._getRecentJordans(cheerio.load(html));
 
-		// if (this.firstTime) {
-		// 	this.currentJordans = recentJordans;
-		// 	this.firstTime = !this.firstTime;
-		// 	return [];
-		// }
+		if (this.firstTime) {
+			this.currentJordans = recentJordans;
+			this.firstTime = !this.firstTime;
+			return [];
+		}
 
 		const diff = _.differenceBy(recentJordans, this.currentJordans, 'name');
 
