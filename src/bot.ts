@@ -6,6 +6,7 @@ import {
 	TextChannel,
 } from 'discord.js';
 import { log } from './helpers/general';
+import { JordanData } from './services/flashDropsNikeService';
 
 const prefix = '#';
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
@@ -32,7 +33,7 @@ client.on('ready', () => {
 	console.log('Bot is ready!\n------------------------------------------');
 });
 
-client.on('message', message => {
+client.on('messageCreate', message => {
 	if (!message.content.startsWith(prefix) || message.author.bot) return;
 	const args = message.content.slice(prefix.length).split(/ +/);
 	if (args) {
@@ -55,6 +56,24 @@ client.on('outOfStock', param => {
 		channel => (channel as TextChannel).name === notifyTextChannel
 	);
 	log(param);
+});
+
+client.on('flashDrop', (jordansData: Array<JordanData>) => {
+	const channel = client.channels.cache.find(
+		channel => (channel as TextChannel).name === notifyTextChannel
+	);
+	log('Flash Drop!', jordansData);
+	jordansData.forEach(jordanData => {
+		const exampleEmbed = new MessageEmbed()
+			.setColor('#f58442')
+			.setTitle(jordanData.name)
+			.setURL(jordanData.url)
+			.setDescription('Flash Drop! :rocket:')
+			.setThumbnail(jordanData.imgUrl)
+			.setTimestamp();
+
+		(channel as TextChannel).send({ embeds: [exampleEmbed] });
+	});
 });
 
 client.on('stockRefilled', product => {
