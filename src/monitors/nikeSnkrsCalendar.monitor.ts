@@ -1,16 +1,16 @@
 import { Monitor } from './interfaces/Monitor';
 import puppeteer, { Browser, Page } from 'puppeteer';
 import {
-	NikeFlashDropsMonitorService,
-	JordanData,
-} from '../services/nikeFlashDropsMonitorService';
+	NikeSnkrsCalendarMonitorService,
+	SnkrsData,
+} from '../services/nikeSnkrsCalendarMonitorService';
 import { CronJob } from 'cron';
 import { Client } from 'discord.js';
 import _ from 'lodash';
 import { log } from '../helpers/general';
 
-export class NikeFlashDropsMonitor implements Monitor {
-	public lastLoadedJordans: Array<JordanData> = [];
+export class NikeSnkrsCalendarMonitor implements Monitor {
+	public lastLoadedSnkrs: Array<SnkrsData> = [];
 	private page: Page | null = null;
 	private browser: Browser | null = null;
 	private _firstTime = true;
@@ -46,26 +46,27 @@ export class NikeFlashDropsMonitor implements Monitor {
 	}
 
 	private async _check() {
-		const reloadedPageJordans =
-			await NikeFlashDropsMonitorService.getCurrentJordans(this.page!);
-		const newJordans = _.differenceBy(
-			reloadedPageJordans,
-			this.lastLoadedJordans,
+		const reloadedPageSnkrs =
+			await NikeSnkrsCalendarMonitorService.getCurrentSnkrs(this.page!);
+
+		const newSnkrs = _.differenceBy(
+			reloadedPageSnkrs,
+			this.lastLoadedSnkrs,
 			'name'
 		);
 
 		if (this._firstTime) {
 			this._firstTime = false;
-			this.lastLoadedJordans = reloadedPageJordans;
-			log('First time loading page: ', this.lastLoadedJordans);
+			this.lastLoadedSnkrs = reloadedPageSnkrs;
+			log('First time loading snkrs page: ', this.lastLoadedSnkrs);
 			return;
 		}
 
-		if (newJordans.length > 0) {
-			this.client.emit('flashDrop', newJordans);
-			this.lastLoadedJordans = [...newJordans, ...this.lastLoadedJordans];
+		if (newSnkrs.length > 0) {
+			this.client.emit('newSnkrsOnNikeCalendar', this.lastLoadedSnkrs);
+			this.lastLoadedSnkrs = [...newSnkrs, ...this.lastLoadedSnkrs];
 		} else {
-			log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);
+			log('Last loaded Calendar Sneakers: ', this.lastLoadedSnkrs);
 		}
 	}
 }

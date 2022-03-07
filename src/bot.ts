@@ -7,6 +7,7 @@ import {
 } from 'discord.js';
 import { log } from './helpers/general';
 import { JordanData } from './services/nikeFlashDropsMonitorService';
+import { SnkrsData } from './services/nikeSnkrsCalendarMonitorService';
 
 const prefix = '#';
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
@@ -72,6 +73,25 @@ client.on('flashDrop', (jordansData: Array<JordanData>) => {
 			.setThumbnail(jordanData.imgUrl)
 			.setTimestamp();
 
+		(channel as TextChannel).send({ embeds: [exampleEmbed] });
+	});
+});
+
+client.on('newSnkrsOnNikeCalendar', (snkrsData: Array<SnkrsData>) => {
+	const channel = client.channels.cache.find(
+		channel => (channel as TextChannel).name === notifyTextChannel
+	);
+	log('New snkr on calendar!', snkrsData);
+	snkrsData.forEach(snkrsData => {
+		const exampleEmbed = new MessageEmbed()
+			.setColor('#f58442')
+			.setTitle(snkrsData.name)
+			.setURL(snkrsData.url)
+			.setDescription(
+				`Novo calendário! Preço: ${snkrsData.price.toString()} :rocket:`
+			)
+			.setThumbnail(snkrsData.imgUrl)
+			.setTimestamp();
 		(channel as TextChannel).send({ embeds: [exampleEmbed] });
 	});
 });

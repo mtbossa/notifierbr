@@ -8,8 +8,6 @@ export type JordanData = {
 	imgUrl: string;
 };
 export class NikeFlashDropsMonitorService {
-	private static firstTime = true;
-
 	public static getCurrentJordans = async (
 		page: Page
 	): Promise<Array<JordanData>> => {
