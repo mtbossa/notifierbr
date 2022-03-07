@@ -20,19 +20,20 @@ model HtmlsSelectors {
 
 model Monitor {
   id                Int                 @id @default(autoincrement())
-  type              String              @db.VarChar(100)
-  monitors_products MonitorsProducts[]
+  type              String              @unique @db.VarChar(100) 
+  products MonitorsOnProducts[]
+
   @@map("monitors")
 }
 
-model MonitorsProducts {
+model MonitorsOnProducts {
   monitors_id Int      
   products_id BigInt   
   store_id    Int?
   id          BigInt   @default(autoincrement())
-  monitor    Monitor @relation(fields: [monitors_id], references: [id], onDelete: Cascade)
-  product    Product @relation(fields: [products_id], references: [id], onDelete: Cascade)
-  store      Store?  @relation(fields: [store_id], references: [id])
+  monitor     Monitor @relation(fields: [monitors_id], references: [id], onDelete: Cascade)
+  product     Product @relation(fields: [products_id], references: [id], onDelete: Cascade)
+  store       Store?  @relation(fields: [store_id], references: [id])
 
   @@id([products_id, monitors_id, id])
   @@map("monitors_products")
@@ -41,14 +42,14 @@ model MonitorsProducts {
 model Product {
   id                   BigInt              @id @default(autoincrement())
   name                 String              @unique @db.VarChar
-  current_lowest_prime Decimal?            @db.Decimal(12, 2)
-  monitors_products    MonitorsProducts[]
-  products_stores      ProductsStore[]
+  current_lowest_price Decimal?            @db.Decimal(12, 2)
+  monitors             MonitorsOnProducts[]
+  stores               ProductsOnStore[]
 
   @@map("products")
 }
 
-model ProductsStore {
+model ProductsOnStore {
   products_id   BigInt  
   stores_id     Int     
   product_url   String   @unique
@@ -66,8 +67,8 @@ model Store {
   name              String              @unique @db.VarChar(255)
   url               String              @unique @db.VarChar(255)
   html_selectors    HtmlsSelectors[]
-  monitors_products MonitorsProducts[]
-  products_stores   ProductsStore[]
+  monitors_products MonitorsOnProducts[]
+  products          ProductsOnStore[]
 
   @@map("stores")
 }
