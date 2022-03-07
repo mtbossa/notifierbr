@@ -25,6 +25,7 @@
 		"cron": "^1.8.2",
 		"discord.js": "^13.6.0",
 		"dotenv": "^16.0.0",
+		"lodash": "^4.17.21",
 		"nodemailer": "^6.7.2",
 		"puppeteer": "^13.4.1"
 	}
