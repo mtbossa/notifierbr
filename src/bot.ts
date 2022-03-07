@@ -84,6 +84,7 @@ client.on('newSnkrsOnNikeCalendar', (snkrsData: Array<SnkrsData>) => {
 	log('New snkr on calendar!', snkrsData);
 	snkrsData.forEach(snkrsData => {
 		const exampleEmbed = new MessageEmbed()
+			.setAuthor({ name: snkrsData.launchDate })
 			.setColor('#f58442')
 			.setTitle(snkrsData.name)
 			.setURL(snkrsData.url)
