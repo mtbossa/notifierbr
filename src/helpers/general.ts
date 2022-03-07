@@ -1,7 +1,8 @@
 import client from '../bot';
 
 export const log = (...args: any) => {
-	console.log('-----------------------------');
+	const now = new Date().toISOString();
+	console.log(`${now} -----------------------------`);
 	console.log(...args);
 };
 

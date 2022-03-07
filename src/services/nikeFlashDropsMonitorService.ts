@@ -7,31 +7,19 @@ export type JordanData = {
 	url: string;
 	imgUrl: string;
 };
-export class FlashDropsNikeService {
+export class NikeFlashDropsMonitorService {
 	private static firstTime = true;
-	public static currentJordans: Array<JordanData> = [];
 
-	public static hasNewJordans = async (
+	public static getCurrentJordans = async (
 		page: Page
 	): Promise<Array<JordanData>> => {
 		await page.reload();
 		let html = await page.evaluate(() => document.body.innerHTML);
-		const recentJordans = this._getRecentJordans(cheerio.load(html));
 
-		if (this.firstTime) {
-			this.currentJordans = recentJordans;
-			this.firstTime = !this.firstTime;
-			return [];
-		}
-
-		const diff = _.differenceBy(recentJordans, this.currentJordans, 'name');
-
-		return diff;
+		return this._findJordans(cheerio.load(html));
 	};
 
-	private static _getRecentJordans = (
-		$: cheerio.CheerioAPI
-	): Array<JordanData> => {
+	private static _findJordans = ($: cheerio.CheerioAPI): Array<JordanData> => {
 		return $('.produto__nome')
 			.filter(function () {
 				const regex = new RegExp('Tênis Air Jordan');

@@ -1,7 +1,7 @@
 import { Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 
-export class StockAvailabilityService {
+export class StockAvailabilityMonitorService {
 	constructor() {}
 
 	public static isSoldOff = async (page: Page): Promise<boolean> => {

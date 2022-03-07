@@ -1,5 +1,5 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
-import { StockAvailabilityService } from '../services/stockAvailabilityService';
+import { StockAvailabilityMonitorService } from '../services/stockAvailabilityMonitorService';
 import client from '../bot';
 import { Client } from 'discord.js';
 import { CronJob } from 'cron';
@@ -77,7 +77,7 @@ export class StockAvailabilityMonitor implements Monitor {
 	}
 
 	private async _check() {
-		const soldOff = await StockAvailabilityService.isSoldOff(this.page!);
+		const soldOff = await StockAvailabilityMonitorService.isSoldOff(this.page!);
 
 		if (!soldOff) {
 			console.log('NÃO ESTÁ MAIS ESGOTADO');
@@ -100,7 +100,7 @@ const product = {
 };
 
 const monitorStockAvailability = async (page: Page) => {
-	const soldOff = await StockAvailabilityService.isSoldOff(page);
+	const soldOff = await StockAvailabilityMonitorService.isSoldOff(page);
 
 	if (!soldOff) {
 		console.log('NÃO ESTÁ MAIS ESGOTADO');
