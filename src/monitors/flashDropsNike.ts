@@ -28,7 +28,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 
 	async start() {
 		const job = new CronJob(
-			'*/15 * * * * *',
+			'* * * * * *', // Every 1 minute
 			() => this._check(),
 			null,
 			true,
