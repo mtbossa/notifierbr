@@ -6,7 +6,7 @@ import {
 	TextChannel,
 } from 'discord.js';
 import { log } from './helpers/general';
-import { JordanData } from './services/flashDropsNikeService';
+import { JordanData } from './services/nikeFlashDropsMonitorService';
 
 const prefix = '#';
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
@@ -30,7 +30,7 @@ const client = configureBotClient();
 export default client;
 
 client.on('ready', () => {
-	console.log('Bot is ready!\n------------------------------------------');
+	log('Bot ready!');
 });
 
 client.on('messageCreate', message => {
