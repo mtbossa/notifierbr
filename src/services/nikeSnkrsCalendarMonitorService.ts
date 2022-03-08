@@ -10,6 +10,9 @@ export type SnkrsData = {
 	launchDate: string;
 };
 export class NikeSnkrsCalendarMonitorService {
+	public static lastLoadedSnkrsUrls: Array<string> = [];
+	public static firstTime = true;
+
 	public static getCurrentSnkrs = async (
 		page: Page
 	): Promise<Array<SnkrsData>> => {
@@ -47,14 +50,39 @@ export class NikeSnkrsCalendarMonitorService {
 	): Promise<Array<SnkrsData>> {
 		const latestTwentySnkrs = $('.produto__imagem').splice(0, 13); // Only latest 20 are needed, because they won't push more then 10 snkrs calendars at onnce
 
+		if (this.firstTime) {
+			for (const snkrNode of latestTwentySnkrs) {
+				const snkrUrl = $(snkrNode).children('a').attr('href');
+				this.lastLoadedSnkrsUrls = [snkrUrl!, ...this.lastLoadedSnkrsUrls];
+			}
+			this.firstTime = false;
+			return [];
+		}
+
+		let newUrls: string[] = [];
+		for (const snkrNode of latestTwentySnkrs) {
+			const snkrUrl = $(snkrNode).children('a').attr('href');
+			newUrls = [snkrUrl!, ...newUrls];
+		}
+
+		const newUrls1 = latestTwentySnkrs.map(snkrNode => {
+			return $(snkrNode).children('a').attr('href');
+		});
+
+		const diff = _.difference(newUrls, this.lastLoadedSnkrsUrls);
+
+		if (diff.length <= 0) {
+			return [];
+		}
+
+		const newSnkrsNodes = latestTwentySnkrs.splice(0, diff.length);
+
 		const browser = await puppeteer.launch({
 			args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		});
 
-		let snkrsArray: Array<SnkrsData> = [];
-
-		for (const snkrNode of latestTwentySnkrs) {
-			const test = $(snkrNode);
+		let newSnkrsData: SnkrsData[] = [];
+		for (const snkrNode of newSnkrsNodes) {
 			const snkrUrl = $(snkrNode).children('a').attr('href');
 			const snkrImgUrl = $(snkrNode).children('a').children().attr('data-src');
 			const snkrName = $(snkrNode)
@@ -75,9 +103,10 @@ export class NikeSnkrsCalendarMonitorService {
 				launchDate: snkrLaunchDate,
 			};
 
-			snkrsArray = [currentSnkr, ...snkrsArray];
+			newSnkrsData = [currentSnkr, ...newSnkrsData];
 		}
+		browser.close();
 
-		return snkrsArray;
+		return newSnkrsData;
 	}
 }

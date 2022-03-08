@@ -10,7 +10,6 @@ import _ from 'lodash';
 import { log, minToMs } from '../helpers/general';
 
 export class NikeSnkrsCalendarMonitor implements Monitor {
-	public lastLoadedSnkrs: Array<SnkrsData> = [];
 	private page: Page | null = null;
 	private browser: Browser | null = null;
 	private _firstTime = true;
@@ -39,31 +38,19 @@ export class NikeSnkrsCalendarMonitor implements Monitor {
 
 	private async _check() {
 		log('Running NikeSnkrsCalendarMonitor');
-		const reloadedPageSnkrs =
-			await NikeSnkrsCalendarMonitorService.getCurrentSnkrs(this.page!);
-
-		const newSnkrs = _.differenceBy(
-			reloadedPageSnkrs,
-			this.lastLoadedSnkrs,
-			'name'
+		const newSnkrs = await NikeSnkrsCalendarMonitorService.getCurrentSnkrs(
+			this.page!
 		);
 
-		if (this._firstTime) {
-			this._firstTime = false;
-			this.lastLoadedSnkrs = reloadedPageSnkrs;
-
-			log('First time loading snkrs page: ', this.lastLoadedSnkrs);
-			setTimeout(this._check.bind(this), minToMs(3));
-			return;
-		}
-
 		if (newSnkrs.length > 0) {
-			this.client.emit('newSnkrsOnNikeCalendar', this.lastLoadedSnkrs);
-			this.lastLoadedSnkrs = [...newSnkrs, ...this.lastLoadedSnkrs];
+			this.client.emit('newSnkrsOnNikeCalendar', newSnkrs);
 		} else {
-			log('Last loaded Calendar Sneakers: ', this.lastLoadedSnkrs);
+			log(
+				'Last loaded Calendar Sneakers: ',
+				NikeSnkrsCalendarMonitorService.lastLoadedSnkrsUrls
+			);
 		}
-		
-		setTimeout(this._check.bind(this), minToMs(3));
+
+		setTimeout(this._check.bind(this), minToMs(2));
 	}
 }

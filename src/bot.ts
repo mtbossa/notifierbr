@@ -5,6 +5,7 @@ import {
 	MessageEmbed,
 	TextChannel,
 } from 'discord.js';
+import { readdirSync } from 'fs';
 import { log } from './helpers/general';
 import { JordanData } from './services/nikeFlashDropsMonitorService';
 import { SnkrsData } from './services/nikeSnkrsCalendarMonitorService';
@@ -13,44 +14,30 @@ const prefix = '#';
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
 
 const configureBotClient = () => {
-	console.log(
-		'Text channel to notify: ',
-		notifyTextChannel,
-		'\n------------------------------------------'
+	const client = new Client({
+		intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
+	});
+	const eventFiles = readdirSync(__dirname + '/events').filter(file =>
+		file.endsWith('.ts')
 	);
 
-	const clientOptions: ClientOptions = {
-		intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-	};
-	const client = new Client(clientOptions);
+	for (const file of eventFiles) {
+		const event = require(`./events/${file}`);
+		console.log(event);
+		if (event.once) {
+			client.once(event.name, (...args) => event.execute(...args));
+		} else {
+			client.on(event.name, (...args) => event.execute(...args));
+		}
+	}
 	client.login(process.env.DISCORDJS_BOT_TOKEN);
 
 	return client;
 };
+
 const client = configureBotClient();
+
 export default client;
-
-client.on('ready', () => {
-	log('Bot ready!');
-});
-
-client.on('messageCreate', message => {
-	if (!message.content.startsWith(prefix) || message.author.bot) return;
-	const args = message.content.slice(prefix.length).split(/ +/);
-	if (args) {
-		const command = args.shift()!.toLowerCase();
-		if (command == 'kill') {
-			log('kill', 'oi');
-			client.removeAllListeners();
-			client.destroy();
-			return;
-		}
-	}
-});
-
-client.on('error', err => {
-	console.warn(err);
-});
 
 client.on('outOfStock', param => {
 	const channel = client.channels.cache.find(
