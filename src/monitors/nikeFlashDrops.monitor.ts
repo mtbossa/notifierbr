@@ -56,7 +56,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 		}
 
 		if (newJordans.length > 0) {
-			this.client.emit('flashDrop', newJordans);
+			this.client.emit('flashDrop', this.client, newJordans);
 			this.lastLoadedJordans = [...newJordans, ...this.lastLoadedJordans];
 		} else {
 			log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);

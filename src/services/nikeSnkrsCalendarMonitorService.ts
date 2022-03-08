@@ -1,6 +1,7 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import * as cheerio from 'cheerio';
 import _ from 'lodash';
+import { log } from '../helpers/general';
 
 export type SnkrsData = {
 	name: string;
@@ -10,13 +11,14 @@ export type SnkrsData = {
 	launchDate: string;
 };
 export class NikeSnkrsCalendarMonitorService {
-	public static lastLoadedSnkrsUrls: Array<string> = [];
+	public static lastLoadedSnkrsUrls: Array<string | undefined> = [];
 	public static firstTime = true;
 
 	public static getCurrentSnkrs = async (
 		page: Page
 	): Promise<Array<SnkrsData>> => {
 		await page.reload();
+		await page.waitForSelector('.produto__imagem');
 		let html = await page.evaluate(() => document.body.innerHTML);
 
 		return this._findSnkrs(cheerio.load(html));
@@ -28,7 +30,12 @@ export class NikeSnkrsCalendarMonitorService {
 			'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
 		);
 		await page.goto(url);
+		await page.waitForNavigation();
+		await page.waitForSelector('.detalhes-produto__disponibilidade');
+		await page.waitForSelector('.js.preco');
+
 		let html = await page.evaluate(() => document.body.innerHTML);
+
 		await page.close();
 
 		return cheerio.load(html);
@@ -45,28 +52,29 @@ export class NikeSnkrsCalendarMonitorService {
 		return $('.detalhes-produto__disponibilidade').text();
 	}
 
+	private static _removeQueryParamsFromUrl(url: string) {
+		return url.split('?')[0];
+	}
+
 	private static async _findSnkrs(
 		$: cheerio.CheerioAPI
 	): Promise<Array<SnkrsData>> {
 		const latestTwentySnkrs = $('.produto__imagem').splice(0, 13); // Only latest 20 are needed, because they won't push more then 10 snkrs calendars at onnce
 
 		if (this.firstTime) {
-			for (const snkrNode of latestTwentySnkrs) {
-				const snkrUrl = $(snkrNode).children('a').attr('href');
-				this.lastLoadedSnkrsUrls = [snkrUrl!, ...this.lastLoadedSnkrsUrls];
-			}
+			this.lastLoadedSnkrsUrls = latestTwentySnkrs.map(snkrNode => {
+				return this._removeQueryParamsFromUrl(
+					$(snkrNode).children('a').attr('href')!
+				);
+			});
 			this.firstTime = false;
 			return [];
 		}
 
-		let newUrls: string[] = [];
-		for (const snkrNode of latestTwentySnkrs) {
-			const snkrUrl = $(snkrNode).children('a').attr('href');
-			newUrls = [snkrUrl!, ...newUrls];
-		}
-
-		const newUrls1 = latestTwentySnkrs.map(snkrNode => {
-			return $(snkrNode).children('a').attr('href');
+		const newUrls = latestTwentySnkrs.map(snkrNode => {
+			return this._removeQueryParamsFromUrl(
+				$(snkrNode).children('a').attr('href')!
+			);
 		});
 
 		const diff = _.difference(newUrls, this.lastLoadedSnkrsUrls);
@@ -74,7 +82,6 @@ export class NikeSnkrsCalendarMonitorService {
 		if (diff.length <= 0) {
 			return [];
 		}
-
 		const newSnkrsNodes = latestTwentySnkrs.splice(0, diff.length);
 
 		const browser = await puppeteer.launch({

@@ -1,8 +1,10 @@
-import client from '../bot';
+import { client } from '../bot';
 
 export const log = (...args: any) => {
 	const now = new Date().toLocaleString();
-	console.log(`----------------------------- ${now} -----------------------------`);
+	console.log(
+		`----------------------------- ${now} -----------------------------`
+	);
 	console.log(...args);
 };
 

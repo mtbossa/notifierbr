@@ -1,6 +1,5 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import { StockAvailabilityMonitorService } from '../services/stockAvailabilityMonitorService';
-import client from '../bot';
 import { Client } from 'discord.js';
 import { CronJob } from 'cron';
 import { Monitor } from './interfaces/Monitor';
@@ -76,39 +75,15 @@ export class StockAvailabilityMonitor implements Monitor {
 		);
 	}
 
-	private async _check() {
-		const soldOff = await StockAvailabilityMonitorService.isSoldOff(this.page!);
+	// private async _check() {
+	// 	const soldOff = await StockAvailabilityMonitorService.isSoldOff(this.page!);
 
-		if (!soldOff) {
-			console.log('NÃO ESTÁ MAIS ESGOTADO');
-			if (client.isReady()) client.emit('stockRefilled', product);
-		} else {
-			console.log('CONTINUA ESGOTADO');
-			client.emit('outOfStock', 'Out of stock');
-		}
-	}
+	// 	if (!soldOff) {
+	// 		console.log('NÃO ESTÁ MAIS ESGOTADO');
+	// 		if (this.client.isReady()) this.client.emit('stockRefilled', product);
+	// 	} else {
+	// 		console.log('CONTINUA ESGOTADO');
+	// 		this.client.emit('outOfStock', 'Out of stock');
+	// 	}
+	// }
 }
-
-const product = {
-	name: 'Air Jordan 1	Patent Bred',
-	url: 'https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-351285',
-	image_url:
-		'https://images.lojanike.com.br/1024x1024/produto/tenis-air-jordan-1-retro-high-og-masculino-555088-063-1-11637067284.jpg',
-	store: 'Nike',
-	store_image:
-		'https://3dwarehouse.sketchup.com/warehouse/v1.0/publiccontent/ba6c1527-a9c5-4efa-af58-0930b3a8aa34',
-};
-
-const monitorStockAvailability = async (page: Page) => {
-	const soldOff = await StockAvailabilityMonitorService.isSoldOff(page);
-
-	if (!soldOff) {
-		console.log('NÃO ESTÁ MAIS ESGOTADO');
-		if (client.isReady()) client.emit('stockRefilled', product);
-	} else {
-		console.log('CONTINUA ESGOTADO');
-		client.emit('outOfStock', 'Out of stock');
-	}
-};
-
-export { monitorStockAvailability };

@@ -2,9 +2,7 @@ import { Monitor } from './interfaces/Monitor';
 import puppeteer, { Browser, Page } from 'puppeteer';
 import {
 	NikeSnkrsCalendarMonitorService,
-	SnkrsData,
 } from '../services/nikeSnkrsCalendarMonitorService';
-import { CronJob } from 'cron';
 import { Client } from 'discord.js';
 import _ from 'lodash';
 import { log, minToMs } from '../helpers/general';
@@ -12,7 +10,6 @@ import { log, minToMs } from '../helpers/general';
 export class NikeSnkrsCalendarMonitor implements Monitor {
 	private page: Page | null = null;
 	private browser: Browser | null = null;
-	private _firstTime = true;
 
 	constructor(private client: Client) {}
 
