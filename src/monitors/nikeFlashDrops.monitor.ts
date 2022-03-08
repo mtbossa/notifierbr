@@ -7,7 +7,7 @@ import {
 import { CronJob } from 'cron';
 import { Client } from 'discord.js';
 import _ from 'lodash';
-import { log } from '../helpers/general';
+import { log, minToMs } from '../helpers/general';
 
 export class NikeFlashDropsMonitor implements Monitor {
 	public lastLoadedJordans: Array<JordanData> = [];
@@ -34,18 +34,11 @@ export class NikeFlashDropsMonitor implements Monitor {
 	}
 
 	async start() {
-		const job = new CronJob(
-			'* * * * *', // Every 1 minute
-			() => this._check(),
-			null,
-			true,
-			undefined,
-			null,
-			true
-		);
+		this._check();
 	}
 
 	private async _check() {
+		log('Running NikeFlashDropsMonitor');
 		const reloadedPageJordans =
 			await NikeFlashDropsMonitorService.getCurrentJordans(this.page!);
 		const newJordans = _.differenceBy(
@@ -58,6 +51,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 			this._firstTime = false;
 			this.lastLoadedJordans = reloadedPageJordans;
 			log('First time loading page: ', this.lastLoadedJordans);
+			setTimeout(this._check.bind(this), minToMs(1));
 			return;
 		}
 
@@ -67,5 +61,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 		} else {
 			log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);
 		}
+
+		setTimeout(this._check.bind(this), minToMs(1));
 	}
 }

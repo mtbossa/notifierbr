@@ -1,8 +1,8 @@
 import client from '../bot';
 
 export const log = (...args: any) => {
-	const now = new Date().toISOString();
-	console.log(`${now} -----------------------------`);
+	const now = new Date().toLocaleString();
+	console.log(`----------------------------- ${now} -----------------------------`);
 	console.log(...args);
 };
 
@@ -14,4 +14,8 @@ export const exitHandler = (options: any, exitCode: any) => {
 		client.destroy();
 		process.exit();
 	}
+};
+
+export const minToMs = (minutes: number): number => {
+	return minutes * 60000; // Ex.: 2 * 60000 = 120000ms
 };

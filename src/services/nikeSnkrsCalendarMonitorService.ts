@@ -45,7 +45,7 @@ export class NikeSnkrsCalendarMonitorService {
 	private static async _findSnkrs(
 		$: cheerio.CheerioAPI
 	): Promise<Array<SnkrsData>> {
-		const latestTwentySnkrs = $('.produto__imagem').splice(0, 20); // Only latest 20 are needed, because they won't push more then 10 snkrs calendars at onnce
+		const latestTwentySnkrs = $('.produto__imagem').splice(0, 13); // Only latest 20 are needed, because they won't push more then 10 snkrs calendars at onnce
 
 		const browser = await puppeteer.launch({
 			args: ['--no-sandbox', '--disable-setuid-sandbox'],

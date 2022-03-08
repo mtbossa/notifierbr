@@ -7,7 +7,7 @@ import {
 import { CronJob } from 'cron';
 import { Client } from 'discord.js';
 import _ from 'lodash';
-import { log } from '../helpers/general';
+import { log, minToMs } from '../helpers/general';
 
 export class NikeSnkrsCalendarMonitor implements Monitor {
 	public lastLoadedSnkrs: Array<SnkrsData> = [];
@@ -34,18 +34,11 @@ export class NikeSnkrsCalendarMonitor implements Monitor {
 	}
 
 	async start() {
-		const job = new CronJob(
-			'* * * * *', // Every 1 minute
-			() => this._check(),
-			null,
-			true,
-			undefined,
-			null,
-			true
-		);
+		this._check();
 	}
 
 	private async _check() {
+		log('Running NikeSnkrsCalendarMonitor');
 		const reloadedPageSnkrs =
 			await NikeSnkrsCalendarMonitorService.getCurrentSnkrs(this.page!);
 
@@ -58,7 +51,9 @@ export class NikeSnkrsCalendarMonitor implements Monitor {
 		if (this._firstTime) {
 			this._firstTime = false;
 			this.lastLoadedSnkrs = reloadedPageSnkrs;
+
 			log('First time loading snkrs page: ', this.lastLoadedSnkrs);
+			setTimeout(this._check.bind(this), minToMs(3));
 			return;
 		}
 
@@ -68,5 +63,7 @@ export class NikeSnkrsCalendarMonitor implements Monitor {
 		} else {
 			log('Last loaded Calendar Sneakers: ', this.lastLoadedSnkrs);
 		}
+		
+		setTimeout(this._check.bind(this), minToMs(3));
 	}
 }
