@@ -17,7 +17,7 @@ export class NikeSnkrsCalendarMonitorService {
 	public static getCurrentSnkrs = async (
 		page: Page
 	): Promise<Array<SnkrsData>> => {
-		await page.reload();
+		await page.reload({ timeout: 0 });
 		await page.waitForSelector('.produto__imagem');
 		let html = await page.evaluate(() => document.body.innerHTML);
 

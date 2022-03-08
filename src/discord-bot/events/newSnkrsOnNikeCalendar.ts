@@ -1,7 +1,7 @@
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
-import { notifyTextChannel } from '../bot';
-import { log } from '../helpers/general';
-import { SnkrsData } from '../services/nikeSnkrsCalendarMonitorService';
+import { notifyTextChannel } from '..';
+import { log } from '../../helpers/general';
+import { SnkrsData } from '../../services/nikeSnkrsCalendarMonitorService';
 
 module.exports = {
 	name: 'newSnkrsOnNikeCalendar',

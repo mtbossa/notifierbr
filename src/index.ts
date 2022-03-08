@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import { exitHandler } from './helpers/general';
 import { NikeFlashDropsMonitor } from './monitors/nikeFlashDrops.monitor';
-import { client } from './bot'; // Runs code when imported (bot.ts runs code when called)
+import { client } from './discord-bot'; // Runs code when imported (bot.ts runs code when called)
 import { StockAvailabilityMonitor } from './monitors/stockAvailability.monitor';
 import { prisma, PrismaClient } from '@prisma/client';
 import { NikeSnkrsCalendarMonitor } from './monitors/nikeSnkrsCalendar.monitor';

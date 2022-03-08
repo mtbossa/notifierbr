@@ -1,7 +1,7 @@
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
-import { notifyTextChannel } from '../bot';
-import { log } from '../helpers/general';
-import { JordanData } from '../services/nikeFlashDropsMonitorService';
+import { notifyTextChannel } from '..';
+import { log } from '../../helpers/general';
+import { JordanData } from '../../services/nikeFlashDropsMonitorService';
 
 module.exports = {
 	name: 'flashDrop',

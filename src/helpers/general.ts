@@ -1,4 +1,4 @@
-import { client } from '../bot';
+import { client } from '../discord-bot';
 
 export const log = (...args: any) => {
 	const now = new Date().toLocaleString();
