@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { exitHandler } from './helpers/general';
 import { NikeFlashDropsMonitor } from './monitors/nikeFlashDrops.monitor';
 import { client } from './discord-bot'; // Runs code when imported (bot.ts runs code when called)
