@@ -11,6 +11,8 @@ import { log, minToMs } from '../helpers/general';
 
 export class NikeFlashDropsMonitor implements Monitor {
 	public lastLoadedJordans: Array<JordanData> = [];
+
+	private _intervalMinutes = minToMs(1);
 	private page: Page | null = null;
 	private browser: Browser | null = null;
 	private _firstTime = true;
@@ -33,35 +35,45 @@ export class NikeFlashDropsMonitor implements Monitor {
 		this.page = page;
 	}
 
-	async start() {
+	start() {
 		this._check();
 	}
 
+	private _reRun() {
+		setTimeout(this._check.bind(this), this._intervalMinutes);
+	}
+
 	private async _check() {
-		log('Running NikeFlashDropsMonitor');
-		const reloadedPageJordans =
-			await NikeFlashDropsMonitorService.getCurrentJordans(this.page!);
-		const newJordans = _.differenceBy(
-			reloadedPageJordans,
-			this.lastLoadedJordans,
-			'name'
-		);
+		try {
+			const reloadedPageJordans =
+				await NikeFlashDropsMonitorService.getCurrentJordans(this.page!);
+			const newJordans = _.differenceBy(
+				reloadedPageJordans,
+				this.lastLoadedJordans,
+				'name'
+			);
 
-		if (this._firstTime) {
-			this._firstTime = false;
-			this.lastLoadedJordans = reloadedPageJordans;
-			log('First time loading page: ', this.lastLoadedJordans);
+			if (this._firstTime) {
+				this._firstTime = false;
+				this.lastLoadedJordans = reloadedPageJordans;
+				log('First time loading page: ', this.lastLoadedJordans);
+				this._reRun();
+				return;
+			}
+
+			if (newJordans.length > 0) {
+				this.client.emit('flashDrop', this.client, newJordans);
+				this.lastLoadedJordans = [...newJordans, ...this.lastLoadedJordans];
+			} else {
+				log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);
+			}
+
 			setTimeout(this._check.bind(this), minToMs(1));
-			return;
+		} catch (e) {
+			if (e instanceof puppeteer.errors.TimeoutError) {
+				console.log(e.message);
+				this._reRun();
+			}
 		}
-
-		if (newJordans.length > 0) {
-			this.client.emit('flashDrop', this.client, newJordans);
-			this.lastLoadedJordans = [...newJordans, ...this.lastLoadedJordans];
-		} else {
-			log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);
-		}
-
-		setTimeout(this._check.bind(this), minToMs(1));
 	}
 }
