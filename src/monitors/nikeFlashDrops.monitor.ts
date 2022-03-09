@@ -68,10 +68,10 @@ export class NikeFlashDropsMonitor implements Monitor {
 				log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);
 			}
 
-			setTimeout(this._check.bind(this), minToMs(1));
+			this._reRun();
 		} catch (e) {
 			if (e instanceof puppeteer.errors.TimeoutError) {
-				console.log(e.message);
+				console.log(e);
 				this._reRun();
 			}
 		}

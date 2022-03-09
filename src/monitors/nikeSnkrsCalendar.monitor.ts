@@ -55,7 +55,7 @@ export class NikeSnkrsCalendarMonitor implements Monitor {
 			this._reRun();
 		} catch (e) {
 			if (e instanceof puppeteer.errors.TimeoutError) {
-				console.log(e.message);
+				console.log(e);
 				this._reRun();
 			}
 		}
