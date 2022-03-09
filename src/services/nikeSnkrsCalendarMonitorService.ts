@@ -30,7 +30,7 @@ export class NikeSnkrsCalendarMonitorService {
 			'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
 		);
 		await page.goto(url);
-		await page.waitForNavigation();
+		await page.waitForNavigation({ timeout: 0 });
 		await page.waitForSelector('.detalhes-produto__disponibilidade');
 		await page.waitForSelector('.js.preco');
 
@@ -88,6 +88,8 @@ export class NikeSnkrsCalendarMonitorService {
 			args: ['--no-sandbox', '--disable-setuid-sandbox'],
 		});
 
+		console.log('this.lastLoadedSnkrsUrls before entering for', this.lastLoadedSnkrsUrls);
+		console.log('newSnkrsNodes before entering for', newSnkrsNodes);
 		let newSnkrsData: SnkrsData[] = [];
 		for (const snkrNode of newSnkrsNodes) {
 			const snkrUrl = $(snkrNode).children('a').attr('href');
@@ -97,6 +99,7 @@ export class NikeSnkrsCalendarMonitorService {
 				.children('.produto__detalhe-titulo')
 				.text();
 
+				console.log('snkrUrl: ', snkrUrl);
 			const $snkrPage = await this._getSnkrPageCheerio(snkrUrl!, browser);
 
 			const snkrPrice = this._getSnkrPrice($snkrPage);

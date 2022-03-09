@@ -11,7 +11,7 @@ export class NikeFlashDropsMonitorService {
 	public static getCurrentJordans = async (
 		page: Page
 	): Promise<Array<JordanData>> => {
-		await page.reload();
+		await page.reload({ timeout: 0 });
 		let html = await page.evaluate(() => document.body.innerHTML);
 
 		return this._findJordans(cheerio.load(html));
