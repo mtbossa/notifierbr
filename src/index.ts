@@ -38,7 +38,7 @@ const startNikeSnkrsCalendarMonitor = async () => {
 
 	const prismaClient = new PrismaClient();
 
-	await startNikeFlashDropsMonitor();
-	await startNikeSnkrsCalendarMonitor();
+	startNikeFlashDropsMonitor();
+	startNikeSnkrsCalendarMonitor();
 	// await startStockAvailabilityMonitor(prismaClient);
 })();
