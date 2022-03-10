@@ -30,12 +30,7 @@ export class NikeSnkrsCalendarMonitorService {
 			'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
 		);
 		await page.goto(url);
-		await page.waitForNavigation({ timeout: 0 });
-		await page.waitForSelector('.detalhes-produto__disponibilidade');
-		await page.waitForSelector('.js.preco');
-
 		let html = await page.evaluate(() => document.body.innerHTML);
-
 		await page.close();
 
 		return cheerio.load(html);
