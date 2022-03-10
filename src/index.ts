@@ -1,9 +1,9 @@
 import { exitHandler } from './helpers/general';
-import { NikeFlashDropsMonitor } from './monitors/nikeFlashDrops.monitor';
+import { NikeFlashDropsMonitor } from './monitors/nikeFlashDropsMonitor';
 import { client } from './discord-bot'; // Runs code when imported (bot.ts runs code when called)
-import { StockAvailabilityMonitor } from './monitors/stockAvailability.monitor';
+import { StockAvailabilityMonitor } from './monitors/stockAvailabilityMonitor';
 import { prisma, PrismaClient } from '@prisma/client';
-import { NikeSnkrsCalendarMonitor } from './monitors/nikeSnkrsCalendar.monitor';
+import { NikeSnkrsCalendarMonitor } from './monitors/nikeSnkrsCalendarMonitor';
 
 const startNikeFlashDropsMonitor = async () => {
 	const nikeFlashDropsMonitor = new NikeFlashDropsMonitor(client);
