@@ -25,7 +25,7 @@ const configureCommands = (client: Client) => {
 		} catch (error) {
 			console.error(error);
 			await interaction.reply({
-				content: 'There was an error while executing this command!',
+				content: 'Erro ao executar o comando!',
 				ephemeral: true,
 			});
 		}
