@@ -4,9 +4,12 @@ import { configureBotClient } from './discord-bot'; // Runs code when imported (
 import { StockAvailabilityMonitor } from './monitors/stockAvailabilityMonitor';
 import { prisma, PrismaClient } from '@prisma/client';
 import { NikeSnkrsCalendarMonitor } from './monitors/nikeSnkrsCalendarMonitor';
-import { createNikeFlashDropMonitor } from './monitors/NikeFlashDropMonitorFactory';
-import { NikeAPIRequestData } from './monitors/NikeFlashDropMonitorTest';
+import { createNikeFlashDropMonitor } from './monitors/NikeFlashDropMonitor/NikeFlashDropMonitorFactory';
 import { Client } from 'discord.js';
+import { NikeRestockAPIRequestData } from './requests/nike/interfaces/requests/NikeRestockAPIRequestData';
+import { createRestockDropMonitor } from './monitors/NikeRestockMonitor/NikeRestockMonitorFactory';
+import { NikeFlashDropAPIRequestData } from './requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
+import { inspect } from 'util';
 
 const startNikeFlashDropsMonitor = async (discordClient: Client) => {
 	const nikeFlashDropsMonitor = new NikeFlashDropsMonitor(discordClient);
@@ -37,10 +40,18 @@ const startNikeSnkrsCalendarMonitor = async (discordClient: Client) => {
 };
 
 const startNikeFlashDropsMonitors = async (discordClient: Client) => {
-	const requestsObjects: NikeAPIRequestData[] = require('../requests/nike/nike-requests.json'); // array with axios formatted request for nike sneakers search
+	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../src/requests/nike/nike-flash-drop-requests.json'); // array with axios formatted request for nike sneakers search
 
 	for (const searchRequest of requestsObjects) {
 		createNikeFlashDropMonitor(searchRequest, discordClient).start();
+	}
+};
+
+const startNikeRestockMonitors = (discordClient: Client) => {
+	const requestsObjects: NikeRestockAPIRequestData[] = require('../src/requests/nike/nike-restock-requests.json');
+
+	for (const sneakerPageRequest of requestsObjects) {
+		createRestockDropMonitor(sneakerPageRequest, discordClient).start();
 	}
 };
 
@@ -48,11 +59,12 @@ const startNikeFlashDropsMonitors = async (discordClient: Client) => {
 (async () => {
 	process.stdin.resume();
 	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
-	
+
 	const client = await configureBotClient();
 	const prismaClient = new PrismaClient();
-	
+
 	startNikeFlashDropsMonitors(client);
+	startNikeRestockMonitors(client);
 	// startNikeFlashDropsMonitor();
 	// startNikeSnkrsCalendarMonitor();
 	// await startStockAvailabilityMonitor(prismaClient);

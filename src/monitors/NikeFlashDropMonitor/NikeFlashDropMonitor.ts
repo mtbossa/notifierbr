@@ -1,15 +1,10 @@
 import { AxiosRequestConfig } from 'axios';
 import { Client } from 'discord.js';
-import { minToMs } from '../helpers/general';
-import { NikeFlashDropRepositoryInterface } from '../repositories/NikeFlashDropRepositoryInterface';
-import { Monitor } from './Monitor';
+import { minToMs } from '../../helpers/general';
+import { NikeFlashDropRepositoryInterface } from '../../repositories/NikeFlashDropRepositoryInterface';
+import { Monitor } from '../Monitor';
 
-export type NikeAPIRequestData = {
-	search: string;
-	requests: AxiosRequestConfig[];
-};
-
-export class NikeFlashDropsMonitorTest extends Monitor {
+export class NikeFlashDropsMonitor extends Monitor {
 	public checkMinutesTimeout: number = minToMs(1);
 
 	constructor(

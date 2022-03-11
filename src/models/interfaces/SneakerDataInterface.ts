@@ -4,4 +4,5 @@ export interface SneakerData {
 	imgUrl: string;
 	price: string;
 	discount?: string;
+	available?: boolean;
 }

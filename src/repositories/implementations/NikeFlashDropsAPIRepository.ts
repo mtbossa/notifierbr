@@ -1,15 +1,15 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { log } from '../../helpers/general';
 import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
-import { NikeAPIRequestData } from '../../monitors/NikeFlashDropMonitorTest';
-import { Product } from '../../requests/nike/interfaces/NikeFlashDropResponseInterfaces';
+import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
+import { Product } from '../../requests/nike/interfaces/responses/NikeFlashDropProductResponseInterfaces';
 import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorSerivce';
 import { NikeFlashDropRepositoryInterface } from '../NikeFlashDropRepositoryInterface';
 export class NikeFlashDropsAPIRepository
 	implements NikeFlashDropRepositoryInterface
 {
 	constructor(
-		public sourceToFindData: NikeAPIRequestData,
+		public sourceToFindData: NikeFlashDropAPIRequestData,
 		private _nikeFlashDropMonitorService: NikeFlashDropsMonitorService
 	) {}
 

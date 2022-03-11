@@ -1,7 +1,7 @@
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
 import { notifyTextChannel } from '..';
 import { log } from '../../helpers/general';
-import { SneakerData } from '../../repositories/implementations/NikeFlashDropsAPIRepository';
+import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
 import { JordanData } from '../../services/nikeFlashDropsMonitorService';
 
 module.exports = {

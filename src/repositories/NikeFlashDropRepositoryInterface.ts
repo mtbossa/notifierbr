@@ -1,8 +1,8 @@
 import { SneakerData } from '../models/interfaces/SneakerDataInterface';
-import { NikeAPIRequestData } from '../monitors/NikeFlashDropMonitorTest';
+import { NikeFlashDropAPIRequestData } from '../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
 
 export interface NikeFlashDropRepositoryInterface {
-	sourceToFindData: NikeAPIRequestData;
+	sourceToFindData: NikeFlashDropAPIRequestData;
 
 	getNewSneakers(): Promise<SneakerData[]>;
 }
