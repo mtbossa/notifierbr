@@ -5,8 +5,7 @@
 	"author": "Mateus Ribeiro Bossa <mateus.rbossa@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "ts-node-dev -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --no-notify --inspect=9229 --exit-child src/index.ts",
-		"devBot": "ts-node-dev -r dotenv/config --respawn --transpile-only --ignore-watch node_modules --no-notify --inspect=9229 src/bot.ts",
+		"dev": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/index.ts",
 		"build": "npx tsc"
 	},
 	"devDependencies": {
