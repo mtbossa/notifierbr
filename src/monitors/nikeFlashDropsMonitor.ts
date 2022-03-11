@@ -4,7 +4,6 @@ import {
 	NikeFlashDropsMonitorService,
 	JordanData,
 } from '../services/nikeFlashDropsMonitorService';
-import { CronJob } from 'cron';
 import { Client } from 'discord.js';
 import _ from 'lodash';
 import { log, minToMs } from '../helpers/general';
@@ -17,7 +16,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 	private browser: Browser | null = null;
 	private _firstTime = true;
 
-	constructor(private client: Client) {}
+	constructor(private _discordClient: Client) {}
 
 	async createBrowser(): Promise<void> {
 		const browser = await puppeteer.launch({
@@ -62,7 +61,7 @@ export class NikeFlashDropsMonitor implements Monitor {
 			}
 
 			if (newJordans.length > 0) {
-				this.client.emit('flashDrop', this.client, newJordans);
+				this._discordClient.emit('flashDrop', this._discordClient, newJordans);
 				this.lastLoadedJordans = [...newJordans, ...this.lastLoadedJordans];
 			} else {
 				log('Last loaded Jordan Sneakers: ', this.lastLoadedJordans);

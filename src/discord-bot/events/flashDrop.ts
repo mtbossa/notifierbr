@@ -1,22 +1,23 @@
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
 import { notifyTextChannel } from '..';
 import { log } from '../../helpers/general';
+import { SneakerData } from '../../repositories/implementations/NikeFlashDropsAPIRepository';
 import { JordanData } from '../../services/nikeFlashDropsMonitorService';
 
 module.exports = {
 	name: 'flashDrop',
-	execute(client: Client, jordansData: Array<JordanData>) {
-		log('Flash Drop!', jordansData);
-    const channel = client.channels.cache.find(
-      channel => (channel as TextChannel).name === notifyTextChannel
-    );
-		jordansData.forEach(jordanData => {
+	execute(client: Client, newSneakers: SneakerData[]) {
+		log('Flash Drop!', newSneakers);
+		const channel = client.channels.cache.find(
+			channel => (channel as TextChannel).name === notifyTextChannel
+		);
+		newSneakers.forEach((sneakerData: SneakerData) => {
 			const exampleEmbed = new MessageEmbed()
 				.setColor('#f58442')
-				.setTitle(jordanData.name)
-				.setURL(jordanData.url)
+				.setTitle(sneakerData.name)
+				.setURL(sneakerData.url)
 				.setDescription('Flash Drop! :rocket:')
-				.setThumbnail(jordanData.imgUrl)
+				.setThumbnail(sneakerData.imgUrl)
 				.setTimestamp();
 
 			(channel as TextChannel).send({ embeds: [exampleEmbed] });

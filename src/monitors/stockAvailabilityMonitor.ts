@@ -80,10 +80,10 @@ export class StockAvailabilityMonitor implements Monitor {
 
 	// 	if (!soldOff) {
 	// 		console.log('NÃO ESTÁ MAIS ESGOTADO');
-	// 		if (this.client.isReady()) this.client.emit('stockRefilled', product);
+	// 		if (client.isReady()) client.emit('stockRefilled', product);
 	// 	} else {
 	// 		console.log('CONTINUA ESGOTADO');
-	// 		this.client.emit('outOfStock', 'Out of stock');
+	// 		client.emit('outOfStock', 'Out of stock');
 	// 	}
 	// }
 }

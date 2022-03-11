@@ -47,7 +47,7 @@ const configureEvents = (client: Client) => {
 	}
 };
 
-const configureBotClient = () => {
+const configureBotClient = async (): Promise<Client> => {
 	const client = new Client({
 		intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
 	});
@@ -55,12 +55,10 @@ const configureBotClient = () => {
 	configureCommands(client);
 	configureEvents(client);
 
-	client.login(process.env.DISCORDJS_BOT_TOKEN);
-
+	await client.login(process.env.DISCORDJS_BOT_TOKEN);
 	return client;
 };
 
-const client = configureBotClient();
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
 
-export { client, notifyTextChannel };
+export { configureBotClient, notifyTextChannel };
