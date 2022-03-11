@@ -1,8 +1,6 @@
 import moment from 'moment';
-import {
-	Product,
-	SneakerData,
-} from '../repositories/implementations/NikeFlashDropsAPIRepository';
+import { SneakerData } from '../models/interfaces/SneakerDataInterface';
+import { Product } from '../requests/nike/interfaces/NikeFlashDropResponseInterfaces';
 
 export class NikeFlashDropsMonitorService {
 	private _today = moment();

@@ -1,6 +1,5 @@
-import { AxiosRequestConfig } from 'axios';
+import { SneakerData } from '../models/interfaces/SneakerDataInterface';
 import { NikeAPIRequestData } from '../monitors/NikeFlashDropMonitorTest';
-import { SneakerData } from './implementations/NikeFlashDropsAPIRepository';
 
 export interface NikeFlashDropRepositoryInterface {
 	sourceToFindData: NikeAPIRequestData;
