@@ -7,10 +7,9 @@ export const log = (...args: any) => {
 };
 
 export const exitHandler = (options: any, exitCode: any) => {
-	if (options.cleanup) console.log('clean');
-	if (exitCode || exitCode === 0) console.log(exitCode);
 	if (options.exit) {
 		console.log('exiting');
+		process.exit();
 	}
 };
 
