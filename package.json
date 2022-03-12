@@ -7,7 +7,8 @@
 	"scripts": {
 		"dev": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/index.ts",
 		"build": "npx tsc",
-		"test:dev": "npx tsc"
+		"dev:seed": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/seeders/NikeSneakersSeeder.ts",
+		"seed": "node -r dotenv/config dist/seeders/NikeSneakersSeeder.ts"
 	},
 	"devDependencies": {
 		"@types/cron": "^1.7.3",
