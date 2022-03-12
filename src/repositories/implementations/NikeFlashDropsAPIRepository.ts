@@ -3,7 +3,7 @@ import { log } from '../../helpers/general';
 import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
 import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
 import { Product } from '../../requests/nike/interfaces/responses/NikeFlashDropProductResponseInterfaces';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorSerivce';
+import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import { NikeFlashDropRepositoryInterface } from '../NikeFlashDropRepositoryInterface';
 export class NikeFlashDropsAPIRepository
 	implements NikeFlashDropRepositoryInterface
@@ -48,9 +48,9 @@ export class NikeFlashDropsAPIRepository
 		try {
 			const response = await axios(pageSearchRequest); // this is one page request for the same query search, ex.: tenis air jordan, tenis air jordan page 2
 
-			return response.data.productsInfo.products.filter((product: Product) => {
-				this._nikeFlashDropMonitorService.isDateToday(product.created);
-			});
+			return this._nikeFlashDropMonitorService.filterSneakersCreatedToday(
+				response.data.productsInfo.products as Product[]
+			);
 		} catch (e: unknown) {
 			if (e instanceof Error) console.log(e.message);
 		}

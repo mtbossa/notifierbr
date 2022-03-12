@@ -5,10 +5,16 @@ import { Product } from '../requests/nike/interfaces/responses/NikeFlashDropProd
 export class NikeFlashDropsMonitorService {
 	private _today = moment();
 
-	public isDateToday(date: string): boolean {
+	private _isDateToday(date: string): boolean {
 		const snkeakerCreatedDate = moment(date, 'YYYY-MM-DD hh:mm:ss');
 		return moment(this._today.format('YYYY-MM-DD')).isSame(
 			snkeakerCreatedDate.format('YYYY-MM-DD')
+		);
+	}
+
+	public filterSneakersCreatedToday(products: Product[]) {
+		return products.filter((product: Product) =>
+			this._isDateToday(product.created)
 		);
 	}
 

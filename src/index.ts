@@ -64,7 +64,7 @@ const startNikeRestockMonitors = (discordClient: Client) => {
 	const prismaClient = new PrismaClient();
 
 	startNikeFlashDropsMonitors(client);
-	startNikeRestockMonitors(client);
+	// startNikeRestockMonitors(client);
 	// startNikeFlashDropsMonitor();
 	// startNikeSnkrsCalendarMonitor();
 	// await startStockAvailabilityMonitor(prismaClient);

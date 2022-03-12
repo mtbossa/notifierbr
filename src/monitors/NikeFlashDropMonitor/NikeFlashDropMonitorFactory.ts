@@ -2,7 +2,7 @@ import { AxiosRequestConfig } from 'axios';
 import { Client } from 'discord.js';
 import { NikeFlashDropsAPIRepository } from '../../repositories/implementations/NikeFlashDropsAPIRepository';
 import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorSerivce';
+import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import {
 	NikeFlashDropsMonitor,
 } from './NikeFlashDropMonitor';
