@@ -3,7 +3,7 @@ import { Client } from 'discord.js';
 import { NikeFlashDropsAPIRepository } from '../../repositories/implementations/NikeFlashDropsAPIRepository';
 import { NikeRestockAPIRepository } from '../../repositories/implementations/NikeRestockAPIRepository';
 import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorSerivce';
+import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorSerivce';
 import { NikeRestockMonitor } from './NikeRestockMonitor';
 

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios';
+import fetch from 'node-fetch';
 import { log } from '../../helpers/general';
 import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
 import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
@@ -8,7 +9,7 @@ import { ProductInfo } from '../../requests/nike/interfaces/responses/NikeSneake
 import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorSerivce';
 import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterface';
-export class NikeRestockAPIRepository
+export class NikeRestockScrapeRepository
 	implements NikeRestockRepositoryInterface
 {
 	constructor(
@@ -19,9 +20,7 @@ export class NikeRestockAPIRepository
 	async getSneaker(): Promise<SneakerData> {
 		log('search: ', this.sourceToFindData.sneakerName);
 
-		const sneakerData = await this._getSneakerData(
-			this.sourceToFindData.request
-		);
+		const sneakerData = await this._getSneakerData(this.sourceToFindData.url);
 
 		const mappedSneakerData =
 			this._nikeRestockMonitorService.mapNeededSneakerDataForDiscord({
@@ -36,14 +35,11 @@ export class NikeRestockAPIRepository
 	}
 
 	private async _getSneakerData(
-		pageSearchRequest: AxiosRequestConfig
+		sneakerPageUrl: string
 	): Promise<ProductInfo | undefined> {
 		try {
-			const response = await axios(pageSearchRequest);
-
-			console.log(response.data);
-
-			return response.data.productInfo as ProductInfo;
+			// return sneakerPageUrl.data.productInfo as ProductInfo;
+			return undefined;
 		} catch (e: unknown) {
 			if (e instanceof Error) console.log(e.message);
 		}
