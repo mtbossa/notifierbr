@@ -1,11 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { log } from '../../helpers/general';
 import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
-import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
 import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
-import { Product } from '../../requests/nike/interfaces/responses/NikeFlashDropProductResponseInterfaces';
 import { ProductInfo } from '../../requests/nike/interfaces/responses/NikeSneakerProductResponseInterface';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorSerivce';
 import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterface';
 export class NikeRestockAPIRepository
@@ -40,8 +37,6 @@ export class NikeRestockAPIRepository
 	): Promise<ProductInfo | undefined> {
 		try {
 			const response = await axios(pageSearchRequest);
-
-			console.log(response.data);
 
 			return response.data.productInfo as ProductInfo;
 		} catch (e: unknown) {

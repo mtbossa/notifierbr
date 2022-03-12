@@ -22,7 +22,8 @@
 				"Sec-Fetch-Mode": "cors",
 				"Sec-Fetch-Site": "same-origin",
 				"TE": "trailers"
-			}
+			},
+			"data": "pageType=Produto&actionType=Index&pathname=%2Ftenis-nike-sb-dunk-low-pro-unissex-153-169-229-284741&referrer=https%3A%2F%2Fwww.google.com%2F&menuIteraction=%7B%22menuType%22%3A%22menu-item%22%2C%22menuItem%22%3A%7B%22Categoria%22%3A%22Cal%C3%A7ados%22%2C%22Loja%22%3A%22Masculino%22%7D%7D"
 		}
 	}
 ]
