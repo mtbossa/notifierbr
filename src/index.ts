@@ -13,20 +13,12 @@ import { NikeFlashDropAPIRequestData } from './requests/nike/interfaces/requests
 const startNikeFlashDropsMonitor = async (discordClient: Client) => {
 	const nikeFlashDropsMonitor = new NikeFlashDropsMonitor(discordClient);
 	await nikeFlashDropsMonitor.createBrowser();
-	await nikeFlashDropsMonitor.setPage(
-		'https://www.nike.com.br/lancamento-todos-110'
-	);
+	await nikeFlashDropsMonitor.setPage('https://www.nike.com.br/lancamento-todos-110');
 	nikeFlashDropsMonitor.start();
 };
 
-const startStockAvailabilityMonitor = async (
-	prismaClient: PrismaClient,
-	discordClient: Client
-) => {
-	const stockAvailabilityMonitor = new StockAvailabilityMonitor(
-		discordClient,
-		prismaClient
-	);
+const startStockAvailabilityMonitor = async (prismaClient: PrismaClient, discordClient: Client) => {
+	const stockAvailabilityMonitor = new StockAvailabilityMonitor(discordClient, prismaClient);
 	await stockAvailabilityMonitor.createBrowser();
 	stockAvailabilityMonitor.start();
 };
@@ -39,7 +31,7 @@ const startNikeSnkrsCalendarMonitor = async (discordClient: Client) => {
 };
 
 const startNikeFlashDropsMonitors = async (discordClient: Client) => {
-	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../src/requests/nike/nike-flash-drop-requests.json'); // array with axios formatted request for nike sneakers search
+	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../requests/nike/nike-flash-drop-requests.json'); // array with axios formatted request for nike sneakers search
 
 	for (const searchRequest of requestsObjects) {
 		createNikeFlashDropMonitor(searchRequest, discordClient).start();
@@ -47,7 +39,7 @@ const startNikeFlashDropsMonitors = async (discordClient: Client) => {
 };
 
 const startNikeRestockMonitors = (discordClient: Client) => {
-	const requestsObjects: NikeRestockAPIRequestData[] = require('../src/requests/nike/nike-restock-requests.json');
+	const requestsObjects: NikeRestockAPIRequestData[] = require('../requests/nike/nike-restock-requests.json');
 
 	for (const sneakerPageRequest of requestsObjects) {
 		createRestockDropMonitor(sneakerPageRequest, discordClient).start();

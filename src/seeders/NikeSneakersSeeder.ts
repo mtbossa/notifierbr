@@ -5,7 +5,7 @@ import { Product } from '../requests/nike/interfaces/responses/NikeFlashDropProd
 
 (async () => {
 	const prismaClient = new PrismaClient();
-	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../requests/nike/nike-flash-drop-requests.json');
+	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../../requests/nike/nike-flash-drop-requests.json');
 
 	for (const searchRequest of requestsObjects) {
 		for (const request of searchRequest.requests) {
@@ -19,10 +19,7 @@ import { Product } from '../requests/nike/interfaces/responses/NikeFlashDropProd
 					});
 					if (foundProduct) continue;
 					await prismaClient.product.create({ data: { name: product.name } });
-					console.log(
-						'created: ',
-						await prismaClient.product.findUnique({ where: { name: product.name } })
-					);
+					console.log('created: ', await prismaClient.product.findUnique({ where: { name: product.name } }));
 				}
 			} catch (e: unknown) {
 				if (e instanceof Error) console.log(e.message);
