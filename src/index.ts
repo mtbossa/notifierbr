@@ -2,14 +2,13 @@ import { exitHandler } from './helpers/general';
 import { NikeFlashDropsMonitor } from './monitors/nikeFlashDropsMonitor';
 import { configureBotClient } from './discord-bot'; // Runs code when imported (bot.ts runs code when called)
 import { StockAvailabilityMonitor } from './monitors/stockAvailabilityMonitor';
-import { prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import { NikeSnkrsCalendarMonitor } from './monitors/nikeSnkrsCalendarMonitor';
 import { createNikeFlashDropMonitor } from './monitors/NikeFlashDropMonitor/NikeFlashDropMonitorFactory';
 import { Client } from 'discord.js';
 import { NikeRestockAPIRequestData } from './requests/nike/interfaces/requests/NikeRestockAPIRequestData';
 import { createRestockDropMonitor } from './monitors/NikeRestockMonitor/NikeRestockMonitorFactory';
 import { NikeFlashDropAPIRequestData } from './requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
-import { inspect } from 'util';
 
 const startNikeFlashDropsMonitor = async (discordClient: Client) => {
 	const nikeFlashDropsMonitor = new NikeFlashDropsMonitor(discordClient);
@@ -59,13 +58,12 @@ const startNikeRestockMonitors = (discordClient: Client) => {
 (async () => {
 	process.stdin.resume();
 	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
-
 	const client = await configureBotClient();
-	const prismaClient = new PrismaClient();
 
 	startNikeFlashDropsMonitors(client);
+
 	// startNikeRestockMonitors(client);
 	// startNikeFlashDropsMonitor();
 	// startNikeSnkrsCalendarMonitor();
-	// await startStockAvailabilityMonitor(prismaClient);
+	// startStockAvailabilityMonitor(prismaClient);
 })();

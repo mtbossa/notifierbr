@@ -48,7 +48,7 @@ export class NikeFlashDropsAPIRepository
 		try {
 			const response = await axios(pageSearchRequest); // this is one page request for the same query search, ex.: tenis air jordan, tenis air jordan page 2
 
-			return this._nikeFlashDropMonitorService.filterSneakersCreatedToday(
+			return this._nikeFlashDropMonitorService.filterUniqueSneakers(
 				response.data.productsInfo.products as Product[]
 			);
 		} catch (e: unknown) {
