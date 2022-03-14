@@ -8,10 +8,7 @@ import { Monitor } from '../Monitor';
 export class NikeFlashDropsMonitor extends Monitor {
 	public checkMinutesTimeout: number = minToMs(1);
 
-	constructor(
-		protected flashDropRepository: NikeFlashDropRepositoryInterface,
-		private _discordClient: Client
-	) {
+	constructor(protected flashDropRepository: NikeFlashDropRepositoryInterface, private _discordClient: Client) {
 		super();
 	}
 
@@ -19,7 +16,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 		const newSneakers = await this.flashDropRepository.getNewSneakers();
 
 		if (newSneakers.length > 0) {
-			logger.info({ newSneakers: newSneakers }, 'New Sneakers found');
+			logger.info({ newSneakers: newSneakers }, 'New Sneakers found', 'NikeFlashDropMonitor.check()');
 			this._discordClient.emit('flashDrop', this._discordClient, newSneakers);
 		}
 

@@ -17,8 +17,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		let newSneakers: SneakerData[] = [];
 
 		for (const pageSearchRequest of this.sourceToFindData.requests) {
-			log('Search page: ', pageSearchRequest.url);
-			logger.info({ 'pageSearchRequest.url': pageSearchRequest.url }, 'Quering page');
+			logger.info({ 'pageSearchRequest.url': pageSearchRequest.url }, 'Querying page');
 			const currentPageNewSneakers = await this._currentPageNewSneakers(pageSearchRequest);
 
 			if (currentPageNewSneakers && currentPageNewSneakers.length > 0) {
@@ -37,7 +36,13 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 			const response = await axios(pageSearchRequest); // this is one page request for the same query search, ex.: tenis air jordan, tenis air jordan page 2
 			return await this.filterUniqueSneakers(response.data.productsInfo.products as Product[]);
 		} catch (e: unknown) {
-			if (e instanceof Error) logger.error({ error: e, pageSearchRequest });
+			if (e instanceof Error)
+				logger.error({
+					error: e,
+					errorMsg: e.message,
+					method: 'NikeFlashDropAPIRespository._currentPageNewSneakers',
+					pageSearchRequest,
+				});
 		}
 	}
 
@@ -45,7 +50,13 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		try {
 			return await prismaClient.product.findMany({ where: { name: { equals: product.name, mode: 'insensitive' } } });
 		} catch (e) {
-			if (e instanceof Error) logger.error({ error: e, product });
+			if (e instanceof Error)
+				logger.error({
+					error: e,
+					errorMsg: e.message,
+					method: 'NikeFlashDropAPIRespository.findUniqueProduct',
+					product,
+				});
 		}
 	}
 
@@ -54,7 +65,13 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 			const productCreated = await prismaClient.product.create({ data: { name: productName } });
 			logger.info({ ProductCreateName: productCreated.name }, 'Product create!');
 		} catch (e) {
-			if (e instanceof Error) logger.error({ error: e, productName });
+			if (e instanceof Error)
+				logger.error({
+					error: e,
+					errorMsg: e.message,
+					method: 'NikeFlashDropAPIRespository.createProduct',
+					productName,
+				});
 		}
 	}
 

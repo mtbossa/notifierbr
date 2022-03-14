@@ -1,15 +1,23 @@
 import path from 'path';
-import pino from 'pino';
-import pinoms from 'pino-multi-stream'
+import pino, { StreamEntry } from 'pino';
+import fs from 'fs';
+import pretty from 'pino-pretty';
 
+let streams: StreamEntry[] = [
+	{ level: 'info', stream: process.stdout },
+	{ stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log.stream.out')) },
+];
 let level = 'info';
+
 if (process.env.NODE_ENV === 'dev') {
+	streams = [...streams, { stream: pretty({ colorize: true }) }];
 	level = 'debug';
 }
 
-const defaultOptions = {
-	enabled: true,
-	level: level,
-};
-
-export default pino(defaultOptions, pino.destination(path.join(__dirname, '../', 'logs/logger.log')));
+export default pino(
+	{
+		enabled: true,
+		level: level,
+	},
+	pino.multistream(streams)
+);
