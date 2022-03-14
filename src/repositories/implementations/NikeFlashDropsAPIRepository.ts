@@ -43,7 +43,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 
 	public async findUniqueProduct(product: Product) {
 		try {
-			return await prismaClient.product.findUnique({ where: { name: product.name } });
+			return await prismaClient.product.findMany({ where: { name: { equals: product.name, mode: 'insensitive' } } });
 		} catch (e) {
 			if (e instanceof Error) logger.error({ error: e, product });
 		}
@@ -64,7 +64,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		for (const product of products) {
 			const foundProduct = await this.findUniqueProduct(product);
 
-			if (!foundProduct) {
+			if (!foundProduct || foundProduct.length === 0) {
 				logger.info({ APIProductName: product.name }, 'Product name not found on database, Flash Drop!');
 				newSneakers = [...newSneakers, product];
 				await this.createProduct(product.name);

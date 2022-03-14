@@ -8,9 +8,7 @@ module.exports = {
 	name: 'flashDrop',
 	execute(client: Client, newSneakers: SneakerData[]) {
 		log('Flash Drop!', newSneakers);
-		const channel = client.channels.cache.find(
-			channel => (channel as TextChannel).name === notifyTextChannel
-		);
+		const channel = client.channels.cache.find(channel => (channel as TextChannel).name === notifyTextChannel);
 		newSneakers.forEach((sneakerData: SneakerData) => {
 			const exampleEmbed = new MessageEmbed()
 				.setColor('#f58442')
