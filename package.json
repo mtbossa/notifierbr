@@ -11,7 +11,6 @@
 		"seed": "node -r dotenv/config dist/seeders/NikeSneakersSeeder.js"
 	},
 	"devDependencies": {
-		"@types/cron": "^1.7.3",
 		"@types/lodash": "^4.14.179",
 		"@types/nodemailer": "^6.4.4",
 		"@types/pino": "^7.0.5",
@@ -30,7 +29,6 @@
 		"@types/node": "^17.0.21",
 		"axios": "^0.26.1",
 		"cheerio": "^1.0.0-rc.10",
-		"cron": "^1.8.2",
 		"discord-api-types": "^0.28.0",
 		"discord.js": "^13.6.0",
 		"dotenv": "^16.0.0",
