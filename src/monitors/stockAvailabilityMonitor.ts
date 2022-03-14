@@ -1,7 +1,6 @@
 import puppeteer, { Browser, Page } from 'puppeteer';
 import { StockAvailabilityMonitorService } from '../services/stockAvailabilityMonitorService';
 import { Client } from 'discord.js';
-import { CronJob } from 'cron';
 import { Monitor } from './interfaces/Monitor';
 import { Prisma, prisma, PrismaClient, Product } from '@prisma/client';
 import { inspect } from 'util';
@@ -53,26 +52,10 @@ export class StockAvailabilityMonitor implements Monitor {
 	async start() {
 		await this.getProductsBeingMonitored();
 		console.log(this.productsBeingMonitored);
-		const job = new CronJob(
-			'*/15 * * * *', // Every 1 minute
-			() => this.test(),
-			null,
-			true,
-			undefined,
-			null,
-			true
-		);
 	}
 
 	private test() {
-		console.log(
-			inspect(
-				this.productsBeingMonitored,
-				false,
-				null,
-				true /* enable colors */
-			)
-		);
+		console.log(inspect(this.productsBeingMonitored, false, null, true /* enable colors */));
 	}
 
 	// private async _check() {
