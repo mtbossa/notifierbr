@@ -38,7 +38,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		} catch (e: unknown) {
 			if (e instanceof Error)
 				logger.error({
-					error: e,
+					err: e,
 					errorMsg: e.message,
 					method: 'NikeFlashDropAPIRespository._currentPageNewSneakers',
 					pageSearchRequest,
@@ -52,7 +52,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		} catch (e) {
 			if (e instanceof Error)
 				logger.error({
-					error: e,
+					err: e,
 					errorMsg: e.message,
 					method: 'NikeFlashDropAPIRespository.findUniqueProduct',
 					product,
@@ -67,7 +67,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		} catch (e) {
 			if (e instanceof Error)
 				logger.error({
-					error: e,
+					err: e,
 					errorMsg: e.message,
 					method: 'NikeFlashDropAPIRespository.createProduct',
 					productName,
