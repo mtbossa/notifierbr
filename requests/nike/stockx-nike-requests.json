@@ -108,62 +108,71 @@
 		"browserUrl": "https://stockx.com/nike/release-date",
 		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Nike Total Sold",
 		"browserUrl": "https://stockx.com/nike/top-selling",
 		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Nike Most Popular",
 		"browserUrl": "https://stockx.com/nike/most-popular",
 		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Nike",
 		"browserUrl": "https://stockx.com/nike",
 		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Collection with dates",
 		"browserUrl": "https://stockx.com/collections/release-date?years=2021%2C2020%2C2019%2C2018",
 		"APIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Jordans Top Selling",
 		"browserUrl": "https://stockx.com/retro-jordans/top-selling",
 		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Jordans Most Popular",
 		"browserUrl": "https://stockx.com/retro-jordans/most-popular",
 		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Jordans Release Date",
 		"browserUrl": "https://stockx.com/retro-jordans/release-date",
 		"APIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Jordans",
 		"browserUrl": "https://stockx.com/retro-jordans",
 		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
 		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	}
 ]

@@ -56,7 +56,12 @@ const timoutPromise = () =>
 		}, timeoutTime);
 	});
 
-const createProducts = async (products: Product[]) => {
+const createProducts = async (
+	products: Product[],
+	pageTotalAmount: string,
+	currentPageNumber: string | null,
+	search: string
+) => {
 	for (const product of products) {
 		try {
 			const foundProduct = await prismaClient.product.findUnique({
@@ -71,7 +76,7 @@ const createProducts = async (products: Product[]) => {
 					brand: product.brand,
 				},
 			});
-			logger.info({ newProduct }, 'Product created');
+			logger.info({ newProduct }, `Product created. Page ${currentPageNumber}/${pageTotalAmount}. Search: ${search}`);
 		} catch (e) {
 			if (e instanceof Error) {
 				logger.error({ err: e });
@@ -104,12 +109,18 @@ const createProducts = async (products: Product[]) => {
 					console.log(document.querySelector('body')!.innerText);
 					return JSON.parse(document.querySelector('body')!.innerText);
 				});
-				createProducts(data.Products.filter(product => product.productCategory === 'sneakers'));
-
 				if (firstTime) {
 					pageTotalAmount = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.lastPage);
 					firstTime = false;
 				}
+
+				createProducts(
+					data.Products.filter(product => product.productCategory === 'sneakers'),
+					pageTotalAmount!,
+					currentPageNumber,
+					requestObject.search
+				);
+
 				logger.info({ url: currentAPIUrl }, `Page ${currentPageNumber}/${pageTotalAmount}`);
 
 				const nextPageNumber = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.nextPage); // stockx nextPage url doesnt work, thats why need to append next page param manually
