@@ -34,7 +34,11 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 	private async _currentPageNewSneakers(pageSearchRequest: AxiosRequestConfig): Promise<Product[] | undefined> {
 		try {
 			const response = await axios(pageSearchRequest); // this is one page request for the same query search, ex.: tenis air jordan, tenis air jordan page 2
-			return await this.filterUniqueSneakers(response.data.productsInfo.products as Product[]);
+			const onlyDesiredSneakers = this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(
+				response.data.productsInfo.products as Product[]
+			);
+
+			return await this.filterUniqueSneakers(onlyDesiredSneakers);
 		} catch (e: unknown) {
 			if (e instanceof Error)
 				logger.error({
@@ -46,23 +50,35 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		}
 	}
 
-	public async findUniqueProduct(product: Product) {
+	public async findUniqueProduct(styleCode: string) {
 		try {
-			return await prismaClient.product.findMany({ where: { name: { equals: product.name, mode: 'insensitive' } } });
+			return await prismaClient.product.findUnique({ where: { style_code: styleCode } });
 		} catch (e) {
 			if (e instanceof Error)
 				logger.error({
 					err: e,
 					errorMsg: e.message,
 					method: 'NikeFlashDropAPIRespository.findUniqueProduct',
-					product,
+					styleCode,
 				});
 		}
 	}
 
-	public async createProduct(productName: string): Promise<void> {
+	public async createProduct(productInfo: {
+		productName: string;
+		styleCode: string;
+		brand: string;
+		releaseDate?: string;
+	}): Promise<void> {
 		try {
-			const productCreated = await prismaClient.product.create({ data: { name: productName } });
+			const productCreated = await prismaClient.product.create({
+				data: {
+					name: productInfo.productName,
+					brand: productInfo.brand,
+					style_code: productInfo.styleCode,
+					release_date: productInfo.releaseDate,
+				},
+			});
 			logger.info({ ProductCreateName: productCreated.name }, 'Product create!');
 		} catch (e) {
 			if (e instanceof Error)
@@ -70,7 +86,7 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 					err: e,
 					errorMsg: e.message,
 					method: 'NikeFlashDropAPIRespository.createProduct',
-					productName,
+					productInfo,
 				});
 		}
 	}
@@ -79,12 +95,13 @@ export class NikeFlashDropsAPIRepository implements NikeFlashDropRepositoryInter
 		let newSneakers: Product[] = [];
 
 		for (const product of products) {
-			const foundProduct = await this.findUniqueProduct(product);
+			const styleCode = product.extraAttributes.skuReference[0];
+			const foundProduct = await this.findUniqueProduct(styleCode);
 
-			if (!foundProduct || foundProduct.length === 0) {
+			if (!foundProduct) {
 				logger.info({ APIProductName: product.name }, 'Product name not found on database, Flash Drop!');
 				newSneakers = [...newSneakers, product];
-				await this.createProduct(product.name);
+				await this.createProduct({ productName: product.name, styleCode: styleCode, brand: 'Nike' });
 			}
 		}
 

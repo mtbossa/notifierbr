@@ -1,5 +1,6 @@
 import { Client, Collection, Intents } from 'discord.js';
 import { readdirSync } from 'fs';
+import logger from '../logger';
 
 const configureCommands = (client: Client) => {
 	client.commands = new Collection();
@@ -22,8 +23,8 @@ const configureCommands = (client: Client) => {
 
 		try {
 			await command.execute(interaction);
-		} catch (error) {
-			console.error(error);
+		} catch (e) {
+			logger.error({err: e});
 			await interaction.reply({
 				content: 'Erro ao executar o comando!',
 				ephemeral: true,

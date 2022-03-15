@@ -5,6 +5,24 @@ import { prismaClient } from '../prismaClient';
 import { Product } from '../requests/nike/interfaces/responses/NikeFlashDropProductResponseInterfaces';
 
 export class NikeFlashDropsMonitorService {
+	private _sneakersNamesToMonitor = [
+		'air jordan 1 ',
+		'air jordan 4 ',
+		'dunk low',
+		'dunk high',
+		'nike x sacai',
+		'sb dunk',
+	];
+
+	public filterOnlyDesiredSneakers(products: Product[]): Product[] {
+		return products
+			.filter(product => {
+				// Remove all that we don't want
+				return this._sneakersNamesToMonitor.some(nameToMonitor => product.name.toLowerCase().includes(nameToMonitor));
+			})
+			.filter(product => !product.name.toLowerCase().includes('infantil')); // Removes infantis
+	}
+
 	public mapNeededSneakerDataForDiscord(sneaker: Product): SneakerData {
 		return {
 			name: sneaker.name,
