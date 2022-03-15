@@ -8,7 +8,7 @@
 		"dev": "NODE_ENV=dev ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/index.ts | pino-pretty --colorize --translateTime='yyyy-mm-dd HH:MM:ss'",
 		"build": "npx tsc",
 		"start": "node -r dotenv/config dist/index.js",
-		"dev:seed": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/seeders/NikeSneakersSeeder.ts | pino-pretty --colorize --translateTime='yyyy-mm-dd HH:MM:ss'",
+		"dev:seed": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/seeders/NikeStockxSneakersSeeder.ts | pino-pretty --colorize --translateTime='yyyy-mm-dd HH:MM:ss'",
 		"seed": "node -r dotenv/config dist/seeders/NikeSneakersSeeder.js"
 	},
 	"devDependencies": {

@@ -7,8 +7,10 @@ import { log } from '../helpers/general';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import UserAgent from 'user-agents';
 import fs from 'fs';
+import path from 'path';
+import _ from 'lodash';
 
-const configurePuppeteer = async () => {
+const configurePuppeteerBrowser = async () => {
 	puppeteer.use(StealthPlugin());
 	const browser = await puppeteer.launch({});
 	const page = await browser.newPage();
@@ -22,7 +24,7 @@ const randomUserAgent = (userAgent: UserAgent) => {
 };
 
 const prismaClient = new PrismaClient();
-const requestsObjects: StockxAPIRequestData[] = require('../../requests/nike/stockx-nike-requests.json');
+let requestsObjects: StockxAPIRequestData[] = require('../../requests/nike/stockx-nike-requests.json');
 
 const appendNextPageParam = (pageNumber: string | null, currentUrl: string) => {
 	if (!pageNumber || !currentUrl) return null;
@@ -85,8 +87,27 @@ const createProducts = async (
 	}
 };
 
+const updateJSONFile = (requestObject: StockxAPIRequestData) => {
+	const updatedOb = { ...requestObject, alreadyScraped: true, scrapeDate: new Date().toISOString() };
+
+	_.remove(requestsObjects, function (requestObject) {
+		return requestObject.search == updatedOb.search;
+	});
+
+	requestsObjects = [updatedOb, ...requestsObjects];
+
+	fs.writeFile(
+		path.join(__dirname, '../../requests/nike/stockx-nike-requests.json'),
+		JSON.stringify(requestsObjects, null, 2),
+		err => {
+			if (err) console.log(err);
+			console.log('file updated');
+		}
+	);
+};
+
 (async () => {
-	const { page, userAgent } = await configurePuppeteer();
+	const { page, userAgent } = await configurePuppeteerBrowser();
 
 	// requestsObjects are all the searchs we will make
 	for (const requestObject of requestsObjects) {
@@ -94,17 +115,15 @@ const createProducts = async (
 			continue;
 		}
 
-		let currentAPIUrl: string | null = requestObject.currentAPIUrl; // the first iteration is without page
+		let currentAPIUrl: string | null = requestObject.APIUrl; // the first iteration doesn't have a page
 		let pageTotalAmount = null;
 		let currentPageNumber: string | null = '1';
 		let firstTime = true;
-		let content = '';
 
 		try {
 			do {
 				await page.setUserAgent(randomUserAgent(userAgent));
 				await page.goto(currentAPIUrl, { timeout: 0 });
-				content = await page.content();
 				const data: StockxResponse = await page.evaluate(() => {
 					console.log(document.querySelector('body')!.innerText);
 					return JSON.parse(document.querySelector('body')!.innerText);
@@ -121,17 +140,25 @@ const createProducts = async (
 					requestObject.search
 				);
 
-				logger.info({ url: currentAPIUrl }, `Page ${currentPageNumber}/${pageTotalAmount}`);
+				logger.info(
+					{ url: currentAPIUrl },
+					`Page ${currentPageNumber}/${pageTotalAmount}. Search: ${requestObject.search}`
+				);
 
 				const nextPageNumber = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.nextPage); // stockx nextPage url doesnt work, thats why need to append next page param manually
 				currentPageNumber = nextPageNumber;
 				currentAPIUrl = appendNextPageParam(nextPageNumber, currentAPIUrl);
 
+				if (!currentAPIUrl) {
+					// finished availabe search pages
+					updateJSONFile(requestObject);
+				}
+
 				await timoutPromise().then(res => console.log(res));
 			} while (currentAPIUrl);
 		} catch (e: unknown) {
 			if (e instanceof Error) {
-				logger.error({ err: e, currentAPIUrl, content });
+				logger.error({ err: e, currentAPIUrl });
 			}
 		}
 	}

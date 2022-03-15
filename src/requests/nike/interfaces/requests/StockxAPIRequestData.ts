@@ -7,4 +7,5 @@ export type StockxAPIRequestData = {
 	currentAPIUrl: string;
 	baseWebsiteUrl: string;
 	alreadyScraped: boolean;
+	scrapeDate?: string;
 };

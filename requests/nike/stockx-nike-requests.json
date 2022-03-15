@@ -1,178 +1,363 @@
 [
-	{
-		"search": "Nike Air Jordan 1 High Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20high",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+high&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+high&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Air Jordan 1 Mid Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20mid",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+mid&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+mid&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Air Jordan 1 Low Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20low",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+low&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+low&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Dunk Low",
-		"browserUrl": "https://stockx.com/search?s=nike%20dunk%20low",
-		"APIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Dunk Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Dunk Top Selling",
-		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20dunk",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Dunk Most Popular",
-		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk",
-		"APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
-		"currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike Dunk",
-		"browserUrl": "https://stockx.com/search?s=nike%20dunk",
-		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike SB Dunk Low Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20low",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike SB Release Date",
-		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike SB Top Sellig",
-		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20sb",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike SB Most Popular",
-		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb",
-		"APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Nike SB",
-		"browserUrl": "https://stockx.com/search?s=nike%20sb",
-		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
-		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Nike Release Date",
-		"browserUrl": "https://stockx.com/nike/release-date",
-		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Nike Total Sold",
-		"browserUrl": "https://stockx.com/nike/top-selling",
-		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Nike Most Popular",
-		"browserUrl": "https://stockx.com/nike/most-popular",
-		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Nike",
-		"browserUrl": "https://stockx.com/nike",
-		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Collection with dates",
-		"browserUrl": "https://stockx.com/collections/release-date?years=2021%2C2020%2C2019%2C2018",
-		"APIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Jordans Top Selling",
-		"browserUrl": "https://stockx.com/retro-jordans/top-selling",
-		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Jordans Most Popular",
-		"browserUrl": "https://stockx.com/retro-jordans/most-popular",
-		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Jordans Release Date",
-		"browserUrl": "https://stockx.com/retro-jordans/release-date",
-		"APIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	},
-	{
-		"search": "Page Jordans",
-		"browserUrl": "https://stockx.com/retro-jordans",
-		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
-		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
-		"baseWebsiteUrl": "https://stockx.com",
-		"alreadyScraped": true
-	}
+  {
+    "search": "Air Jordan 1 High Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=air%20jordan%201%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true,
+    "scrapeDate": "2022-03-15T22:37:14.870Z"
+  },
+  {
+    "search": "Air Jordan 1 Mid Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=air%20jordan%201%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true,
+    "scrapeDate": "2022-03-15T22:34:01.571Z"
+  },
+  {
+    "search": "Air Jordan 1 High",
+    "browserUrl": "https://stockx.com/search?s=air%20jordan%201%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=air+jordan+1+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=air+jordan+1+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true,
+    "scrapeDate": "2022-03-15T22:29:18.904Z"
+  },
+  {
+    "search": "Air Jordan 1 High Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=air%20jordan%201%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=air+jordan+1+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=air+jordan+1+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Air Jordan 1 Mid Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=air%20jordan%201%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=air+jordan+1+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=air+jordan+1+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Air Jordan 1 Mid",
+    "browserUrl": "https://stockx.com/search?s=air%20jordan%201%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=air+jordan+1+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=air+jordan+1+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Air Jordan 1 Low Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=air%20jordan%201%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=air+jordan+1+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Air Jordan 1 Low Most Popular",
+    "browserUrl": "https://stockx.com/search/sneakers/most-popular?s=air+jordan+1+low",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=most-active&order=DESC&_search=air+jordan+1+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=most-active&order=DESC&_search=air+jordan+1+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Air Jordan 1 Low",
+    "browserUrl": "https://stockx.com/search/sneakers?s=air+jordan+1+low",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=air+jordan+1+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=air+jordan+1+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Travis Scott",
+    "browserUrl": "https://stockx.com/search/sneakers?s=travis+scott",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=travis+scott&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=travis+scott&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Jordan 4 Release Date",
+    "browserUrl": "https://stockx.com/search/sneakers/release-date?s=jordan+4",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=release_date&order=DESC&_search=jordan+4&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=release_date&order=DESC&_search=jordan+4&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Jordan 4 Most Popular",
+    "browserUrl": "https://stockx.com/search/sneakers/most-popular?s=jordan+4",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=most-active&order=DESC&_search=jordan+4&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&sort=most-active&order=DESC&_search=jordan+4&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Jordan 4",
+    "browserUrl": "https://stockx.com/search/sneakers?s=jordan+4",
+    "APIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=jordan+4&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?browseVerticals=sneakers&_search=jordan+4&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk High Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-release-date%22%7D&locale=en-us",
+    "currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-release-date%22%7D&locale=en-us",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk High Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk High",
+    "browserUrl": "https://stockx.com/search?s=nike%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Mid Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Mid Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Mid",
+    "browserUrl": "https://stockx.com/search?s=nike%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Low Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-release-date%22%7D&locale=en-us",
+    "currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-release-date%22%7D&locale=en-us",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Low Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+dunk+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike Dunk Low",
+    "browserUrl": "https://stockx.com/search?s=nike%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike Dunk Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike Dunk Top Selling",
+    "browserUrl": "https://stockx.com/search/top-selling?s=nike%20dunk",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike Dunk Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk",
+    "APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
+    "currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike Dunk",
+    "browserUrl": "https://stockx.com/search?s=nike%20dunk",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike SB Dunk High Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk High Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk High",
+    "browserUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20high",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+high&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+high&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk Mid Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk Mid Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk Mid",
+    "browserUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20mid",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+mid&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+mid&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk Low Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Dunk Low Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike SB Dunk Low",
+    "browserUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20low",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+low&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb+dunk+low&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com"
+  },
+  {
+    "search": "Nike SB Release Date",
+    "browserUrl": "https://stockx.com/search/release-date?s=nike%20sb",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike SB Top Sellig",
+    "browserUrl": "https://stockx.com/search/top-selling?s=nike%20sb",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike SB Most Popular",
+    "browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb",
+    "APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Nike SB",
+    "browserUrl": "https://stockx.com/search?s=nike%20sb",
+    "APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
+    "currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Nike Release Date",
+    "browserUrl": "https://stockx.com/nike/release-date",
+    "APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Nike Total Sold",
+    "browserUrl": "https://stockx.com/nike/top-selling",
+    "APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Nike Most Popular",
+    "browserUrl": "https://stockx.com/nike/most-popular",
+    "APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Nike",
+    "browserUrl": "https://stockx.com/nike",
+    "APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Collection with dates",
+    "browserUrl": "https://stockx.com/collections/release-date?years=2021%2C2020%2C2019%2C2018",
+    "APIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Jordans Top Selling",
+    "browserUrl": "https://stockx.com/retro-jordans/top-selling",
+    "APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Jordans Most Popular",
+    "browserUrl": "https://stockx.com/retro-jordans/most-popular",
+    "APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Jordans Release Date",
+    "browserUrl": "https://stockx.com/retro-jordans/release-date",
+    "APIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  },
+  {
+    "search": "Page Jordans",
+    "browserUrl": "https://stockx.com/retro-jordans",
+    "APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
+    "currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
+    "baseWebsiteUrl": "https://stockx.com",
+    "alreadyScraped": true
+  }
 ]
