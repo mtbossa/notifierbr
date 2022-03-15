@@ -76,28 +76,32 @@
 		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike SB Top Sellig",
 		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20sb",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike SB Most Popular",
 		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike SB",
 		"browserUrl": "https://stockx.com/search?s=nike%20sb",
 		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Page Nike Release Date",
