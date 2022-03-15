@@ -36,35 +36,40 @@
 		"browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike Dunk Top Selling",
 		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20dunk",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike Dunk Most Popular",
 		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk",
 		"APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
 		"currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike Dunk",
 		"browserUrl": "https://stockx.com/search?s=nike%20dunk",
 		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike SB Dunk Low Release Date",
 		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20low",
 		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
 		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
-		"baseWebsiteUrl": "https://stockx.com"
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
 		"search": "Nike SB Release Date",
