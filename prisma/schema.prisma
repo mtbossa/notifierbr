@@ -12,25 +12,25 @@ model HtmlsSelectors {
   price              String?
   stock_availability String?
   store_id           Int
-  store              Store  @relation(fields: [store_id], references: [id], onDelete: Cascade)
+  store              Store   @relation(fields: [store_id], references: [id], onDelete: Cascade)
 
   @@id([id, store_id])
   @@map("html_selectors")
 }
 
 model Monitor {
-  id                Int                 @id @default(autoincrement())
-  type              String              @unique @db.VarChar(100) 
+  id       Int                  @id @default(autoincrement())
+  type     String               @unique @db.VarChar(100)
   products MonitorsOnProducts[]
 
   @@map("monitors")
 }
 
 model MonitorsOnProducts {
-  monitors_id Int      
-  products_id BigInt   
+  monitors_id Int
+  products_id BigInt
   store_id    Int?
-  id          BigInt   @default(autoincrement())
+  id          BigInt  @default(autoincrement())
   monitor     Monitor @relation(fields: [monitors_id], references: [id], onDelete: Cascade)
   product     Product @relation(fields: [products_id], references: [id], onDelete: Cascade)
   store       Store?  @relation(fields: [store_id], references: [id])
@@ -40,9 +40,14 @@ model MonitorsOnProducts {
 }
 
 model Product {
-  id                   BigInt              @id @default(autoincrement())
-  name                 String              @unique @db.VarChar
-  current_lowest_price Decimal?            @db.Decimal(12, 2)
+  id                   BigInt               @id @default(autoincrement())
+  name                 String               @unique @db.VarChar
+  brand                String               @db.VarChar
+  style_code           String?              @unique @db.VarChar
+  release_date         DateTime?            @db.Date
+  current_lowest_price Decimal?             @db.Decimal(12, 2)
+  created_at           DateTime             @default(now())
+  updated_at           DateTime             @updatedAt
   monitors             MonitorsOnProducts[]
   stores               ProductsOnStore[]
 
@@ -50,11 +55,13 @@ model Product {
 }
 
 model ProductsOnStore {
-  products_id   BigInt  
-  stores_id     Int     
+  products_id   BigInt
+  stores_id     Int
   product_url   String   @unique
   current_price Decimal? @db.Decimal(12, 2)
   id            BigInt   @default(autoincrement())
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
   product       Product  @relation(fields: [products_id], references: [id], onDelete: Cascade)
   store         Store    @relation(fields: [stores_id], references: [id], onDelete: Cascade)
 
@@ -63,9 +70,11 @@ model ProductsOnStore {
 }
 
 model Store {
-  id                Int                 @id @default(autoincrement())
-  name              String              @unique @db.VarChar(255)
-  url               String              @unique @db.VarChar(255)
+  id                Int                  @id @default(autoincrement())
+  name              String               @unique @db.VarChar(255)
+  url               String               @unique @db.VarChar(255)
+  created_at        DateTime             @default(now())
+  updated_at        DateTime             @updatedAt
   html_selectors    HtmlsSelectors[]
   monitors_products MonitorsOnProducts[]
   products          ProductsOnStore[]
