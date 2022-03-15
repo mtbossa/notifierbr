@@ -1,28 +1,63 @@
 import { PrismaClient } from '@prisma/client';
-import axios from 'axios';
-import { NikeFlashDropAPIRequestData } from '../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
-import { Product } from '../requests/nike/interfaces/responses/NikeFlashDropProductResponseInterfaces';
+import { StockxAPIRequestData } from '../requests/nike/interfaces/requests/StockxAPIRequestData';
+import puppeteer from 'puppeteer-extra';
+import { StockxResponse } from '../requests/nike/interfaces/responses/StockxResponseInterface';
+import logger from '../logger';
+import { log } from '../helpers/general';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+import UserAgent from 'user-agents';
+import fs from 'fs';
 
 (async () => {
 	const prismaClient = new PrismaClient();
-	const requestsObjects: NikeFlashDropAPIRequestData[] = require('../../requests/nike/nike-flash-drop-requests.json');
+	const requestsObjects: StockxAPIRequestData[] = require('../../requests/nike/stockx-nike-requests.json');
 
-	for (const searchRequest of requestsObjects) {
-		for (const request of searchRequest.requests) {
-			try {
-				const response = await axios(request); // this is one page request for the same query search, ex.: tenis air jordan, tenis air jordan page 2
-				const products = response.data.productsInfo.products as Product[];
+	puppeteer.use(StealthPlugin());
+	const browser = await puppeteer.launch({});
+	const page = await browser.newPage();
+	const userAgent = new UserAgent({ deviceCategory: 'desktop' });
 
+	let nextPage: number | boolean | null | string = 1;
+	for (const requestObject of requestsObjects) {
+		try {
+			do {
+				await page.setUserAgent(userAgent.random().toString());
+				log(requestObject.request.url!);
+				await page.goto(requestObject.request.url!);
+				await page.content();
+
+				const data: StockxResponse = await page.evaluate(() => {
+					return JSON.parse(document.querySelector('body')!.innerText);
+				});
+				nextPage = new URL(`${requestObject.url}${data.Pagination.nextPage}`).searchParams.get('page');
+
+				requestObject.request = {
+					...requestObject.request,
+					url: `${requestObject.baseUrl}&page=${nextPage}`,
+				};
+
+				const products = data.Products;
 				for (const product of products) {
 					const foundProduct = await prismaClient.product.findUnique({
-						where: { name: product.name },
+						where: { style_code: product.styleId },
 					});
 					if (foundProduct) continue;
-					await prismaClient.product.create({ data: { name: product.name } });
-					console.log('created: ', await prismaClient.product.findUnique({ where: { name: product.name } }));
+					const newProduct = await prismaClient.product.create({
+						data: {
+							name: product.title,
+							style_code: product.styleId,
+							release_date: new Date(product.releaseDate),
+							brand: product.brand,
+						},
+					});
+					logger.info({ newProduct }, 'Product created');
 				}
-			} catch (e: unknown) {
-				if (e instanceof Error) console.log(e.message);
+				console.log('nextPage before while: ', nextPage);
+			} while (nextPage);
+		} catch (e: unknown) {
+			if (e instanceof Error) {
+				logger.error({ err: e, nextPage });
+				nextPage = false;
 			}
 		}
 	}
