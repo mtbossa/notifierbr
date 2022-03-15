@@ -1,290 +1,160 @@
 [
 	{
-		"search": "nike sb dunk low",
-		"searchUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20low",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike sb dunk low&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike sb dunk low&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20sb%20dunk%20low",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Air Jordan 1 High Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20high",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+high&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+high&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
-		"search": "nike sb dunk mid",
-		"searchUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20mid",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike sb dunk mid&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike sb dunk mid&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20sb%20dunk%20mid",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Air Jordan 1 Mid Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20mid",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+mid&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+mid&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
-		"search": "nike sb dunk high",
-		"searchUrl": "https://stockx.com/search?s=nike%20sb%20dunk%20high",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike sb dunk high&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike sb dunk high&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20sb%20dunk%20high",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Air Jordan 1 Low Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20air%20jordan%201%20low",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+low&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+air+jordan+1+low&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
-		"search": "nike dunk high",
-		"searchUrl": "https://stockx.com/search?s=nike%20dunk%20high",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike dunk high&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike dunk high&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20dunk%20high",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Dunk Low",
+		"browserUrl": "https://stockx.com/search?s=nike%20dunk%20low",
+		"APIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com",
+		"alreadyScraped": true
 	},
 	{
-		"search": "nike dunk mid",
-		"searchUrl": "https://stockx.com/search?s=nike%20dunk%20mid",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike dunk mid&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike dunk mid&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20dunk%20mid",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Dunk Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20dunk",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+dunk&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
 	},
 	{
-		"search": "nike dunk low",
-		"searchUrl": "https://stockx.com/search?s=nike%20dunk%20low",
-		"baseUrl": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?=&_search=nike dunk low&dataType=product",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/search?s=nike%20dunk%20low",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Dunk Top Selling",
+		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20dunk",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike+dunk&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
 	},
 	{
-		"search": "Nike SB Dunk Low",
-		"searchUrl": "https://stockx.com/nike/sb/dunk-low",
-		"baseUrl": "https://stockx.com/api/browse?_tags=sb%20dunk%20low,nike%20sb,nike&browseVerticals=sneakers",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?_tags=sb%20dunk%20low,nike%20sb,nike&browseVerticals=sneakers",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/nike/sb/dunk-low",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Dunk Most Popular",
+		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20dunk",
+		"APIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
+		"currentAPIUrl": "https://stockx.com/api/content-stack/browse?query=%7B%22title%22%3A%22browse-most-popular%22%7D&locale=en-us",
+		"baseWebsiteUrl": "https://stockx.com"
 	},
 	{
-		"search": "Air Jordan",
-		"searchUrl": "https://stockx.com/retro-jordans",
-		"baseUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/retro-jordans",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike Dunk",
+		"browserUrl": "https://stockx.com/search?s=nike%20dunk",
+		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+dunk&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
 	},
 	{
-		"search": "Nike",
-		"searchUrl": "https://stockx.com/nike",
-		"baseUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
-		"url": "https://stockx.com",
-		"request": {
-			"method": "get",
-			"url": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
-			"headers": {
-				"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:98.0) Gecko/20100101 Firefox/98.0",
-				"Accept": "*/*",
-				"Accept-Language": "en-US,en;q=0.5",
-				"Accept-Encoding": "gzip, deflate, br",
-				"X-Requested-With": "XMLHttpRequest",
-				"Content-Type": "application/x-www-form-urlencoded",
-				"appVersion": "0.1",
-				"appOS": "web",
-				"DNT": "1",
-				"Sec-Fetch-Dest": "empty",
-				"Sec-Fetch-Mode": "cors",
-				"Sec-Fetch-Site": "same-origin",
-				"Authorization": "",
-				"Referer": "https://stockx.com/nike",
-				"Alt-Used": "stockx.com",
-				"Connection": "keep-alive",
-				"Cookie": "stockx_device_id=3af65475-428e-4f95-b493-216c5a10333e; __cf_bm=im_2ie8NyokoxMLW82bF80AS6j1_eB1kGYswqge9W7c-1647292650-0-AfI1KIao+3jL7TH7eEtKNXXIreVyrqJgfh3gqTk7KsxqdZX2NxQCMbwQacluVnWucwW/uUACwGXNYqZ85UjMJrI=; _dd_s=rum=0&expire=1647293571506; stockx_session=%2207542118-8ae0-4bf4-b0f9-fa0aa73443e9%22; forterToken=663d97bd07bb4d92bd8f5f2a63e40623_1647292650880_3090_dUAL9_13ck; _ga=undefined; ajs_anonymous_id=425d16cf-7adc-4b3a-bc5b-13a25b8f9a45; rbuid=rbos-c1cab893-3071-4234-aeb9-119e1ad3afd6; stockx_dismiss_modal=true; stockx_dismiss_modal_set=2022-03-14T21%3A00%3A25.594Z; stockx_dismiss_modal_expiration=2023-03-14T21%3A00%3A25.593Z; stockx_homepage=sneakers; language_code=en; stockx_product_visits=2; stockx_default_sneakers_size=All; stockx_preferred_market_activity=sales; __cf_bm=.oy2_QFYfXoUlvu8RnwmOXfUECZH1vZwFvQqZV_ucdM-1647295010-0-Aa/fkvrPDrrlEQETtgfRlum3EPP0LptIpZW40t/MrFeExwFOVywrfRfvrqNXjdtSIQKoFjoCqX6ppfr9yExhx7s=",
-				"If-None-Match": "W/355c6-JTY39tJJe7/9rKksK1IM+c97REs",
-				"Cache-Control": "max-age=0",
-				"TE": "trailers"
-			}
-		}
+		"search": "Nike SB Dunk Low Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb%20dunk%20low",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb+dunk+low&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Nike SB Release Date",
+		"browserUrl": "https://stockx.com/search/release-date?s=nike%20sb",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=release_date&order=DESC&_search=nike+sb&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Nike SB Top Sellig",
+		"browserUrl": "https://stockx.com/search/top-selling?s=nike%20sb",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=deadstock_sold&order=DESC&_search=nike sb&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Nike SB Most Popular",
+		"browserUrl": "https://stockx.com/search/most-popular?s=nike%20sb",
+		"APIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&sort=most-active&order=DESC&_search=nike+sb&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Nike SB",
+		"browserUrl": "https://stockx.com/search?s=nike%20sb",
+		"APIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
+		"currentAPIUrl": "https://stockx.com/api/browse?=&_search=nike+sb&dataType=product",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Nike Release Date",
+		"browserUrl": "https://stockx.com/nike/release-date",
+		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=release_date&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Nike Total Sold",
+		"browserUrl": "https://stockx.com/nike/top-selling",
+		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Nike Most Popular",
+		"browserUrl": "https://stockx.com/nike/most-popular",
+		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers&sort=most-active&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Nike",
+		"browserUrl": "https://stockx.com/nike",
+		"APIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=nike&browseVerticals=sneakers",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Collection with dates",
+		"browserUrl": "https://stockx.com/collections/release-date?years=2021%2C2020%2C2019%2C2018",
+		"APIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=collections-filter&browseVerticals=sneakers&year=2018%2C2019%2C2020%2C2021&sort=release_date&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Jordans Top Selling",
+		"browserUrl": "https://stockx.com/retro-jordans/top-selling",
+		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=deadstock_sold&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Jordans Most Popular",
+		"browserUrl": "https://stockx.com/retro-jordans/most-popular",
+		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers&sort=most-active&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Jordans Release Date",
+		"browserUrl": "https://stockx.com/retro-jordans/release-date",
+		"APIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air jordan&browseVerticals=sneakers&sort=release_date&order=DESC",
+		"baseWebsiteUrl": "https://stockx.com"
+	},
+	{
+		"search": "Page Jordans",
+		"browserUrl": "https://stockx.com/retro-jordans",
+		"APIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
+		"currentAPIUrl": "https://stockx.com/api/browse?_tags=air+jordan&browseVerticals=sneakers",
+		"baseWebsiteUrl": "https://stockx.com"
 	}
 ]
