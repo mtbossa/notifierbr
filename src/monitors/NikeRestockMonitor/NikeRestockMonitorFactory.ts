@@ -18,5 +18,5 @@ export async function createRestockDropMonitor(discordClient: Client) {
 
 	const restockRepository = new NikeRestockPuppeteerAPIRepository(nikeRestockMonitorService, browser, page, userAgent);
 
-	return new NikeRestockMonitor(requestsObjects, restockRepository!, discordClient);
+	return new NikeRestockMonitor(requestsObjects, restockRepository!, page, discordClient, nikeRestockMonitorService);
 }

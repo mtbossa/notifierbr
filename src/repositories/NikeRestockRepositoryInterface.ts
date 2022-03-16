@@ -4,4 +4,5 @@ import { NikeRestockAPIRequestData } from '../requests/nike/interfaces/requests/
 
 export interface NikeRestockRepositoryInterface {
 	getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData | null>;
+	goToSneakerPage(requestObject: NikeRestockAPIRequestData): Promise<void>;
 }

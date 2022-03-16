@@ -20,6 +20,12 @@ export class NikeRestockPuppeteerAPIRepository implements NikeRestockRepositoryI
 		private userAgent: UserAgent
 	) {}
 
+	public async goToSneakerPage(requestObject: NikeRestockAPIRequestData) {
+		await this.page.setUserAgent(this.userAgent.random().toString());
+		await this.page.goto(requestObject.url);
+		logger.info(`gone to page: ${requestObject.url}`);
+	}
+
 	async getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData | null> {
 		let mappedSneakerData = null;
 
@@ -48,6 +54,7 @@ export class NikeRestockPuppeteerAPIRepository implements NikeRestockRepositoryI
 				this.page.on('response', async res => {
 					if (res.url() == 'https://www.nike.com.br/DataLayer/dataLayer') {
 						try {
+							logger.info('found dataLayer');
 							const dataLayer: NikeProductDataLayerResponse = await res.json();
 							resolve(dataLayer.productInfo);
 						} catch (e) {
@@ -56,9 +63,8 @@ export class NikeRestockPuppeteerAPIRepository implements NikeRestockRepositoryI
 					}
 				});
 				await this.page.setUserAgent(this.userAgent.random().toString());
-				await this.page.goto(sneakerUrl, {
-					timeout: 0,
-				});
+				await this.page.goto(sneakerUrl);
+				logger.info('gone to page');
 			} catch (e) {
 				reject(e);
 			}
@@ -67,6 +73,7 @@ export class NikeRestockPuppeteerAPIRepository implements NikeRestockRepositoryI
 
 	private async _getSneakerData(sneakerUrl: string): Promise<ProductInfo | undefined> {
 		try {
+			logger.info('getting sneaker data: ', sneakerUrl);
 			return await this._waitForDataLayerCall(sneakerUrl);
 		} catch (e: unknown) {
 			if (e instanceof Error) logger.error({ err: e });
