@@ -49,10 +49,8 @@ const startNikeRestockMonitors = async (discordClient: Client) => {
 	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
 	const client = await configureBotClient();
 
-	// startNikeFlashDropsMonitors(client);
-
+	startNikeFlashDropsMonitors(client);
 	startNikeRestockMonitors(client);
-	// startNikeFlashDropsMonitor();
+
 	// startNikeSnkrsCalendarMonitor();
-	// startStockAvailabilityMonitor(prismaClient);
 })();
