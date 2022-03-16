@@ -12,7 +12,7 @@ let appName = 'notifierbr';
 
 if (process.env.NODE_ENV === 'dev') {
 	appName = 'dev-notifierbr';
-	streams = [...streams, { stream: pretty({ colorize: true }) }];
+	streams = [...streams, { stream: pretty({ colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss' }) }];
 	level = 'debug';
 }
 

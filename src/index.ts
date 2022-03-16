@@ -38,12 +38,9 @@ const startNikeFlashDropsMonitors = async (discordClient: Client) => {
 	}
 };
 
-const startNikeRestockMonitors = (discordClient: Client) => {
-	const requestsObjects: NikeRestockAPIRequestData[] = require('../requests/nike/nike-restock-requests.json');
-
-	for (const sneakerPageRequest of requestsObjects) {
-		createRestockDropMonitor(sneakerPageRequest, discordClient).start();
-	}
+const startNikeRestockMonitors = async (discordClient: Client) => {
+	const monitor = await createRestockDropMonitor(discordClient);
+	monitor.start();
 };
 
 // Starts all process
@@ -52,9 +49,9 @@ const startNikeRestockMonitors = (discordClient: Client) => {
 	process.on('SIGINT', exitHandler.bind(null, { exit: true }));
 	const client = await configureBotClient();
 
-	startNikeFlashDropsMonitors(client);
+	// startNikeFlashDropsMonitors(client);
 
-	// startNikeRestockMonitors(client);
+	startNikeRestockMonitors(client);
 	// startNikeFlashDropsMonitor();
 	// startNikeSnkrsCalendarMonitor();
 	// startStockAvailabilityMonitor(prismaClient);

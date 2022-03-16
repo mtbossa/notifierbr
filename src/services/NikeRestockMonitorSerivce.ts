@@ -6,14 +6,15 @@ import { ProductInfo } from '../requests/nike/interfaces/responses/NikeSneakerPr
 export class NikeRestockMonitorService {
 	public mapNeededSneakerDataForDiscord(sneakerData: {
 		productInfo: ProductInfo;
+		name: string;
 		url: string;
 		imgUrl: string;
 	}): SneakerData {
 		return {
-			name: sneakerData.productInfo.name,
+			name: sneakerData.name,
 			url: sneakerData.url,
 			imgUrl: sneakerData.imgUrl,
-			price: `R$ ${sneakerData.productInfo.salePrice}`,
+			price: `R$ ${sneakerData.productInfo.salePrice}`.replace('.', ','),
 			available: sneakerData.productInfo.availability === 'no' ? false : true,
 		} as SneakerData;
 	}
