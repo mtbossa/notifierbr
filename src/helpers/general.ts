@@ -24,5 +24,5 @@ export const exitHandler = (options: any, exitCode: any) => {
 };
 
 export const minToMs = (minutes: number): number => {
-	return minutes * 60000; // Ex.: 2min * 60000ms = 120000ms
+};
 };
