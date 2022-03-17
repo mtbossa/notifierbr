@@ -7,7 +7,7 @@ import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/reques
 import { Monitor } from '../Monitor';
 
 export class NikeRestockMonitor extends Monitor {
-	public checkMinutesTimeout: number = minToMs(1);
+	public checkMinutesTimeout: number = minToMs(0.3);
 
 	constructor(
 		protected requestsObjects: NikeRestockAPIRequestData[],
@@ -24,8 +24,6 @@ export class NikeRestockMonitor extends Monitor {
 			if (sneaker && sneaker.available) {
 				this._discordClient.emit('restock', this._discordClient, sneaker);
 			}
-
-			await waitTimeout(1000, 10000).then(res => console.log(res));
 		}
 		logger.info('Passed all requestObjets, waiting to rerun...');
 		this.reRun();

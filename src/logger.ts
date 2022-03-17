@@ -6,6 +6,7 @@ import pretty from 'pino-pretty';
 let streams: StreamEntry[] = [
 	{ stream: process.stdout },
 	{ level: 'error', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-error.log')) },
+	{ level: 'warn', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/warn-error.log')) },
 ];
 let level = 'info';
 let appName = 'notifierbr';

@@ -6,6 +6,7 @@ import { NikeRestockMonitor } from './NikeRestockMonitor';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import UserAgent from 'user-agents';
 import puppeteer from 'puppeteer-extra';
+import { NikeRestockPuppeteerScrapeRepository } from '../../repositories/implementations/NikeRestockPuppeteerScrapeRepository';
 
 export async function createRestockDropMonitor(discordClient: Client) {
 	const requestsObjects: NikeRestockAPIRequestData[] = require('../../../requests/nike/nike-restock-requests.json');
@@ -16,7 +17,7 @@ export async function createRestockDropMonitor(discordClient: Client) {
 	const page = await browser.newPage();
 	const userAgent = new UserAgent({ deviceCategory: 'desktop' });
 
-	const restockRepository = new NikeRestockPuppeteerAPIRepository(nikeRestockMonitorService, browser, page, userAgent);
+	const restockRepository = new NikeRestockPuppeteerScrapeRepository(nikeRestockMonitorService, browser, page, userAgent);
 
-	return new NikeRestockMonitor(requestsObjects, restockRepository!, page, discordClient, nikeRestockMonitorService);
+	return new NikeRestockMonitor(requestsObjects, restockRepository!, discordClient);
 }
