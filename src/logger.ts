@@ -12,7 +12,11 @@ let appName = 'notifierbr';
 
 if (process.env.NODE_ENV === 'dev') {
 	appName = 'dev-notifierbr';
-	streams = [...streams, { stream: pretty({ colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss' }) }];
+	streams = [
+		...streams,
+		{ stream: pretty({ colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss' }) },
+		{ level: 'info', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-info.log')) },
+	];
 	level = 'debug';
 }
 
