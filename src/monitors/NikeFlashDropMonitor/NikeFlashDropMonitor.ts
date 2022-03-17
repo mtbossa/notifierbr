@@ -6,7 +6,7 @@ import { NikeFlashDropRepositoryInterface } from '../../repositories/NikeFlashDr
 import { Monitor } from '../Monitor';
 
 export class NikeFlashDropsMonitor extends Monitor {
-	public checkMinutesTimeout: number = minToMs(1);
+	public checkTimeout: number = minToMs(1);
 
 	constructor(protected flashDropRepository: NikeFlashDropRepositoryInterface, private _discordClient: Client) {
 		super();

@@ -1,7 +1,8 @@
+import logger from '../logger';
 import { NikeFlashDropRepositoryInterface } from '../repositories/NikeFlashDropRepositoryInterface';
 
 export abstract class Monitor {
-	abstract checkMinutesTimeout: number;
+	abstract checkTimeout: number; //
 
 	abstract check(): void;
 
@@ -10,6 +11,6 @@ export abstract class Monitor {
 	}
 
 	protected reRun(): void {
-		setTimeout(this.check.bind(this), this.checkMinutesTimeout);
+		setTimeout(this.check.bind(this), this.checkTimeout);
 	}
 }

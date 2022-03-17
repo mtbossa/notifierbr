@@ -1,7 +1,6 @@
 import { Client } from 'discord.js';
-import { NikeRestockPuppeteerAPIRepository } from '../../repositories/implementations/NikeRestockPuppeteerAPIRepository';
 import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
-import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorSerivce';
+import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorService';
 import { NikeRestockMonitor } from './NikeRestockMonitor';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import UserAgent from 'user-agents';

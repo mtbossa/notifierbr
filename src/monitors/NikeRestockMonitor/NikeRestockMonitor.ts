@@ -1,13 +1,12 @@
-import { AxiosRequestConfig } from 'axios';
 import { Client } from 'discord.js';
-import { minToMs, waitTimeout } from '../../helpers/general';
+import { minToMs, secToMs } from '../../helpers/general';
 import logger from '../../logger';
 import { NikeRestockRepositoryInterface } from '../../repositories/NikeRestockRepositoryInterface';
 import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
 import { Monitor } from '../Monitor';
 
 export class NikeRestockMonitor extends Monitor {
-	public checkMinutesTimeout: number = minToMs(0.3);
+	public checkTimeout: number = secToMs(10);
 
 	constructor(
 		protected requestsObjects: NikeRestockAPIRequestData[],
@@ -19,13 +18,13 @@ export class NikeRestockMonitor extends Monitor {
 
 	async check(): Promise<void> {
 		for (const requestObject of this.requestsObjects) {
-			const sneaker = await this.restockRepository.getSneaker(requestObject);
+			const isSneakerAvailable = await this.restockRepository.isSneakerAvailable(requestObject.url);
+			if(!isSneakerAvailable) continue;
 
-			if (sneaker && sneaker.available) {
-				this._discordClient.emit('restock', this._discordClient, sneaker);
-			}
+			const sneaker = await this.restockRepository.getSneaker(requestObject);
+			this._discordClient.emit('restock', this._discordClient, sneaker);
 		}
-		logger.info('Passed all requestObjets, waiting to rerun...');
+		logger.info(`Passed all requestObjets, waiting ${this.checkTimeout}ms to rerun...`);
 		this.reRun();
 	}
 }

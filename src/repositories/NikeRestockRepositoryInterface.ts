@@ -3,5 +3,6 @@ import { SneakerData } from '../models/interfaces/SneakerDataInterface';
 import { NikeRestockAPIRequestData } from '../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
 
 export interface NikeRestockRepositoryInterface {
-	getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData | null>;
+	isSneakerAvailable(sneakerPageUrl: string): Promise<boolean>;
+	getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData>;
 }

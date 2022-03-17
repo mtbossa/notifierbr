@@ -9,7 +9,7 @@ import {
 	NikeProductDataLayerResponse,
 	ProductInfo,
 } from '../../requests/nike/interfaces/responses/NikeSneakerProductResponseInterface';
-import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorSerivce';
+import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorService';
 import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterface';
 
 export class NikeRestockPuppeteerScrapeRepository implements NikeRestockRepositoryInterface {
@@ -20,15 +20,8 @@ export class NikeRestockPuppeteerScrapeRepository implements NikeRestockReposito
 		private userAgent: UserAgent
 	) {}
 
-	async getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData | null> {
-		let mappedSneakerData = null;
-		logger.info(`getSneaker: ${requestObject.sneakerName}`);
-
-		const isAvailable = await this._isSneakerAvailable(requestObject.url);
-		logger.info(`isAvailable: ${isAvailable}`);
-
-		mappedSneakerData = this._nikeRestockMonitorService.mapNeededSneakerDataForDiscord({
-			isAvailable: isAvailable,
+	async getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData> {
+		const mappedSneakerData = this._nikeRestockMonitorService.mapNeededSneakerDataForDiscord({
 			name: requestObject.sneakerName,
 			url: requestObject.url,
 			imgUrl: requestObject.imgUrl,
@@ -37,40 +30,76 @@ export class NikeRestockPuppeteerScrapeRepository implements NikeRestockReposito
 		return mappedSneakerData;
 	}
 
-	private async _isSneakerAvailable(sneakerUrl: string): Promise<boolean> {
+	private async _getPageHTML(): Promise<string> {
+		return await this.page.evaluate(() => document.body.innerHTML);
+	}
+
+	private _getCheerioObject(html: string) {
+		return cheerio.load(html);
+	}
+
+	private _foundElementWithLabelIndisponivelClass(cheerioElement: cheerio.Cheerio<cheerio.Element>) {
+		return cheerioElement.length > 0;
+	}
+
+	private _isAvailableByCheckingHTMLForKeywords(sneakerUrl: string, html: string) {
+		logger.warn({ url: sneakerUrl }, 'Selectors .esgotado and .label-indisponivel were not found');
+
+		const hasEsgotadoText = html.includes('esgotado');
+		if (hasEsgotadoText) {
+			logger.warn({ url: sneakerUrl }, "Found text 'esgotado' inside HTML, returning false (not available)");
+			return false;
+		}
+		const hasIndisponivelText = html.includes('indisponível');
+		if (hasIndisponivelText) {
+			logger.warn({ url: sneakerUrl }, "Found text 'indisponível' inside HTML, returning false (not available)");
+			return false;
+		}
+
+		logger.warn(
+			{ url: sneakerUrl },
+			"Didn't find 'esgotado' or 'indisponível' words inside HTML, retuning true (available)"
+		);
+
+		return true;
+	}
+
+	public async isSneakerAvailable(sneakerUrl: string): Promise<boolean> {
 		try {
 			await this.page.goto(sneakerUrl);
 
-			const html = await this.page.evaluate(() => document.body.innerHTML);
-			const $ = cheerio.load(html);
+			const html = await this._getPageHTML();
+			const $ = this._getCheerioObject(html);
 
-			const labelIndisponivel = $('.label-indisponivel');
-			logger.info(`labelIndisponivel.length ${labelIndisponivel.length}`);
-			const esgotado = $('.esgotado');
-			logger.info(`esgotado.length ${esgotado.length}`);
-			const hasClassHidden = esgotado.hasClass('.hidden');
-			logger.info(`esgotado.hasClass('.hidden') ${hasClassHidden}`);
-
-			if (labelIndisponivel.length === 0 && esgotado.length === 0) {
-        // TODO test with some nike pages (snkrs esgotados, snkrs não estados, tênis fora de snkrs esgotados e não esgotados)
-				// didn't find any pre-knowledge selectors, so Nike could've changed them, so gotta check for esgotado or indisponível words inside the html
-				logger.warn({ url: sneakerUrl }, 'Selectors .esgotado and .label-indisponivel were not found');
-				const hasEsgotadoText = html.includes('esgotado');
-				if (hasEsgotadoText) return false;
-				const hasIndisponivelText = html.includes('indisponível');
-				if (hasIndisponivelText) return false;
-
-				return true;
+			const elementWithLabelIndisponivelClass = $('.label-indisponivel');
+			const foundElementWithLabelIndisponivelClass = elementWithLabelIndisponivelClass.length > 0;
+			if (foundElementWithLabelIndisponivelClass) {
+				// if any element in the page has this class, means its out of stock (know this by analysing Nike's website pages)
+				logger.info(`Found .label-indiponivel, not available.`);
+				return false;
 			}
 
-			if (labelIndisponivel.length > 0) return false; // if page has this class, means its out of stock
-			if (esgotado.length === 0) return true; // if got here, means there's no labelIndisponivel, so got to check for .esgotado class
-			return hasClassHidden; // if has class hidden, means its available
+			const elementWithEsgotadoClass = $('.esgotado');
+			const foundElementWithEsgotadoClass = elementWithEsgotadoClass.length > 0;
+
+			if (!foundElementWithEsgotadoClass) {
+				// didn't find any pre-knowledged selectors (neither .label-indisponivel nor .esgotado), so Nike could've changed them
+				// in order to check if is available or not, will relly upon finding 'esgotado' or 'insiponível' text inside the whole HTML
+				// TODO test with some nike pages (snkrs esgotados, snkrs não estados, tênis fora de snkrs esgotados e não esgotados)
+				// TODO email this to me so go check selectors
+				const isAvailable = this._isAvailableByCheckingHTMLForKeywords(sneakerUrl, html);
+				return isAvailable;
+			}
+
+			const isAvailable = elementWithEsgotadoClass.hasClass('.hidden');
+
+			logger.info(`.esgotado hasHiddenClass (.esgotado .hidden): ${isAvailable}`);
+			return isAvailable; // if has class .hidden (true), means its available
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				logger.error({ err: e });
 			}
-			throw new Error('Nike changed selectors for esgotados');
+			return false;
 		}
 	}
 }
