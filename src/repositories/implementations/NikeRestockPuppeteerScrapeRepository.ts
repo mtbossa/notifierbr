@@ -13,12 +13,7 @@ import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorServ
 import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterface';
 
 export class NikeRestockPuppeteerScrapeRepository implements NikeRestockRepositoryInterface {
-	constructor(
-		private _nikeRestockMonitorService: NikeRestockMonitorService,
-		private browser: Browser,
-		private page: Page,
-		private userAgent: UserAgent
-	) {}
+	constructor(private _nikeRestockMonitorService: NikeRestockMonitorService, private userAgent: UserAgent) {}
 
 	async getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData> {
 		const mappedSneakerData = this._nikeRestockMonitorService.mapNeededSneakerDataForDiscord({
@@ -30,45 +25,50 @@ export class NikeRestockPuppeteerScrapeRepository implements NikeRestockReposito
 		return mappedSneakerData;
 	}
 
-	private async _getPageHTML(): Promise<string> {
-		return await this.page.evaluate(() => document.body.innerHTML);
+	private async _getPageHTML(page: Page): Promise<string> {
+		return await page.evaluate(() => document.body.innerHTML);
 	}
 
 	private _getCheerioObject(html: string) {
 		return cheerio.load(html);
 	}
 
-	private _foundElementWithLabelIndisponivelClass(cheerioElement: cheerio.Cheerio<cheerio.Element>) {
-		return cheerioElement.length > 0;
-	}
-
-	private _isAvailableByCheckingHTMLForKeywords(sneakerUrl: string, html: string) {
-		logger.warn({ url: sneakerUrl }, 'Selectors .esgotado and .label-indisponivel were not found');
+	private _isAvailableByCheckingHTMLForKeywords(sneaker: NikeRestockAPIRequestData, html: string) {
+		logger.warn({ url: sneaker.url }, 'Selectors .esgotado and .label-indisponivel were not found');
 
 		const hasEsgotadoText = html.includes('esgotado');
 		if (hasEsgotadoText) {
-			logger.warn({ url: sneakerUrl }, "Found text 'esgotado' inside HTML, returning false (not available)");
+			logger.warn({ url: sneaker.url, html }, "Found text 'esgotado' inside HTML, returning false (not available)");
 			return false;
 		}
 		const hasIndisponivelText = html.includes('indisponível');
 		if (hasIndisponivelText) {
-			logger.warn({ url: sneakerUrl }, "Found text 'indisponível' inside HTML, returning false (not available)");
+			logger.warn({ url: sneaker.url, html }, "Found text 'indisponível' inside HTML, returning false (not available)");
 			return false;
 		}
 
+		if (html.includes(sneaker.sneakerName)) {
+			logger.warn(
+				{ sneakerName: sneaker.sneakerName, html },
+				"Didn't find 'esgotado' or 'indisponível' words and found sneaker name inside HTML, retuning true (considered available)"
+			);
+			return true;
+		}
+
 		logger.warn(
-			{ url: sneakerUrl },
-			"Didn't find 'esgotado' or 'indisponível' words inside HTML, retuning true (available)"
+			{ url: sneaker.url, html },
+			"Didn't find 'esgotado' or 'indisponível' and didn't found sneaker name inside HTML, retuning false (probably banned)"
 		);
 
-		return true;
+		throw new Error('Banned');
 	}
 
-	public async isSneakerAvailable(sneakerUrl: string): Promise<boolean> {
+	public async isSneakerAvailable(sneaker: NikeRestockAPIRequestData, page: Page): Promise<boolean> {
 		try {
-			await this.page.goto(sneakerUrl);
+			await page.setUserAgent(this.userAgent.random().toString());
+			await page.goto(sneaker.url, { waitUntil: 'domcontentloaded' });
 
-			const html = await this._getPageHTML();
+			const html = await this._getPageHTML(page);
 			const $ = this._getCheerioObject(html);
 
 			const elementWithLabelIndisponivelClass = $('.label-indisponivel');
@@ -87,7 +87,7 @@ export class NikeRestockPuppeteerScrapeRepository implements NikeRestockReposito
 				// in order to check if is available or not, will relly upon finding 'esgotado' or 'insiponível' text inside the whole HTML
 				// TODO test with some nike pages (snkrs esgotados, snkrs não estados, tênis fora de snkrs esgotados e não esgotados)
 				// TODO email this to me so go check selectors
-				const isAvailable = this._isAvailableByCheckingHTMLForKeywords(sneakerUrl, html);
+				const isAvailable = this._isAvailableByCheckingHTMLForKeywords(sneaker, html);
 				return isAvailable;
 			}
 
@@ -98,6 +98,9 @@ export class NikeRestockPuppeteerScrapeRepository implements NikeRestockReposito
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				logger.error({ err: e });
+				if (e.message === 'Banned') {
+					throw e;
+				}
 			}
 			return false;
 		}

@@ -9,14 +9,13 @@ import { NikeRestockPuppeteerScrapeRepository } from '../../repositories/impleme
 
 export async function createRestockDropMonitor(discordClient: Client) {
 	const requestsObjects: NikeRestockAPIRequestData[] = require('../../../requests/nike/nike-restock-requests.json');
-	const nikeRestockMonitorService = new NikeRestockMonitorService();
-
-	puppeteer.use(StealthPlugin());
-	const browser = await puppeteer.launch({});
-	const page = await browser.newPage();
 	const userAgent = new UserAgent({ deviceCategory: 'desktop' });
+	const nikeRestockMonitorService = new NikeRestockMonitorService();	
+	const restockRepository = new NikeRestockPuppeteerScrapeRepository(
+		nikeRestockMonitorService,
+		userAgent
+	);
+	const nikeRestockMonitor = await (new NikeRestockMonitor(requestsObjects, restockRepository!, discordClient)).setUpPuppeteer();
 
-	const restockRepository = new NikeRestockPuppeteerScrapeRepository(nikeRestockMonitorService, browser, page, userAgent);
-
-	return new NikeRestockMonitor(requestsObjects, restockRepository!, discordClient);
+	return nikeRestockMonitor;
 }

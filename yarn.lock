@@ -1956,6 +1956,14 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+puppeteer-extra-plugin-block-resources@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/puppeteer-extra-plugin-block-resources/-/puppeteer-extra-plugin-block-resources-2.3.0.tgz#51f3013afc84e537d385da68a9f2abbd94532e75"
+  integrity sha512-zaTtZr3sSvsSU3Po9s1pUhhXqFTakTaz/wvkrUjXv/pzh1CjtMUmJTJGjlGlhII5jnb2ll6lTaK0EH+GF5JgOw==
+  dependencies:
+    debug "^4.1.1"
+    puppeteer-extra-plugin "^3.2.0"
+
 puppeteer-extra-plugin-stealth@^2.9.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/puppeteer-extra-plugin-stealth/-/puppeteer-extra-plugin-stealth-2.9.0.tgz#aa39f4469bf47343af4517efe9f97846228b3b01"
