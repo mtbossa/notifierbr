@@ -7,10 +7,10 @@ export abstract class Monitor {
 	abstract check(): void;
 
 	public start(): void {
-		this.check();
+	  this.check();
 	}
 
 	protected reRun(): void {
-		setTimeout(this.check.bind(this), this.checkTimeout);
+	  setTimeout(this.check.bind(this), this.checkTimeout);
 	}
 }

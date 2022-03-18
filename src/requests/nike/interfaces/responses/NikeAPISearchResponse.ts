@@ -125,3 +125,35 @@ export interface Product {
 	extraAttributes: ExtraAttribute;
 	subtitle: string;
 }
+
+export interface ProductsInfo {
+	products: Product[];
+	protocolProductsList: string;
+	recommendationProductList: string;
+}
+
+export interface PaginationItem {
+	pageNumber: number;
+	isFirst: boolean;
+	link: string;
+	active: boolean;
+	isPrevious?: boolean;
+	previous: string;
+	next: string;
+	selected?: boolean;
+	isPageNumber?: boolean;
+	isNext?: boolean;
+	isLast?: boolean;
+}
+
+export interface Pagination {
+	paginationItems: PaginationItem[];
+	numberOfPages: number;
+	hasPagination: boolean;
+	totalResults: number;
+}
+
+export interface NikeAPISearchResponse {
+	productsInfo: ProductsInfo;
+	pagination: Pagination;
+}

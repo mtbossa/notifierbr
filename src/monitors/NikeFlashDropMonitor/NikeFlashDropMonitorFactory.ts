@@ -1,21 +1,20 @@
-import { AxiosRequestConfig } from 'axios';
 import { Client } from 'discord.js';
 import { NikeFlashDropsAPIRepository } from '../../repositories/implementations/NikeFlashDropsAPIRepository';
-import { NikeFlashDropAPIRequestData } from '../../requests/nike/interfaces/requests/NikeFlashDropAPIRequestData';
+import { NikeAPISearchRequest } from '../../requests/nike/interfaces/requests/NikeAPISearchRequest';
 import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
 import {
-	NikeFlashDropsMonitor,
+  NikeFlashDropsMonitor,
 } from './NikeFlashDropMonitor';
 
 export function createNikeFlashDropMonitor(
-	config: NikeFlashDropAPIRequestData,
-	discordClient: Client
+  discordClient: Client,
 ) {
-	const nikeFlashDropService = new NikeFlashDropsMonitorService();
-	const flashDropRepository = new NikeFlashDropsAPIRepository(
-		config,
-		nikeFlashDropService
-	);
+  const requestsObjects: NikeAPISearchRequest[] = require('../../../requests/nike/nike-flash-drop-requests.json'); // array with axios formatted request for nike sneakers search
 
-	return new NikeFlashDropsMonitor(flashDropRepository!, discordClient);
+  const nikeFlashDropService = new NikeFlashDropsMonitorService();
+  const flashDropRepository = new NikeFlashDropsAPIRepository(
+    nikeFlashDropService,
+  );
+
+  return new NikeFlashDropsMonitor(requestsObjects, flashDropRepository!, discordClient);
 }

@@ -1,5 +1,4 @@
-import { Browser } from 'puppeteer';
-import { Page } from 'puppeteer';
+import { Browser, Page } from 'puppeteer';
 
 export interface Monitor {
 	start(): void;

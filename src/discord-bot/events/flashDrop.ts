@@ -5,19 +5,19 @@ import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
 import { JordanData } from '../../services/nikeFlashDropsMonitorService';
 
 module.exports = {
-	name: 'flashDrop',
-	execute(client: Client, newSneakers: SneakerData[]) {
-		const channel = client.channels.cache.find(channel => (channel as TextChannel).name === notifyTextChannel);
-		newSneakers.forEach((sneakerData: SneakerData) => {
-			const exampleEmbed = new MessageEmbed()
-				.setColor('#f58442')
-				.setTitle(sneakerData.name)
-				.setURL(sneakerData.url)
-				.setDescription('Flash Drop! :rocket:')
-				.setThumbnail(sneakerData.imgUrl)
-				.setTimestamp();
+  name: 'flashDrop',
+  execute(client: Client, newSneakers: SneakerData[]) {
+    const channel = client.channels.cache.find((channel) => (channel as TextChannel).name === notifyTextChannel);
+    newSneakers.forEach((sneakerData: SneakerData) => {
+      const exampleEmbed = new MessageEmbed()
+        .setColor('#f58442')
+        .setTitle(sneakerData.name)
+        .setURL(sneakerData.url)
+        .setDescription('Flash Drop! :rocket:')
+        .setThumbnail(sneakerData.imgUrl)
+        .setTimestamp();
 
-			(channel as TextChannel).send({ embeds: [exampleEmbed] });
-		});
-	},
+      (channel as TextChannel).send({ embeds: [exampleEmbed] });
+    });
+  },
 };
