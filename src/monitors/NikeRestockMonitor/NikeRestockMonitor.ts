@@ -71,8 +71,8 @@ export class NikeRestockMonitor extends Monitor {
 		try {
 			do {
 				this._setCurrentRequest();
-				this.log.info(`Checking stock of ${this._currentRequest!.sneakerName}`);
 				await waitTimeout({ min: secToMs(5), max: secToMs(20) });
+				this.log.info(`Checking stock of ${this._currentRequest!.sneakerName}`);
 				const isSneakerAvailable = await this.restockRepository.isSneakerAvailable(this._currentRequest!, this._page!);
 				this._currentRequestIndex++;
 
