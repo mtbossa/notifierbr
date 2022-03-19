@@ -1,30 +1,41 @@
 import path from 'path';
-import pino, { StreamEntry } from 'pino';
+import pino, { LogDescriptor, StreamEntry } from 'pino';
 import fs from 'fs';
 import pretty from 'pino-pretty';
 
 let streams: StreamEntry[] = [
-  { stream: process.stdout },
-  { level: 'error', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-error.log')) },
-  { level: 'warn', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/warn-error.log')) },
+	{ level: 'error', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-error.log')) },
+	{ level: 'warn', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/warn-error.log')) },
 ];
 let level = 'info';
 let appName = 'notifierbr';
 
 if (process.env.NODE_ENV === 'dev') {
-  appName = 'dev-notifierbr';
-  streams = [
-    ...streams,
-    { stream: pretty({ colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss' }) },
-    { level: 'info', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-info.log')) },
-  ];
-  level = 'debug';
+	appName = 'dev-notifierbr';
+	streams = [
+		...streams,
+		{
+			stream: pretty({
+				colorize: true,
+				translateTime: 'yyyy-mm-dd HH:MM:ss',
+				levelFirst: true,
+				ignore: 'pid,hostname,monitor',
+				messageFormat: (log: LogDescriptor, messageKey, levelLabel) => {
+					return `${log['monitor']} - ${log[messageKey]}`;
+				},
+			}),
+		},
+		{ level: 'info', stream: fs.createWriteStream(path.join(__dirname, '../', 'logs/log-info.log')) },
+	];
+	level = 'debug';
+} else {
+	streams = [...streams, { stream: process.stdout }];
 }
 
 export default pino(
-  {
-    name: appName,
-    level,
-  },
-  pino.multistream(streams),
+	{
+		name: appName,
+		level,
+	},
+	pino.multistream(streams)
 );

@@ -7,27 +7,29 @@ import { NikeAPISearchRequest } from '../../requests/nike/interfaces/requests/Ni
 import { Monitor } from '../Monitor';
 
 export class NikeFlashDropsMonitor extends Monitor {
-	public checkTimeout: number = minToMs(1);
+	protected minTimeout: number = secToMs(10);
+	protected maxTimeout: number = secToMs(60);
 
 	constructor(
 		private requestsObjects: NikeAPISearchRequest[],
 		protected flashDropRepository: NikeFlashDropRepositoryInterface,
-		private _discordClient: Client,
+		private _discordClient: Client
 	) {
-	  super();
+		super();
 	}
 
 	async check(): Promise<void> {
-	  for (const requestObject of this.requestsObjects) {
-	    await waitTimeout(secToMs(3), secToMs(10));
-	    const newSneakers = await this.flashDropRepository.getNewSneakersOfThisSearch(requestObject);
+		for (const requestObject of this.requestsObjects) {
+			await waitTimeout({ min: secToMs(3), max: secToMs(10) });
+			this.log.info(`Getting search sneakers: ${requestObject.search}`);
+			const newSneakers = await this.flashDropRepository.getNewSneakersOfThisSearch(requestObject);
 
-	    if (newSneakers.length > 0) {
-	      logger.info({ newSneakers }, 'New Sneakers found', 'NikeFlashDropMonitor.check()');
-	      this._discordClient.emit('flashDrop', this._discordClient, newSneakers);
-	    }
-	  }
+			if (newSneakers.length > 0) {
+				this.log.info({ newSneakers }, 'New Sneakers found', 'NikeFlashDropMonitor.check()');
+				this._discordClient.emit('flashDrop', this._discordClient, newSneakers);
+			}
+		}
 
-	  this.reRun();
+		this.reRunCheck();
 	}
 }

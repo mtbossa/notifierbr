@@ -1,16 +1,22 @@
+import { Logger } from 'pino';
+import { msToSec, randomIntFromInterval } from '../helpers/general';
 import logger from '../logger';
 import { NikeFlashDropRepositoryInterface } from '../repositories/NikeFlashDropRepositoryInterface';
 
 export abstract class Monitor {
-	abstract checkTimeout: number; //
+	protected abstract minTimeout: number;
+	protected abstract maxTimeout: number;
+	protected log = logger.child({ monitor: `[${this.constructor.name}]` });
 
 	abstract check(): void;
 
 	public start(): void {
-	  this.check();
+		this.check();
 	}
 
-	protected reRun(): void {
-	  setTimeout(this.check.bind(this), this.checkTimeout);
+	protected reRunCheck(): void {
+		const randomInterval = randomIntFromInterval(this.minTimeout, this.maxTimeout);
+		logger.info(`Waiting ${msToSec(randomInterval)}sec to reRunCheck ${this.constructor.name}`);
+		setTimeout(this.check.bind(this), randomInterval);
 	}
 }
