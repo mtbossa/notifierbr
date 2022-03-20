@@ -7,7 +7,7 @@ import { NikeFlashDropsMonitor } from './NikeFlashDropMonitor';
 
 export function createNikeFlashDropMonitor(discordClient: Client) {
 	const requestsObjects: NikeAPISearchRequest[] = require('../../../requests/nike/nike-flash-drop-requests.json'); // array with axios formatted request for nike sneakers search
-	const currentStylesCodeFromAllSearchs: CurrentResultsStylesCodeFromAllSearchs = require('../../../requests/nike/current-results-style-codes-from-all-searchs.json'); // array with axios formatted request for nike sneakers search
+	const currentStylesCodeFromAllSearchs: CurrentResultsStylesCodeFromAllSearchs = require('./control_files/current-results-style-codes-from-all-searchs.json'); // array with axios formatted request for nike sneakers search
 
 	const nikeFlashDropService = new NikeFlashDropsMonitorService();
 	const flashDropRepository = new NikeFlashDropsAPIRepository(nikeFlashDropService);

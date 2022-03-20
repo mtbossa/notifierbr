@@ -1,0 +1,3 @@
+{
+	"ignore": ["requests/", "src/monitors/NikeFlashDropMonitor/control_files", "src/test.ts"]
+}

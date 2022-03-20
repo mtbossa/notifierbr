@@ -5,7 +5,7 @@
 	"author": "Mateus Ribeiro Bossa <mateus.rbossa@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"dev": "NODE_ENV=dev ts-node-dev --transpile-only --inspect=9229 --exit-child --watch 'src/**/*.ts' --ignore-watch requests/ -r dotenv/config src/index.ts",
+		"dev": "NODE_ENV=dev ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/index.ts",
 		"build": "npx tsc",
 		"start": "node -r dotenv/config dist/index.js",
 		"dev:seed": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/seeders/NikeStockxSneakersSeeder.ts | pino-pretty --colorize --translateTime='yyyy-mm-dd HH:MM:ss'",
