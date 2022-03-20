@@ -21,7 +21,7 @@ const startNikeRestockMonitors = async (discordClient: Client) => {
   const client = await configureBotClient();
 
   startNikeFlashDropsMonitors(client);
-  startNikeRestockMonitors(client);
+  // startNikeRestockMonitors(client);
 
   // startNikeSnkrsCalendarMonitor();
 })();

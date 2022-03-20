@@ -107,8 +107,8 @@ export class NikeFlashDropsMonitor extends Monitor {
 
 	private _newResultsOnSearch(currentSearchStylesCode: string[]) {
 		return _.difference(
-			this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs,
-			currentSearchStylesCode
+			currentSearchStylesCode,
+			this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs
 		);
 	}
 

@@ -41,7 +41,7 @@ model MonitorsOnProducts {
 
 model Product {
   id                   BigInt               @id @default(autoincrement())
-  name                 String               @unique @db.VarChar
+  name                 String               @db.VarChar
   brand                String               @db.VarChar
   style_code           String?              @unique @db.VarChar
   release_date         DateTime?            @db.Date
