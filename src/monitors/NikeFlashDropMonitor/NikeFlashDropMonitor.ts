@@ -127,7 +127,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 		this._currentStylesCodeFromAllSearchs = updatedOb;
 
 		fs.writeFile(
-			path.join(__dirname, 'control_files/current-results-style-codes-from-all-searchs.json'),
+			path.join(__dirname, '../../../control_files/Nike/NikeFlashDropMonitor/current-results-styles-code-from-all-searchs.json'),
 			JSON.stringify(updatedOb, null, 2),
 			err => {
 				if (err) console.log(err);
