@@ -56,7 +56,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 			return;
 		}
 
-		this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
+		this._updateCurrentResultsStylesCodeJSON(newResults);
 
 		const onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique = _.difference(
 			newResults,
@@ -116,9 +116,9 @@ export class NikeFlashDropsMonitor extends Monitor {
 		return this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs.length === 0;
 	}
 
-	private _updateCurrentResultsStylesCodeJSON(currentSearchStylesCode: string[]) {
+	private _updateCurrentResultsStylesCodeJSON(newSearchStylesCode: string[]) {
 		const currentStylesCode = this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs;
-		const updatedStylesCode = [...currentStylesCode, ...currentSearchStylesCode];
+		const updatedStylesCode = [...currentStylesCode, ...newSearchStylesCode];
 
 		const updatedOb = {
 			currentResultsStylesCodeFromAllSearchs: updatedStylesCode,
@@ -127,7 +127,10 @@ export class NikeFlashDropsMonitor extends Monitor {
 		this._currentStylesCodeFromAllSearchs = updatedOb;
 
 		fs.writeFile(
-			path.join(__dirname, '../../../control_files/Nike/NikeFlashDropMonitor/current-results-styles-code-from-all-searchs.json'),
+			path.join(
+				__dirname,
+				'../../../control_files/Nike/NikeFlashDropMonitor/current-results-styles-code-from-all-searchs.json'
+			),
 			JSON.stringify(updatedOb, null, 2),
 			err => {
 				if (err) console.log(err);
