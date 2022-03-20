@@ -9,7 +9,7 @@ import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonito
 import { Monitor } from '../Monitor';
 import path from 'path';
 import { Product } from '../../requests/nike/interfaces/responses/NikeAPISearchResponse';
-import { CurrentResultsUrlsFromAllSearchs } from './interfaces/CurrentResultsUrlsFromAllSearchsInterface';
+import { CurrentResultsStylesCodeFromAllSearchs } from './interfaces/CurrentResultsStylesCodeFromAllSearchsInterface';
 
 export class NikeFlashDropsMonitor extends Monitor {
 	protected minTimeout: number = secToMs(10);
@@ -17,7 +17,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 
 	constructor(
 		private _requestsObjects: NikeAPISearchRequest[],
-		private _currentUrlsFromAllSearchs: CurrentResultsUrlsFromAllSearchs,
+		private _currentStylesCodeFromAllSearchs: CurrentResultsStylesCodeFromAllSearchs,
 		protected _flashDropRepository: NikeFlashDropRepositoryInterface,
 		private _nikeFlashDropMonitorService: NikeFlashDropsMonitorService,
 		private _discordClient: Client
@@ -41,49 +41,44 @@ export class NikeFlashDropsMonitor extends Monitor {
 	}
 
 	private _handleNewSearchResults(
-		thisRunSearchSneakersUrls: string[],
+		thisRunSearchSneakersStylesCode: string[],
 		thisRunUniqueSneakers: Product[],
 		allFilteredSneakers: Product[]
 	) {
-		if (this._isEmptyCurrentResultsUrls()) {
-			this._updateCurrentResultsUrlsJSON(thisRunSearchSneakersUrls);
+		if (this._isEmptyCurrentResultsStylesCode()) {
+			this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
 			return;
 		}
 
-		const newResults = this._newResultsOnSearch(
-			this._currentUrlsFromAllSearchs.currentResultsUrlsFromAllSearchs,
-			thisRunSearchSneakersUrls
-		);
+		const newResults = this._newResultsOnSearch(thisRunSearchSneakersStylesCode);
 
 		if (newResults.length === 0) {
 			return;
 		}
 
-		this._updateCurrentResultsUrlsJSON(thisRunSearchSneakersUrls);
+		this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
 
-		const onlyNewSneakersUrlsOnCurrentRunThatAreNotAlsoUnique = _.difference(
+		const onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique = _.difference(
 			newResults,
-			thisRunUniqueSneakers.map(product => product.productUrl)
+			thisRunUniqueSneakers.map(product => product.extraAttributes.skuReference[0])
 		);
 
-		if (onlyNewSneakersUrlsOnCurrentRunThatAreNotAlsoUnique.length === 0) {
+		if (onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique.length === 0) {
 			return;
 		}
 
-		const productObjects = allFilteredSneakers.filter(product =>
-			onlyNewSneakersUrlsOnCurrentRunThatAreNotAlsoUnique.includes(
-				this._nikeFlashDropMonitorService.changeUrlSlashesToHttps(product.productUrl)
-			)
+		const productObjectsOfNewStylesCodeSneakers = allFilteredSneakers.filter(product =>
+			onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique.includes(product.extraAttributes.skuReference[0])
 		);
-		const mapped = productObjects.map(product =>
+		const mappedSneakers = productObjectsOfNewStylesCodeSneakers.map(product =>
 			this._nikeFlashDropMonitorService.mapNeededSneakerDataForDiscord(product)
 		);
-		this.log.info({ newFoundOnSearch: mapped }, 'New Sneakers found on search');
-		this._discordClient.emit('searchFoundSneaker', this._discordClient, mapped);
+		this.log.info({ newFoundOnSearch: mappedSneakers }, 'New Sneakers found on search');
+		this._discordClient.emit('searchFoundSneaker', this._discordClient, mappedSneakers);
 	}
 
 	async check(): Promise<void> {
-		let thisRunSearchSneakersUrls: string[] = [];
+		let thisRunSearchSneakersStylesCode: string[] = [];
 		let thisRunUniqueSneakers: Product[] = [];
 		let thisRunFilteredSneakers: Product[] = [];
 
@@ -94,37 +89,45 @@ export class NikeFlashDropsMonitor extends Monitor {
 			const sneakers = await this._flashDropRepository.getCurrentSearchSneakersData(requestObject);
 			const filteredSneakers = this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(sneakers);
 			const newUniqueSneakers = await this._flashDropRepository.filterUniqueSneakers(filteredSneakers);
-			const currentSearchUrls = filteredSneakers.map(sneaker => sneaker.productUrl.replace('//', 'https://'));
+			const currentSearchStyleCodes = filteredSneakers.map(sneaker => sneaker.extraAttributes.skuReference[0]);
 
 			this._handleNewUniqueSneakers(newUniqueSneakers);
 
 			thisRunFilteredSneakers = [...thisRunFilteredSneakers, ...filteredSneakers];
 			thisRunUniqueSneakers = [...thisRunUniqueSneakers, ...newUniqueSneakers];
-			thisRunSearchSneakersUrls = [...thisRunSearchSneakersUrls, ...currentSearchUrls];
+			thisRunSearchSneakersStylesCode = [...thisRunSearchSneakersStylesCode, ...currentSearchStyleCodes];
 		}
 		this._handleNewSearchResults(
-			_.uniq(thisRunSearchSneakersUrls),
+			_.uniq(thisRunSearchSneakersStylesCode),
 			thisRunUniqueSneakers,
-			_.uniqBy(thisRunFilteredSneakers, 'productUrl')
+			_.uniqBy(thisRunFilteredSneakers, 'extraAttributes.skuReference[0]')
 		);
 		this.reRunCheck();
 	}
 
-	private _newResultsOnSearch(objectResultsUrls: string[], currentSearchUrls: string[]) {
-		return _.difference(currentSearchUrls, objectResultsUrls);
+	private _newResultsOnSearch(currentSearchStylesCode: string[]) {
+		return _.difference(
+			this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs,
+			currentSearchStylesCode
+		);
 	}
 
-	private _isEmptyCurrentResultsUrls() {
-		return this._currentUrlsFromAllSearchs.currentResultsUrlsFromAllSearchs.length === 0;
+	private _isEmptyCurrentResultsStylesCode() {
+		return this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs.length === 0;
 	}
 
-	private _updateCurrentResultsUrlsJSON(currentUrls: string[]) {
-		const updatedOb = { ...this._currentUrlsFromAllSearchs, currentResultsUrlsFromAllSearchs: currentUrls };
+	private _updateCurrentResultsStylesCodeJSON(currentSearchStylesCode: string[]) {
+		const currentStylesCode = this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs;
+		const updatedStylesCode = [...currentStylesCode, ...currentSearchStylesCode];
 
-		this._currentUrlsFromAllSearchs = updatedOb;
+		const updatedOb = {
+			currentResultsStylesCodeFromAllSearchs: updatedStylesCode,
+		};
+
+		this._currentStylesCodeFromAllSearchs = updatedOb;
 
 		fs.writeFile(
-			path.join(__dirname, '../../../requests/nike/current-results-urls-from-all-searchs.json'),
+			path.join(__dirname, '../../../requests/nike/current-results-style-codes-from-all-searchs.json'),
 			JSON.stringify(updatedOb, null, 2),
 			err => {
 				if (err) console.log(err);
