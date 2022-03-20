@@ -5,4 +5,5 @@ export interface SneakerData {
 	price: string;
 	discount?: string;
 	available?: boolean;
+	styleCode: string;
 }

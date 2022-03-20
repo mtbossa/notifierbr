@@ -16,7 +16,7 @@ export abstract class Monitor {
 
 	protected reRunCheck(): void {
 		const randomInterval = randomIntFromInterval(this.minTimeout, this.maxTimeout);
-		logger.info(`Waiting ${msToSec(randomInterval)}sec to reRunCheck ${this.constructor.name}`);
+		this.log.info(`Waiting ${msToSec(randomInterval)}sec to reRunCheck ${this.constructor.name}`);
 		setTimeout(this.check.bind(this), randomInterval);
 	}
 }

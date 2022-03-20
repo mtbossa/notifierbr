@@ -29,24 +29,53 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
 		this._baseAPIReferer = requestObject.request.headers!.Referer as string;
 	}
 
-	async getNewSneakersOfThisSearch(requestObject: NikeAPISearchRequest): Promise<SneakerData[]> {
+	public async getCurrentSearchSneakersData(requestObject: NikeAPISearchRequest) {
 		this._setInitialConfig(requestObject);
 
-		let newSneakers: SneakerData[] = [];
+		let sneakersData: Product[] = [];
+
 		do {
 			await waitTimeout({ min: secToMs(2), max: secToMs(5) });
 
-			const currentPageNewSneakers = await this._currentPageNewSneakers(this._currentRequest!);
+			const currentPageSneakers = await this._getCurrentSearchPageSneakers(this._currentRequest!);
 
-			if (currentPageNewSneakers && currentPageNewSneakers.length > 0) {
-				const mappedCurrentPageNewSneakers: SneakerData[] = currentPageNewSneakers.map((sneaker: Product) =>
+			if (!currentPageSneakers) {
+				continue;
+			}
+
+			sneakersData = [...sneakersData, ...currentPageSneakers];
+		} while (this._currentPage! <= this._maxPages!);
+
+		return sneakersData;
+	}
+
+	async getNewSneakersOfThisSearch(requestObject: NikeAPISearchRequest): Promise<SneakerData[]> {
+		this._setInitialConfig(requestObject);
+
+		let newUniqueSneakers: SneakerData[] = [];
+		do {
+			await waitTimeout({ min: secToMs(2), max: secToMs(5) });
+
+			const currentPageSneakers = await this._currentPageDesiredSneakers(this._currentRequest!);
+
+			if (!currentPageSneakers) {
+				continue;
+			}
+
+			if (requestObject.currentResultsUrls.length === 0) {
+			}
+
+			const currentPageNewUniqueSneakers = await this.filterUniqueSneakers(currentPageSneakers);
+
+			if (currentPageNewUniqueSneakers && currentPageNewUniqueSneakers.length > 0) {
+				const mappedCurrentPageNewUniqueSneakers: SneakerData[] = currentPageNewUniqueSneakers.map((sneaker: Product) =>
 					this._nikeFlashDropMonitorService.mapNeededSneakerDataForDiscord(sneaker)
 				);
-				newSneakers = [...newSneakers, ...mappedCurrentPageNewSneakers];
+				newUniqueSneakers = [...newUniqueSneakers, ...mappedCurrentPageNewUniqueSneakers];
 			}
 		} while (this._currentPage! <= this._maxPages!);
 
-		return newSneakers;
+		return newUniqueSneakers;
 	}
 
 	private _firstRequest() {
@@ -76,21 +105,49 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
 		this._currentRequest = { ...this._currentRequest, url: nextAPIUrl.toString(), ...newHeader };
 	}
 
-	private async _currentPageNewSneakers(pageSearchRequest: AxiosRequestConfig): Promise<Product[] | undefined> {
+	private async _getCurrentSearchPageSneakers(pageSearchRequest: AxiosRequestConfig): Promise<Product[]> {
 		try {
 			this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
 			const response = await axios(pageSearchRequest);
 			const nikeResponse: NikeAPISearchResponse = response.data;
 			const { pagination } = nikeResponse;
 			const { products } = nikeResponse.productsInfo;
-			if (!products) {
-				this.log.error({ responseData: response.data }, 'Nike response had products empty!');
-			}
-			const onlyDesiredSneakers = products ? this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(products) : [];
 
 			this._updateCurrentRequest(pageSearchRequest, pagination);
 
-			return await this.filterUniqueSneakers(onlyDesiredSneakers);
+			if (!products) {
+				throw new Error('Nike response had products empty!');
+			}
+
+			return products;
+		} catch (e: unknown) {
+			if (e instanceof Error) {
+				this.log.error({
+					err: e,
+					errorMsg: e.message,
+					pageSearchRequest,
+				});
+			}
+			return [];
+		}
+	}
+
+	private async _currentPageDesiredSneakers(pageSearchRequest: AxiosRequestConfig): Promise<Product[] | undefined> {
+		try {
+			this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
+			const response = await axios(pageSearchRequest);
+			const nikeResponse: NikeAPISearchResponse = response.data;
+			const { pagination } = nikeResponse;
+			const { products } = nikeResponse.productsInfo;
+
+			if (!products) {
+				this.log.error({ responseData: response.data }, 'Nike response had products empty!');
+			}
+			this._updateCurrentRequest(pageSearchRequest, pagination);
+
+			const onlyDesiredSneakers = products ? this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(products) : [];
+
+			return onlyDesiredSneakers;
 		} catch (e: unknown) {
 			if (e instanceof Error) {
 				this.log.error({

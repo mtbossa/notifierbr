@@ -5,7 +5,7 @@ import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
 import { JordanData } from '../../services/nikeFlashDropsMonitorService';
 
 module.exports = {
-  name: 'flashDrop',
+  name: 'searchFoundSneaker',
   execute(client: Client, newSneakers: SneakerData[]) {
     const channel = client.channels.cache.find((channel) => (channel as TextChannel).name === notifyTextChannel);
     newSneakers.forEach((sneakerData: SneakerData) => {
@@ -13,7 +13,7 @@ module.exports = {
         .setColor('#f58442')
         .setTitle(sneakerData.name)
         .setURL(sneakerData.url)
-        .setDescription(`Flash Drop! :rocket: ${sneakerData.styleCode}`)
+        .setDescription('Novidade! :rocket:')
         .setThumbnail(sneakerData.imgUrl)
         .setTimestamp();
 
