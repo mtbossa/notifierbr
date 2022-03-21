@@ -51,12 +51,11 @@ export class NikeFlashDropsMonitor extends Monitor {
 		}
 
 		const newResults = this._newResultsOnSearch(thisRunSearchSneakersStylesCode);
+		this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
 
 		if (newResults.length === 0) {
 			return;
 		}
-
-		this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
 
 		const onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique = _.difference(
 			newResults,
