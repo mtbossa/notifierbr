@@ -1,7 +1,9 @@
 import * as cheerio from 'cheerio';
 import { Page } from 'puppeteer';
 import UserAgent from 'user-agents';
+import logger from '../../logger';
 import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
+import { prismaClient } from '../../prismaClient';
 import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
 import { NikeRestockMonitorService } from '../../services/NikeRestockMonitorService';
 import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterface';
@@ -9,6 +11,32 @@ import { NikeRestockRepositoryInterface } from '../NikeRestockRepositoryInterfac
 export class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryInterface {
 	constructor(private _nikeRestockMonitorService: NikeRestockMonitorService, private userAgent: UserAgent) {
 		super();
+	}
+
+	async setSneakerAvailability(requestObject: NikeRestockAPIRequestData, availability: { available: boolean }) {
+		try {
+			await prismaClient.productsOnStore.update({
+				where: { product_url: requestObject.url },
+				data: {
+					available: availability.available,
+				},
+			});
+		} catch (e) {
+			logger.error({ err: e });
+		}
+	}
+
+	async isCurrentlyAvailableOnStore(requestObject: NikeRestockAPIRequestData): Promise<boolean> {
+		try {
+			const productOnStore = await prismaClient.productsOnStore.findUnique({
+				where: { product_url: requestObject.url },
+			});
+
+			return productOnStore!.available;
+		} catch (e) {
+			logger.error({ err: e });
+			return false;
+		}
 	}
 
 	async getSneaker(requestObject: NikeRestockAPIRequestData): Promise<SneakerData> {

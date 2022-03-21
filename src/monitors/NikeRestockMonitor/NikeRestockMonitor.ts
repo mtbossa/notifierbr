@@ -20,7 +20,7 @@ export class NikeRestockMonitor extends Monitor {
 
 	constructor(
 		protected requestsObjects: NikeRestockAPIRequestData[],
-		protected restockRepository: NikeRestockRepositoryInterface,
+		protected nikeRestockRepository: NikeRestockRepositoryInterface,
 		private _discordClient: Client
 	) {
 		super();
@@ -73,13 +73,24 @@ export class NikeRestockMonitor extends Monitor {
 				this._setCurrentRequest();
 				await waitTimeout({ min: secToMs(5), max: secToMs(20) });
 				this.log.info(`Checking stock of ${this._currentRequest!.sneakerName}`);
-				const isSneakerAvailable = await this.restockRepository.isSneakerAvailable(this._currentRequest!, this._page!);
+				let isSneakerAvailable = await this.nikeRestockRepository.isSneakerAvailable(
+					this._currentRequest!,
+					this._page!
+				);
+				isSneakerAvailable = false;
 				this._currentRequestIndex++;
 
-				if (!isSneakerAvailable) continue;
+				if (!isSneakerAvailable) {
+					if (await this.nikeRestockRepository.isCurrentlyAvailableOnStore(this._currentRequest!)) {
+						await this.nikeRestockRepository.setSneakerAvailability(this._currentRequest!, { available: false });
+					}
+					continue;
+				}
+				if (await this.nikeRestockRepository.isCurrentlyAvailableOnStore(this._currentRequest!)) continue;
 
-				const sneaker = await this.restockRepository.getSneaker(this._currentRequest!);
+				const sneaker = await this.nikeRestockRepository.getSneaker(this._currentRequest!);
 				this._discordClient.emit('restock', this._discordClient, sneaker);
+				await this.nikeRestockRepository.setSneakerAvailability(this._currentRequest!, { available: true });
 			} while (this._notPassedThroughAllRequests());
 
 			this._setCurrentIndexToFirstRequest();
@@ -88,6 +99,8 @@ export class NikeRestockMonitor extends Monitor {
 			if (e instanceof Error) {
 				if (e.message === 'Banned') {
 					await this._resetBrowser();
+					this.reRunCheck();
+				} else {
 					this.reRunCheck();
 				}
 			}

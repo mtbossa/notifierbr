@@ -55,11 +55,12 @@ model Product {
 }
 
 model ProductsOnStore {
+  id            BigInt   @default(autoincrement())
   products_id   BigInt
   stores_id     Int
   product_url   String   @unique
   current_price Decimal? @db.Decimal(12, 2)
-  id            BigInt   @default(autoincrement())
+  available     Boolean  @default(true)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
   product       Product  @relation(fields: [products_id], references: [id], onDelete: Cascade)
