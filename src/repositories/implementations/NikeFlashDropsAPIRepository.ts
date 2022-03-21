@@ -62,9 +62,6 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
 				continue;
 			}
 
-			if (requestObject.currentResultsUrls.length === 0) {
-			}
-
 			const currentPageNewUniqueSneakers = await this.filterUniqueSneakers(currentPageSneakers);
 
 			if (currentPageNewUniqueSneakers && currentPageNewUniqueSneakers.length > 0) {
