@@ -134,19 +134,4 @@ export class NikeFlashDropsMonitor extends Monitor {
 			}
 		);
 	}
-
-	async checkCorrect(): Promise<void> {
-		for (const requestObject of this._requestsObjects) {
-			await waitTimeout({ min: secToMs(3), max: secToMs(10) });
-			this.log.info(`Getting search sneakers: ${requestObject.search}`);
-			const newSneakers = await this._flashDropRepository.getNewSneakersOfThisSearch(requestObject);
-
-			if (newSneakers.length > 0) {
-				this.log.info({ newSneakers }, 'New Sneakers found', 'NikeFlashDropMonitor.check()');
-				this._discordClient.emit('flashDrop', this._discordClient, newSneakers);
-			}
-		}
-
-		this.reRunCheck();
-	}
 }
