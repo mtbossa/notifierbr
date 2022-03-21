@@ -56,7 +56,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 			return;
 		}
 
-		this._updateCurrentResultsStylesCodeJSON(newResults);
+		this._updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode);
 
 		const onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique = _.difference(
 			newResults,
@@ -116,12 +116,9 @@ export class NikeFlashDropsMonitor extends Monitor {
 		return this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs.length === 0;
 	}
 
-	private _updateCurrentResultsStylesCodeJSON(newSearchStylesCode: string[]) {
-		const currentStylesCode = this._currentStylesCodeFromAllSearchs.currentResultsStylesCodeFromAllSearchs;
-		const updatedStylesCode = [...currentStylesCode, ...newSearchStylesCode];
-
+	private _updateCurrentResultsStylesCodeJSON(thisRunSearchSneakersStylesCode: string[]) {
 		const updatedOb = {
-			currentResultsStylesCodeFromAllSearchs: updatedStylesCode,
+			currentResultsStylesCodeFromAllSearchs: thisRunSearchSneakersStylesCode,
 		};
 
 		this._currentStylesCodeFromAllSearchs = updatedOb;
