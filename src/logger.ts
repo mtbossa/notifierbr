@@ -37,5 +37,5 @@ export default pino(
 		name: appName,
 		level,
 	},
-	pino.multistream(streams)
+	pino.multistream(streams, { dedupe: true })
 );

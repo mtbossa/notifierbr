@@ -27,11 +27,7 @@ export class NikeFlashDropsMonitor extends Monitor {
 
 	private _handleNewUniqueSneakers(newUniqueSneakers: Product[]) {
 		if (newUniqueSneakers.length > 0) {
-			this.log.info(
-				{ newUniqueSneakers },
-				'New Unique Sneakers found',
-				newUniqueSneakers.map(product => product.extraAttributes.skuReference)
-			);
+			this.log.warn({ newUniqueSneakers }, 'New Unique Sneakers found');
 			this._discordClient.emit(
 				'flashDrop',
 				this._discordClient,
@@ -69,10 +65,18 @@ export class NikeFlashDropsMonitor extends Monitor {
 		const productObjectsOfNewStylesCodeSneakers = allFilteredSneakers.filter(product =>
 			onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique.includes(product.extraAttributes.skuReference[0])
 		);
+		this.log.warn(
+			{
+				thisRunSearchSneakersStylesCode,
+				thisRunUniqueSneakers,
+				allFilteredSneakers,
+				onlyNewSneakersStylesCodeOnCurrentRunThatAreNotAlsoUnique,
+			},
+			'New sneakers styles found on search.'
+		);
 		const mappedSneakers = productObjectsOfNewStylesCodeSneakers.map(product =>
 			this._nikeFlashDropMonitorService.mapNeededSneakerDataForDiscord(product)
 		);
-		this.log.info({ newFoundOnSearch: mappedSneakers }, 'New Sneakers found on search');
 		this._discordClient.emit('searchFoundSneaker', this._discordClient, mappedSneakers);
 	}
 
