@@ -2,11 +2,11 @@ import { Client } from 'discord.js';
 import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import { minToMs, secToMs, waitTimeout } from '../../helpers/general';
-import logger from '../../logger';
-import { NikeRestockRepositoryInterface } from '../../repositories/NikeRestockRepositoryInterface';
-import { NikeRestockAPIRequestData } from '../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
-import { Monitor } from '../Monitor';
+import { minToMs, secToMs, waitTimeout } from '../../../helpers/general';
+import logger from '../../../logger';
+import { NikeRestockRepositoryInterface } from '../../../repositories/NikeRestockRepositoryInterface';
+import { NikeRestockAPIRequestData } from '../../../requests/nike/interfaces/requests/NikeRestockAPIRequestData';
+import { Monitor } from '../../Monitor';
 
 export class NikeRestockMonitor extends Monitor {
 	protected minTimeout: number = secToMs(10);

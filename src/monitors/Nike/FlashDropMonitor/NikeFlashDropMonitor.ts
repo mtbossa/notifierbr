@@ -1,14 +1,14 @@
 import fs from 'fs';
 import { Client } from 'discord.js';
 import _ from 'lodash';
-import { secToMs, waitTimeout } from '../../helpers/general';
-import logger from '../../logger';
-import { NikeFlashDropRepositoryInterface } from '../../repositories/NikeFlashDropRepositoryInterface';
-import { NikeAPISearchRequest } from '../../requests/nike/interfaces/requests/NikeAPISearchRequest';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
-import { Monitor } from '../Monitor';
+import { secToMs, waitTimeout } from '../../../helpers/general';
+import logger from '../../../logger';
+import { NikeFlashDropRepositoryInterface } from '../../../repositories/NikeFlashDropRepositoryInterface';
+import { NikeAPISearchRequest } from '../../../requests/nike/interfaces/requests/NikeAPISearchRequest';
+import { NikeFlashDropsMonitorService } from '../../../services/NikeFlashDropMonitorService';
+import { Monitor } from '../../Monitor';
 import path from 'path';
-import { Product } from '../../requests/nike/interfaces/responses/NikeAPISearchResponse';
+import { Product } from '../../../requests/nike/interfaces/responses/NikeAPISearchResponse';
 import { CurrentResultsStylesCodeFromAllSearchs } from './interfaces/CurrentResultsStylesCodeFromAllSearchsInterface';
 
 export class NikeFlashDropsMonitor extends Monitor {
