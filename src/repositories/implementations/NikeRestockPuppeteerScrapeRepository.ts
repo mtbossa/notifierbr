@@ -58,15 +58,14 @@ export class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryI
 	}
 
 	private _isAvailableByCheckingHTMLForKeywords(sneaker: NikeRestockAPIRequestData, html: string) {
-		this.log.warn({ url: sneaker.url }, 'Selectors .esgotado and .label-indisponivel were not found');
+		this.log.info({ url: sneaker.url }, 'Selectors .esgotado and .label-indisponivel were not found');
 
-		const hasEsgotadoText = html.includes('esgotado');
-		if (hasEsgotadoText) {
+		if (html.includes('esgotado')) {
 			this.log.warn({ url: sneaker.url, html }, "Found text 'esgotado' inside HTML, returning false (not available)");
 			return false;
 		}
-		const hasIndisponivelText = html.includes('indisponível');
-		if (hasIndisponivelText) {
+
+		if (html.includes('indisponível')) {
 			this.log.warn(
 				{ url: sneaker.url, html },
 				"Found text 'indisponível' inside HTML, returning false (not available)"
@@ -77,14 +76,14 @@ export class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryI
 		if (html.includes(sneaker.sneakerName)) {
 			this.log.warn(
 				{ sneakerName: sneaker.sneakerName, html },
-				"Didn't find 'esgotado' or 'indisponível' words and found sneaker name inside HTML, retuning true (considered available)"
+				"Didn't find 'esgotado' or 'indisponível' words but found sneaker name inside HTML, retuning true (considered available). Selectors changed."
 			);
 			return true;
 		}
 
-		this.log.warn(
+		this.log.info(
 			{ url: sneaker.url, html },
-			"Didn't find 'esgotado' or 'indisponível' and didn't found sneaker name inside HTML, retuning false (probably banned)"
+			"Didn't find 'esgotado' or 'indisponível' and didn't find sneaker name inside HTML, retuning false (probably banned)"
 		);
 
 		throw new Error('Banned');
@@ -112,8 +111,6 @@ export class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryI
 			if (!foundElementWithEsgotadoClass) {
 				// didn't find any pre-knowledged selectors (neither .label-indisponivel nor .esgotado), so Nike could've changed them
 				// in order to check if is available or not, will relly upon finding 'esgotado' or 'insiponível' text inside the whole HTML
-				// TODO test with some nike pages (snkrs esgotados, snkrs não estados, tênis fora de snkrs esgotados e não esgotados)
-				// TODO email this to me so go check selectors
 				const isAvailable = this._isAvailableByCheckingHTMLForKeywords(sneaker, html);
 				return isAvailable;
 			}
