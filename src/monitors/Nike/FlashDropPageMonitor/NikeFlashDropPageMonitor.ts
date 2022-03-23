@@ -94,13 +94,12 @@ export default class NikeFlashDropPageMonitor extends Monitor {
     pageUrl: string
   ): Promise<NikeShoesPageDataLayerResponse> {
     const wantedUrl = 'https://www.nike.com.br/DataLayer/dataLayer';
-    const page = await this.browser!.newPage();
-    await page.setUserAgent(this.userAgent.random().toString());
+    await this.page!.setUserAgent(this.userAgent.random().toString());
     const [res] = await Promise.all([
-      page.waitForResponse((httpRes) => httpRes.url() === wantedUrl, {
+      this.page!.waitForResponse((httpRes) => httpRes.url() === wantedUrl, {
         timeout: 90000,
       }),
-      page.goto(pageUrl, { waitUntil: 'domcontentloaded' }),
+      this.page!.goto(pageUrl, { waitUntil: 'domcontentloaded' }),
     ]);
     return res.json();
   }
