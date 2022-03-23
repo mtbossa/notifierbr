@@ -20,7 +20,7 @@ export class NikeFlashDropsMonitorService {
 	    // Remove all that we don't want
 	      this._sneakersNamesToMonitor.some((nameToMonitor) => product.name.toLowerCase().includes(nameToMonitor)))
 	    .filter((product) => !product.name.toLowerCase().includes('infantil')) // Removes infantis
-	    .filter((product) => product.isAvailable === 1); // Removes not availables
+	    .filter((product) => product.isAvailable === 1 && product.skus.length > 0); // Removes not availables
 	}
 
 	public mapNeededSneakerDataForDiscord(sneaker: Product): SneakerData {
