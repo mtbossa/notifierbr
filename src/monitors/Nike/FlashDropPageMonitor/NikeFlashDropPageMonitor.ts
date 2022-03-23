@@ -213,10 +213,10 @@ export default class NikeFlashDropPageMonitor extends Monitor {
     this.log.info(test);
 
     const res = await axios({ url, ...this.lookUpRequest });
-    const { data } = <{ data: NikeLookUpResponse }>res;
+    const { data } = <{ data: NikeLookUpResponse[] }>res;
 
     const mappedUrls = data.map((sneakerData: NikeLookUpResponse) => {
-      sneakerData.skus[0].
+      sneakerData.skus.filter(sku => sku.)
     });
 
     return mappedUrls;
