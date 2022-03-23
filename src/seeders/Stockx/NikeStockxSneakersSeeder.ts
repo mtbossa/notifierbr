@@ -5,10 +5,12 @@ import UserAgent from 'user-agents';
 import fs from 'fs';
 import path from 'path';
 import _ from 'lodash';
-import { log } from '../helpers/general';
-import logger from '../logger';
-import { Product, StockxResponse } from '../requests/nike/interfaces/responses/StockxResponseInterface';
-import { StockxAPIRequestData } from '../requests/nike/interfaces/requests/StockxAPIRequestData';
+import logger from '../../logger';
+import {
+  Product,
+  StockxResponse,
+} from './models/responses/StockxResponse';
+import { StockxAPIRequestData } from './models/requests/StockxAPIRequestData';
 
 const configurePuppeteerBrowser = async () => {
   puppeteer.use(StealthPlugin());
@@ -22,7 +24,7 @@ const configurePuppeteerBrowser = async () => {
 const randomUserAgent = (userAgent: UserAgent) => userAgent.random().toString();
 
 const prismaClient = new PrismaClient();
-let requestsObjects: StockxAPIRequestData[] = require('../../requests/nike/stockx-nike-requests.json');
+let requestsObjects: StockxAPIRequestData[] = require('./scrapeData/nike-searchs.json');
 
 const appendNextPageParam = (pageNumber: string | null, currentUrl: string) => {
   if (!pageNumber || !currentUrl) return null;
@@ -48,18 +50,19 @@ function randomIntFromInterval(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-const timoutPromise = () => new Promise((resolve, reject) => {
-  const timeoutTime = randomIntFromInterval(1000, 10000);
-  setTimeout(() => {
-    resolve(`waited ${timeoutTime}`);
-  }, timeoutTime);
-});
+const timoutPromise = () =>
+  new Promise((resolve, reject) => {
+    const timeoutTime = randomIntFromInterval(1000, 10000);
+    setTimeout(() => {
+      resolve(`waited ${timeoutTime}`);
+    }, timeoutTime);
+  });
 
 const createProducts = async (
   products: Product[],
   pageTotalAmount: string,
   currentPageNumber: string | null,
-  search: string,
+  search: string
 ) => {
   for (const product of products) {
     try {
@@ -75,7 +78,10 @@ const createProducts = async (
           brand: product.brand,
         },
       });
-      logger.info({ newProduct }, `Product created. Page ${currentPageNumber}/${pageTotalAmount}. Search: ${search}`);
+      logger.info(
+        { newProduct },
+        `Product created. Page ${currentPageNumber}/${pageTotalAmount}. Search: ${search}`
+      );
     } catch (e) {
       if (e instanceof Error) {
         logger.error({ err: e });
@@ -85,9 +91,16 @@ const createProducts = async (
 };
 
 const updateJSONFile = (requestObject: StockxAPIRequestData) => {
-  const updatedOb = { ...requestObject, alreadyScraped: true, scrapeDate: new Date().toISOString() };
+  const updatedOb = {
+    ...requestObject,
+    alreadyScraped: true,
+    scrapeDate: new Date().toISOString(),
+  };
 
-  _.remove(requestsObjects, (requestObject) => requestObject.search == updatedOb.search);
+  _.remove(
+    requestsObjects,
+    (requestObject) => requestObject.search == updatedOb.search
+  );
 
   requestsObjects = [updatedOb, ...requestsObjects];
 
@@ -97,7 +110,7 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
     (err) => {
       if (err) console.log(err);
       console.log('file updated');
-    },
+    }
   );
 };
 
@@ -124,23 +137,31 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
           return JSON.parse(document.querySelector('body')!.innerText);
         });
         if (firstTime) {
-          pageTotalAmount = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.lastPage);
+          pageTotalAmount = getPageNumber(
+            requestObject.baseWebsiteUrl,
+            data.Pagination.lastPage
+          );
           firstTime = false;
         }
 
         createProducts(
-          data.Products.filter((product) => product.productCategory === 'sneakers'),
-					pageTotalAmount!,
-					currentPageNumber,
-					requestObject.search,
+          data.Products.filter(
+            (product) => product.productCategory === 'sneakers'
+          ),
+          pageTotalAmount!,
+          currentPageNumber,
+          requestObject.search
         );
 
         logger.info(
           { url: currentAPIUrl },
-          `Page ${currentPageNumber}/${pageTotalAmount}. Search: ${requestObject.search}`,
+          `Page ${currentPageNumber}/${pageTotalAmount}. Search: ${requestObject.search}`
         );
 
-        const nextPageNumber = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.nextPage); // stockx nextPage url doesnt work, thats why need to append next page param manually
+        const nextPageNumber = getPageNumber(
+          requestObject.baseWebsiteUrl,
+          data.Pagination.nextPage
+        ); // stockx nextPage url doesnt work, thats why need to append next page param manually
         currentPageNumber = nextPageNumber;
         currentAPIUrl = appendNextPageParam(nextPageNumber, currentAPIUrl);
 

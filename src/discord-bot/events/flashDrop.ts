@@ -1,20 +1,20 @@
 import { Client, MessageEmbed, TextChannel } from 'discord.js';
 import { notifyTextChannel } from '..';
-import { log } from '../../helpers/general';
-import { SneakerData } from '../../models/interfaces/SneakerDataInterface';
-import { JordanData } from '../../services/nikeFlashDropsMonitorService';
+import { DiscordSneakerData } from '../models/interfaces/DiscordSneakerData';
 
 module.exports = {
   name: 'flashDrop',
-  execute(client: Client, newSneakers: SneakerData[]) {
-    const channel = client.channels.cache.find((channel) => (channel as TextChannel).name === notifyTextChannel);
-    newSneakers.forEach((sneakerData: SneakerData) => {
+  execute(client: Client, newSneakers: DiscordSneakerData[]) {
+    const channel = client.channels.cache.find(
+      (channel) => (channel as TextChannel).name === notifyTextChannel
+    );
+    newSneakers.forEach((DiscordSneakerData: DiscordSneakerData) => {
       const exampleEmbed = new MessageEmbed()
         .setColor('#f58442')
-        .setTitle(sneakerData.name)
-        .setURL(sneakerData.url)
-        .setDescription(`Flash Drop! :rocket: ${sneakerData.styleCode}`)
-        .setThumbnail(sneakerData.imgUrl)
+        .setTitle(DiscordSneakerData.name)
+        .setURL(DiscordSneakerData.url)
+        .setDescription(`Flash Drop! :rocket: ${DiscordSneakerData.styleCode}`)
+        .setThumbnail(DiscordSneakerData.imgUrl)
         .setTimestamp();
 
       (channel as TextChannel).send({ embeds: [exampleEmbed] });

@@ -1,11 +1,3 @@
-export const log = (...args: any) => {
-  const now = new Date().toLocaleString()
-  console.log(
-    `----------------------------- ${now} -----------------------------`
-  )
-  console.log(...args)
-}
-
 export const randomIntFromInterval = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min)
 
