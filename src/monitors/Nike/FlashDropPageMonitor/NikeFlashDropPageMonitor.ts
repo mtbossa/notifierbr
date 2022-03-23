@@ -95,12 +95,12 @@ export default class NikeFlashDropPageMonitor extends Monitor {
     const page = await this.browser!.newPage();
     await page.setUserAgent(this.userAgent.random().toString());
     const [res] = await Promise.all([
-      page.waitForResponse((res) => res.url() === wantedUrl, {
+      page.waitForResponse((httpRes) => httpRes.url() === wantedUrl, {
         timeout: 90000,
       }),
       page.goto(pageUrl, { waitUntil: 'domcontentloaded' }),
     ]);
-    return await res.json();
+    return res.json();
   }
 
   private filterOnlyDesiredSneakers(listItems: ListItem[]): ListItem[] {
@@ -118,27 +118,32 @@ export default class NikeFlashDropPageMonitor extends Monitor {
   public async filterUniqueSneakers(
     listItems: ListItem[]
   ): Promise<ListItem[]> {
-    let newSneakers: ListItem[] = [];
+    const newSneakers: (ListItem | null)[] = await Promise.all(
+      listItems.map(async (listItem) => {
+        const styleCode = listItem.productNikeId;
+        const foundProduct = await this.findUniqueProduct(styleCode);
 
-    for (const listItem of listItems) {
-      const styleCode = listItem.productNikeId;
-      const foundProduct = await this.findUniqueProduct(styleCode);
+        if (!foundProduct) {
+          this.log.info(
+            { APIProductName: listItem.name },
+            'Product name not found on database, Flash Drop!'
+          );
+          await this.createProduct({
+            productName: listItem.name,
+            styleCode,
+            brand: 'Nike',
+          });
+          return listItem;
+        }
+        return null;
+      })
+    );
 
-      if (!foundProduct) {
-        this.log.info(
-          { APIProductName: listItem.name },
-          'Product name not found on database, Flash Drop!'
-        );
-        newSneakers = [...newSneakers, listItem];
-        await this.createProduct({
-          productName: listItem.name,
-          styleCode,
-          brand: 'Nike',
-        });
-      }
-    }
+    const newSneakersWithoutNulls: ListItem[] = newSneakers.filter(
+      (sneaker): sneaker is ListItem => sneaker !== null
+    );
 
-    return newSneakers;
+    return newSneakersWithoutNulls;
   }
 
   public async createProduct(productInfo: {
@@ -204,19 +209,38 @@ export default class NikeFlashDropPageMonitor extends Monitor {
   private async getUrls(
     sneakers: ListItem[]
   ): Promise<{ styleCode: string; url: string; imgUrl: string }[]> {
-    const styles = sneakers.map(
-      (sneaker) => sneaker.productNikeId.split('-')[0]
+    const styles: { style: string; color: string }[] = sneakers.map(
+      (sneaker) => {
+        const [style, color] = sneaker.productNikeId.split('-');
+        return { style, color };
+      }
     );
-    const url = `${this.lookUpRequest.url}/${styles.join(',')}`;
+    const search = styles.map((style) => style.style).join(',');
+    const url = `${this.lookUpRequest.url}/${search}`;
 
     const test = { url, ...this.lookUpRequest };
     this.log.info(test);
 
     const res = await axios({ url, ...this.lookUpRequest });
-    const { data } = <{ data: NikeLookUpResponse[] }>res;
+    const { data: nikeLookUpResponse } = <{ data: NikeLookUpResponse[] }>res;
 
-    const mappedUrls = data.map((sneakerData: NikeLookUpResponse) => {
-      sneakerData.skus.filter(sku => sku.)
+    let mappedUrls: { styleCode: string; url: string; imgUrl: string }[] = [];
+
+    styles.forEach((style) => {
+      const thisSneakerData = nikeLookUpResponse.find(
+        (sneakerData) => sneakerData.id === style.style
+      );
+      const thisColorSku = thisSneakerData!.skus.find(
+        (sku) => sku.specs.color.split('_')[1] === style.color
+      );
+
+      const ob = {
+        url: thisColorSku!.url,
+        imgUrl: thisColorSku!.images['380-x-380'],
+        styleCode: `${style.style}-${style.color}`,
+      };
+
+      mappedUrls = [...mappedUrls, ob];
     });
 
     return mappedUrls;
@@ -225,20 +249,20 @@ export default class NikeFlashDropPageMonitor extends Monitor {
   private async mapNeededSneakerDataForDiscord(
     sneakers: ListItem[]
   ): Promise<SneakerData[]> {
-    const urls = this.getUrls(sneakers);
+    const urlObjs = await this.getUrls(sneakers);
 
-    const mappedSneakers = Promise.all(
-      sneakers.map(async (sneaker) => {
-        const { url, imgUrl } = await this.getUrls(sneaker);
-        return {
-          name: sneaker.name,
-          url,
-          imgUrl,
-          price: `R$ ${sneaker.salePrice}`,
-          styleCode: sneaker.productNikeId,
-        } as SneakerData;
-      })
-    );
+    const mappedSneakers = sneakers.map((sneaker) => {
+      const currentSneakerUrls = urlObjs.find(
+        (urlOb) => urlOb.styleCode === sneaker.productNikeId
+      );
+      return {
+        name: sneaker.name,
+        url: currentSneakerUrls?.url,
+        imgUrl: currentSneakerUrls?.imgUrl,
+        price: `R$ ${sneaker.salePrice}`,
+        styleCode: sneaker.productNikeId,
+      } as SneakerData;
+    });
 
     return mappedSneakers;
   }
