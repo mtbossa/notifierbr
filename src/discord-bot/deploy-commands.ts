@@ -2,7 +2,6 @@ import { SlashCommandBuilder } from '@discordjs/builders';
 import { REST } from '@discordjs/rest';
 import { readdirSync } from 'fs';
 import { Routes } from 'discord-api-types/v9';
-import { log } from '../helpers/general';
 
 const commands: SlashCommandBuilder[] = [];
 
