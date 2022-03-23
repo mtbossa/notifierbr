@@ -4,7 +4,7 @@ import { Browser, Page } from 'puppeteer';
 import puppeteer from 'puppeteer-extra';
 import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 import UserAgent from 'user-agents';
-import axios, { AxiosRequestlookUpRequest } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { secToMs } from '../../../helpers/general';
 import { SneakerData } from '../../../models/interfaces/SneakerDataInterface';
 import { prismaClient } from '../../../prismaClient';
@@ -15,6 +15,8 @@ import {
 import { Monitor } from '../../Monitor';
 import { NikeLookUpResponse } from '../../../requests/nike/interfaces/responses/NikeLookUpResponse';
 
+const puppeteerExtraPluginBlockResources = require('puppeteer-extra-plugin-block-resources');
+
 export default class NikeFlashDropPageMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
@@ -24,7 +26,7 @@ export default class NikeFlashDropPageMonitor extends Monitor {
 
   private page?: Page;
 
-  private lookUpRequest: AxiosRequestlookUpRequest = {
+  private lookUpRequest: AxiosRequestConfig = {
     method: 'get',
     url: 'https://www.nike.com.br/ProductLookup',
     headers: {
@@ -67,7 +69,7 @@ export default class NikeFlashDropPageMonitor extends Monitor {
   public async setUpPuppeteer() {
     puppeteer.use(StealthPlugin());
     puppeteer.use(
-      require('puppeteer-extra-plugin-block-resources')({
+      puppeteerExtraPluginBlockResources()({
         blockedTypes: new Set(['image', 'stylesheet', 'media', 'font']),
       })
     );
@@ -196,14 +198,8 @@ export default class NikeFlashDropPageMonitor extends Monitor {
   }
 
   private handleNewUniqueSneakers(newUniqueSneakers: SneakerData[]) {
-    if (newUniqueSneakers.length > 0) {
-      this.log.warn({ newUniqueSneakers }, 'New Unique Sneakers found');
-      this.discordClient.emit(
-        'flashDrop',
-        this.discordClient,
-        newUniqueSneakers
-      );
-    }
+    this.log.warn({ newUniqueSneakers }, 'New Unique Sneakers found');
+    this.discordClient.emit('flashDrop', this.discordClient, newUniqueSneakers);
   }
 
   private async getUrls(
@@ -269,22 +265,28 @@ export default class NikeFlashDropPageMonitor extends Monitor {
 
   async check(): Promise<void> {
     try {
-      for (const pageUrl of this.pages) {
-        const dataLayerResponse: NikeShoesPageDataLayerResponse =
-          await this.getPageDataLayerResponse(pageUrl);
-        const { listItems } = dataLayerResponse.pageInfo;
-        const filteredListItems = this.filterOnlyDesiredSneakers(listItems);
-        const newSneakers = await this.filterUniqueSneakers(filteredListItems);
+      await Promise.all([
+        this.pages.forEach(async (pageUrl) => {
+          const dataLayerResponse: NikeShoesPageDataLayerResponse =
+            await this.getPageDataLayerResponse(pageUrl);
+          const { listItems } = dataLayerResponse.pageInfo;
+          const filteredListItems = this.filterOnlyDesiredSneakers(listItems);
+          const newUniqueSneakers = await this.filterUniqueSneakers(
+            filteredListItems
+          );
 
-        if (newSneakers.length === 0) continue;
+          if (newUniqueSneakers.length === 0) return;
 
-        const discordMappedNewUniqueSneakers =
-          await this.mapNeededSneakerDataForDiscord(newSneakers);
+          const discordMappedNewUniqueSneakers =
+            await this.mapNeededSneakerDataForDiscord(newUniqueSneakers);
 
-        this.handleNewUniqueSneakers(discordMappedNewUniqueSneakers);
-      }
+          this.handleNewUniqueSneakers(discordMappedNewUniqueSneakers);
+        }),
+      ]);
     } catch (e) {
       this.log.error({ err: e });
+    } finally {
+      this.reRunCheck();
     }
   }
 }

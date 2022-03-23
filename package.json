@@ -14,9 +14,9 @@
   "devDependencies": {
     "@types/nodemailer": "^6.4.4",
     "@types/pino-pretty": "^4.7.5",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.15.0",
-    "eslint": "^7.32.0",
+    "@typescript-eslint/eslint-plugin": "^5.16.0",
+    "@typescript-eslint/parser": "^5.16.0",
+    "eslint": "^8.11.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-typescript": "^2.7.0",
