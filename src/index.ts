@@ -3,7 +3,7 @@ import { exitHandler } from './helpers/general';
 import { configureBotClient } from './discord-bot'; // Runs code when imported (bot.ts runs code when called)
 import { createNikeFlashDropMonitor } from './monitors/Nike/FlashDropMonitor/NikeFlashDropMonitorFactory';
 import { createRestockDropMonitor } from './monitors/Nike/RestockMonitor/NikeRestockMonitorFactory';
-import { createFlashDropPageMonitor } from './monitors/Nike/FlashDropPageMonitor/NikeFlashDropPageMonitorFactory';
+import createFlashDropPageMonitor from './monitors/Nike/FlashDropPageMonitor/NikeFlashDropPageMonitorFactory';
 
 const startNikeFlashDropsMonitors = async (discordClient: Client) => {
   const monitor = createNikeFlashDropMonitor(discordClient);

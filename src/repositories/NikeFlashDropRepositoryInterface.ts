@@ -4,8 +4,11 @@ import { NikeAPISearchRequest } from '../requests/nike/interfaces/requests/NikeA
 import { Product } from '../requests/nike/interfaces/responses/NikeAPISearchResponse';
 
 export abstract class NikeFlashDropRepositoryInterface {
-	protected log = logger.child({ monitor: `[NikeFlashDropMonitor]` });
+	protected log = logger.child({ monitor: '[NikeFlashDropMonitor]' });
+
 	abstract getNewSneakersOfThisSearch(requestObject: NikeAPISearchRequest): Promise<SneakerData[]>;
+
 	abstract getCurrentSearchSneakersData(requestObject: NikeAPISearchRequest): Promise<Product[]>;
+
 	abstract filterUniqueSneakers(products: Product[]): Promise<Product[]>;
 }
