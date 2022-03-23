@@ -6,7 +6,7 @@ import { NikeRestockMonitor } from './NikeRestockMonitor';
 import { NikeRestockPuppeteerScrapeRepository } from '../repositories/implementations/NikeRestockPuppeteerScrapeRepository';
 
 export async function createRestockDropMonitor(discordClient: Client) {
-  const requestsObjects: NikeRestockAPIRequestData[] = require('../scrape_data/restocks.json');
+  const requestsObjects: NikeRestockAPIRequestData[] = require('../../../../scrape_data/monitors/Nike/restocks.json');
   const userAgent = new UserAgent({ deviceCategory: 'desktop' });
   const nikeRestockMonitorService = new NikeRestockMonitorService();
   const restockRepository = new NikeRestockPuppeteerScrapeRepository(

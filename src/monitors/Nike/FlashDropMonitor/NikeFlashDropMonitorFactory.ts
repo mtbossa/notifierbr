@@ -5,7 +5,7 @@ import { NikeFlashDropsMonitorService } from '../services/NikeFlashDropMonitorSe
 import { NikeFlashDropsMonitor } from './NikeFlashDropMonitor';
 
 export function createNikeFlashDropMonitor(discordClient: Client) {
-  const requestsObjects: NikeAPISearchRequest[] = require('../scrape_data/searchs.json'); // array with axios formatted request for nike sneakers search
+  const requestsObjects: NikeAPISearchRequest[] = require('../../../../scrape_data/monitors/Nike/searchs.json'); // array with axios formatted request for nike sneakers search
 
   const nikeFlashDropService = new NikeFlashDropsMonitorService();
   const flashDropRepository = new NikeFlashDropsAPIRepository(

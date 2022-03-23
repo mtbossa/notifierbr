@@ -37,22 +37,28 @@ export class NikeFlashDropsMonitor extends Monitor {
   }
 
   async check(): Promise<void> {
-    for (const requestObject of this._requestsObjects) {
-      await waitTimeout({ min: secToMs(3), max: secToMs(10) });
-      this.log.info(`Getting search sneakers: ${requestObject.search}`);
+    try {
+      for (const requestObject of this._requestsObjects) {
+        await waitTimeout({ min: secToMs(3), max: secToMs(10) });
+        this.log.info(`Getting search sneakers: ${requestObject.search}`);
 
-      const sneakers =
-        await this._flashDropRepository.getCurrentSearchSneakersData(
-          requestObject
-        );
-      const filteredSneakers =
-        this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(sneakers);
-      const newUniqueSneakers =
-        await this._flashDropRepository.filterUniqueSneakers(filteredSneakers);
+        const sneakers =
+          await this._flashDropRepository.getCurrentSearchSneakersData(
+            requestObject
+          );
+        const filteredSneakers =
+          this._nikeFlashDropMonitorService.filterOnlyDesiredSneakers(sneakers);
+        const newUniqueSneakers =
+          await this._flashDropRepository.filterUniqueSneakers(
+            filteredSneakers
+          );
 
-      this._handleNewUniqueSneakers(newUniqueSneakers);
+        this._handleNewUniqueSneakers(newUniqueSneakers);
+      }
+    } catch (err) {
+      this.log.error({ err });
+    } finally {
+      this.reRunCheck();
     }
-
-    this.reRunCheck();
   }
 }
