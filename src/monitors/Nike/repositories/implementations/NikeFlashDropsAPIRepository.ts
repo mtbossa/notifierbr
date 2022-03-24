@@ -224,15 +224,30 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     productName: string;
     styleCode: string;
     brand: string;
+    productUrl: string;
     releaseDate?: string;
   }): Promise<void> {
     try {
+      const nikeStore = await prismaClient.store.findUnique({
+        where: { url: 'https://www.nike.com.br' },
+      });
+      if(!nikeStore) throw new Error ('Store not found');
       const productCreated = await prismaClient.product.create({
         data: {
           name: productInfo.productName,
           brand: productInfo.brand,
           style_code: productInfo.styleCode,
           release_date: productInfo.releaseDate,
+          stores: {
+            create: {
+              stores_id: nikeStore?.id,
+              product_url:
+                this._nikeFlashDropMonitorService.changeUrlSlashesToHttps(
+                  productInfo.productUrl
+                ),
+              available: true,
+            },
+          },
         },
       });
       this.log.info(
@@ -243,8 +258,6 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
       if (e instanceof Error) {
         this.log.error({
           err: e,
-          errorMsg: e.message,
-          method: 'NikeFlashDropAPIRespository.createProduct',
           productInfo,
         });
       }
@@ -268,6 +281,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
           productName: product.name,
           styleCode,
           brand: 'Nike',
+          productUrl: product.productUrl,
         });
       }
     }
