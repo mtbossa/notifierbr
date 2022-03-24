@@ -1,10 +1,7 @@
-import moment from "moment";
-import logger from "../../../logger";
 import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/DiscordSneakerData";
-import { prismaClient } from "../../../prismaClient";
 import { Product } from "../models/responses/NikeAPISearchResponse";
 
-export class NikeFlashDropsMonitorService {
+export default class NikeFlashDropsMonitorService {
   private _sneakersNamesToMonitor = [
     "air jordan 1 ",
     "air jordan 4 ",

@@ -1,3 +1,6 @@
+/* eslint no-param-reassign: 0 */
+/* eslint global-require: 0 */
+/* eslint import/no-dynamic-require: 0 */
 import { Client, Collection, Intents } from "discord.js";
 import { readdirSync } from "fs";
 import logger from "../logger";

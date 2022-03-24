@@ -1,3 +1,4 @@
+/* eslint import/no-import-module-exports: 0 */
 import { SlashCommandBuilder } from "@discordjs/builders";
 
 module.exports = {

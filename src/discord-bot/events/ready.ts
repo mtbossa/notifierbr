@@ -1,9 +1,11 @@
-import { Client } from "discord.js";
+/* eslint import/no-import-module-exports: 0 */
+import logger from "../../logger";
 
 module.exports = {
   name: "ready",
   once: true,
-  execute(client: Client) {
-    console.log("Ready!");
+  execute() {
+    // Client is available
+    logger.info("Discord Bot ready!");
   },
 };

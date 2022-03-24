@@ -1,15 +1,15 @@
 import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/DiscordSneakerData";
 
-export class NikeRestockMonitorService {
-  public mapNeededDiscordSneakerDataForDiscord(DiscordSneakerData: {
+export default class NikeRestockMonitorService {
+  public mapNeededDiscordSneakerDataForDiscord(discordSneakerData: {
     name: string;
     url: string;
     imgUrl: string;
   }): DiscordSneakerData {
     return {
-      name: DiscordSneakerData.name,
-      url: DiscordSneakerData.url,
-      imgUrl: DiscordSneakerData.imgUrl,
+      name: discordSneakerData.name,
+      url: discordSneakerData.url,
+      imgUrl: discordSneakerData.imgUrl,
     } as DiscordSneakerData;
   }
 }

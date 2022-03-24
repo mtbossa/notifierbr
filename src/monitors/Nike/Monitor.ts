@@ -1,7 +1,7 @@
 import { msToSec, randomIntFromInterval } from "../../helpers/general";
 import logger from "../../logger";
 
-export abstract class Monitor {
+export default abstract class Monitor {
   protected abstract minTimeout: number;
 
   protected abstract maxTimeout: number;

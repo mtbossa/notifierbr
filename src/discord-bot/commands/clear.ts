@@ -1,5 +1,6 @@
+/* eslint import/no-import-module-exports: 0 */
 import { SlashCommandBuilder } from "@discordjs/builders";
-import { BaseCommandInteraction, CommandInteraction, TextChannel } from "discord.js";
+import { CommandInteraction, TextChannel } from "discord.js";
 
 module.exports = {
   data: new SlashCommandBuilder()

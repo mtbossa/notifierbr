@@ -1,7 +1,10 @@
+/* eslint import/no-dynamic-require: 0 */
+/* eslint global-require: 0 */
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { REST } from "@discordjs/rest";
 import { readdirSync } from "fs";
 import { Routes } from "discord-api-types/v9";
+import logger from "../logger";
 
 const commands: SlashCommandBuilder[] = [];
 
@@ -21,5 +24,5 @@ rest
     Routes.applicationGuildCommands(process.env.DISCORD_CLIENT_ID!, process.env.DISCORD_GUILD_ID!),
     { body: commands },
   )
-  .then(() => console.log("Successfully registered application commands."))
-  .catch(console.error);
+  .then(() => logger.info("Successfully registered application commands."))
+  .catch((err) => logger.error({ err }));

@@ -57,23 +57,13 @@ export interface Sku {
   properties: Property;
 }
 
-export interface Installment {
+export interface ProductInstallment {
   amount: string;
   qty: number;
   amountRaw: string;
 }
 
-export interface Image {
-  "260-x-260": string;
-  "310-x-310": string;
-  "380-x-380": string;
-  "440-x-440": string;
-  "50-x-50": string;
-  "800-x-800": string;
-  default: string;
-}
-
-export interface Tag {
+export interface ProductTag {
   id: string;
   name: string;
 }
@@ -115,10 +105,10 @@ export interface Product {
   skus: Sku[];
   description: string;
   clickUrl: string;
-  installments: Installment[];
+  installments: ProductInstallment[];
   images: Image;
   created: string;
-  tags: Tag[];
+  tags: ProductTag[];
   categories: Category[];
   specs: Spec;
   isDiscount: boolean;

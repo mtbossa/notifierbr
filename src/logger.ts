@@ -23,8 +23,7 @@ if (process.env.NODE_ENV === "dev") {
         translateTime: "yyyy-mm-dd HH:MM:ss",
         levelFirst: true,
         ignore: "pid,hostname,monitor",
-        messageFormat: (log: LogDescriptor, messageKey, levelLabel) =>
-          `${log.monitor} - ${log[messageKey]}`,
+        messageFormat: (log: LogDescriptor, messageKey) => `${log.monitor} - ${log[messageKey]}`,
       }),
     },
     {

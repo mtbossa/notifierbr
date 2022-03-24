@@ -1,17 +1,17 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { secToMs, waitTimeout } from "../../../../helpers/general";
 import { DiscordSneakerData } from "../../../../discord-bot/models/interfaces/DiscordSneakerData";
-import { prismaClient } from "../../../../prismaClient";
+import prismaClient from "../../../../prismaClient";
 import { NikeAPISearchRequest } from "../../models/requests/NikeAPISearchRequest";
 import {
   NikeAPISearchResponse,
   Pagination,
   Product,
 } from "../../models/responses/NikeAPISearchResponse";
-import { NikeFlashDropsMonitorService } from "../../services/NikeFlashDropMonitorService";
-import { NikeFlashDropRepositoryInterface } from "../NikeFlashDropRepositoryInterface";
+import NikeFlashDropsMonitorService from "../../services/NikeFlashDropMonitorService";
+import NikeFlashDropRepositoryInterface from "../NikeFlashDropRepositoryInterface";
 
-export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterface {
+export default class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterface {
   private _currentPage?: number;
 
   private _currentRequest?: AxiosRequestConfig;
@@ -99,7 +99,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     }
 
     this.log.info(`Current page: ${this._currentPage}/${this._maxPages}`);
-    this._currentPage!++;
+    this._currentPage! += 1;
 
     nextAPIUrlSearchParams[appendOrSet]("page", String(this._currentPage));
     nextRefererUrlSearchParams[appendOrSet]("page", String(this._currentPage));
@@ -149,7 +149,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
 
   private async _currentPageDesiredSneakers(
     pageSearchRequest: AxiosRequestConfig,
-  ): Promise<Product[] | undefined> {
+  ): Promise<Product[]> {
     try {
       this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
       const response = await axios(pageSearchRequest);
@@ -176,6 +176,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
           pageSearchRequest,
         });
       }
+      return [];
     }
   }
 
@@ -193,6 +194,8 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
           styleCode,
         });
       }
+
+      return [];
     }
   }
 

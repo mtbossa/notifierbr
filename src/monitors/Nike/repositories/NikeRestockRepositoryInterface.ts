@@ -3,7 +3,7 @@ import logger from "../../../logger";
 import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/DiscordSneakerData";
 import { NikeRestockAPIRequestData } from "../models/requests/NikeRestockAPIRequestData";
 
-export abstract class NikeRestockRepositoryInterface {
+export default abstract class NikeRestockRepositoryInterface {
   protected log = logger.child({ monitor: "[NikeRestockMonitor]" });
 
   abstract isSneakerAvailable(

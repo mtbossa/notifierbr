@@ -1,13 +1,12 @@
 import { Client } from "discord.js";
-import _ from "lodash";
 import { secToMs, waitTimeout } from "../../../helpers/general";
-import { NikeFlashDropRepositoryInterface } from "../repositories/NikeFlashDropRepositoryInterface";
+import NikeFlashDropRepositoryInterface from "../repositories/NikeFlashDropRepositoryInterface";
 import { NikeAPISearchRequest } from "../models/requests/NikeAPISearchRequest";
-import { NikeFlashDropsMonitorService } from "../services/NikeFlashDropMonitorService";
-import { Monitor } from "../Monitor";
+import NikeFlashDropsMonitorService from "../services/NikeFlashDropMonitorService";
+import Monitor from "../Monitor";
 import { Product } from "../models/responses/NikeAPISearchResponse";
 
-export class NikeFlashDropsMonitor extends Monitor {
+export default class NikeFlashDropsMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
   protected maxTimeout: number = secToMs(60);

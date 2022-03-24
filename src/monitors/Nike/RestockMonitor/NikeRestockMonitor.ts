@@ -1,13 +1,14 @@
+/* eslint global-require: 0 */
 import { Client } from "discord.js";
 import { Browser, Page } from "puppeteer";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { secToMs, waitTimeout } from "../../../helpers/general";
-import { NikeRestockRepositoryInterface } from "../repositories/NikeRestockRepositoryInterface";
+import NikeRestockRepositoryInterface from "../repositories/NikeRestockRepositoryInterface";
 import { NikeRestockAPIRequestData } from "../models/requests/NikeRestockAPIRequestData";
-import { Monitor } from "../Monitor";
+import Monitor from "../Monitor";
 
-export class NikeRestockMonitor extends Monitor {
+export default class NikeRestockMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
   protected maxTimeout: number = secToMs(60);
@@ -81,7 +82,7 @@ export class NikeRestockMonitor extends Monitor {
           this._currentRequest!,
           this._page!,
         );
-        this._currentRequestIndex++;
+        this._currentRequestIndex += 1;
 
         if (!isSneakerAvailable) {
           if (await this.nikeRestockRepository.isCurrentlyAvailableOnStore(this._currentRequest!)) {

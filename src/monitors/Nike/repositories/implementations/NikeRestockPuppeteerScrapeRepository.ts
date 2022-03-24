@@ -3,12 +3,12 @@ import { Page } from "puppeteer";
 import UserAgent from "user-agents";
 import logger from "../../../../logger";
 import { DiscordSneakerData } from "../../../../discord-bot/models/interfaces/DiscordSneakerData";
-import { prismaClient } from "../../../../prismaClient";
+import prismaClient from "../../../../prismaClient";
 import { NikeRestockAPIRequestData } from "../../models/requests/NikeRestockAPIRequestData";
-import { NikeRestockMonitorService } from "../../services/NikeRestockMonitorService";
-import { NikeRestockRepositoryInterface } from "../NikeRestockRepositoryInterface";
+import NikeRestockMonitorService from "../../services/NikeRestockMonitorService";
+import NikeRestockRepositoryInterface from "../NikeRestockRepositoryInterface";
 
-export class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryInterface {
+export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRepositoryInterface {
   constructor(
     private _nikeRestockMonitorService: NikeRestockMonitorService,
     private userAgent: UserAgent,

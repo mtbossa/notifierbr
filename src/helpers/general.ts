@@ -1,17 +1,19 @@
+import logger from "../logger";
+
 export const randomIntFromInterval = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
 export const waitTimeout = (config: { min: number; max: number }) =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const timeoutTime = randomIntFromInterval(config.min, config.max);
     setTimeout(() => {
       resolve(`waited ${timeoutTime}`);
     }, timeoutTime);
   });
 
-export const exitHandler = (options: any, exitCode: any) => {
+export const exitHandler = (options: any) => {
   if (options.exit) {
-    console.log("exiting");
+    logger.info("exitHandler. options.exit: ", options.exit);
     process.exit();
   }
 };

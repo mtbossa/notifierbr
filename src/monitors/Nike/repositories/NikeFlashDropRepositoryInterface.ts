@@ -3,7 +3,7 @@ import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/Disco
 import { NikeAPISearchRequest } from "../models/requests/NikeAPISearchRequest";
 import { Product } from "../models/responses/NikeAPISearchResponse";
 
-export abstract class NikeFlashDropRepositoryInterface {
+export default abstract class NikeFlashDropRepositoryInterface {
   protected log = logger.child({ monitor: "[NikeFlashDropMonitor]" });
 
   abstract getNewSneakersOfThisSearch(
