@@ -25,7 +25,7 @@ export class NikeFlashDropsMonitor extends Monitor {
     if (newUniqueSneakers.length > 0) {
       this.log.warn({ newUniqueSneakers }, 'New Unique Sneakers found');
       this._discordClient.emit(
-        'flashDrop',
+        'nikeFlashDrop',
         this._discordClient,
         newUniqueSneakers.map((product) =>
           this._nikeFlashDropMonitorService.mapNeededDiscordSneakerDataForDiscord(

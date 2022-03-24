@@ -81,7 +81,6 @@ export class NikeRestockMonitor extends Monitor {
 					this._currentRequest!,
 					this._page!,
 	      );
-	      isSneakerAvailable = false;
 	      this._currentRequestIndex++;
 
 	      if (!isSneakerAvailable) {
@@ -93,7 +92,7 @@ export class NikeRestockMonitor extends Monitor {
 	      if (await this.nikeRestockRepository.isCurrentlyAvailableOnStore(this._currentRequest!)) continue;
 
 	      const sneaker = await this.nikeRestockRepository.getSneaker(this._currentRequest!);
-	      this._discordClient.emit('restock', this._discordClient, sneaker);
+	      this._discordClient.emit('nikeRestock', this._discordClient, sneaker);
 	      await this.nikeRestockRepository.setSneakerAvailability(this._currentRequest!, { available: true });
 	    } while (this._notPassedThroughAllRequests());
 
