@@ -3,7 +3,7 @@ import fs from "fs";
 import NikeFlashDropsAPIRepository from "../repositories/implementations/NikeFlashDropsAPIRepository";
 import { NikeAPISearchRequest } from "../models/requests/NikeAPISearchRequest";
 import NikeFlashDropsMonitorService from "../services/NikeFlashDropMonitorService";
-import { NikeFlashDropsMonitor } from "./NikeFlashDropMonitor";
+import NikeFlashDropsMonitor from "./NikeFlashDropMonitor";
 
 export default function createNikeFlashDropMonitor(discordClient: Client) {
   const requestsObjects = fs.readFileSync(
