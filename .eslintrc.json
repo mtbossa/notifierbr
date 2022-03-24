@@ -18,6 +18,6 @@
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "no-await-in-loop": ["off"],
-    "no-restricted-syntax": [["off", "ForStatement"]]
+    "no-restricted-syntax": ["off", "ForOfStatement"]
   }
 }
