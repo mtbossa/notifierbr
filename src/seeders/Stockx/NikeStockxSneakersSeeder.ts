@@ -1,22 +1,19 @@
-import { PrismaClient } from '@prisma/client';
-import puppeteer from 'puppeteer-extra';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
-import UserAgent from 'user-agents';
-import fs from 'fs';
-import path from 'path';
-import _ from 'lodash';
-import logger from '../../logger';
-import {
-  Product,
-  StockxResponse,
-} from './models/responses/StockxResponse';
-import { StockxAPIRequestData } from './models/requests/StockxAPIRequestData';
+import { PrismaClient } from "@prisma/client";
+import puppeteer from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
+import UserAgent from "user-agents";
+import fs from "fs";
+import path from "path";
+import _ from "lodash";
+import logger from "../../logger";
+import { Product, StockxResponse } from "./models/responses/StockxResponse";
+import { StockxAPIRequestData } from "./models/requests/StockxAPIRequestData";
 
 const configurePuppeteerBrowser = async () => {
   puppeteer.use(StealthPlugin());
   const browser = await puppeteer.launch({});
   const page = await browser.newPage();
-  const userAgent = new UserAgent({ deviceCategory: 'desktop' });
+  const userAgent = new UserAgent({ deviceCategory: "desktop" });
 
   return { page, userAgent };
 };
@@ -24,7 +21,7 @@ const configurePuppeteerBrowser = async () => {
 const randomUserAgent = (userAgent: UserAgent) => userAgent.random().toString();
 
 const prismaClient = new PrismaClient();
-let requestsObjects: StockxAPIRequestData[] = require('./scrapeData/nike-searchs.json');
+let requestsObjects: StockxAPIRequestData[] = require("./scrapeData/nike-searchs.json");
 
 const appendNextPageParam = (pageNumber: string | null, currentUrl: string) => {
   if (!pageNumber || !currentUrl) return null;
@@ -32,10 +29,10 @@ const appendNextPageParam = (pageNumber: string | null, currentUrl: string) => {
   const obUrl: URL = new URL(currentUrl);
 
   // if the current url doenst have the page filter, must append
-  if (!obUrl.searchParams.get('page')) {
-    obUrl.searchParams.append('page', pageNumber);
+  if (!obUrl.searchParams.get("page")) {
+    obUrl.searchParams.append("page", pageNumber);
   } else {
-    obUrl.searchParams.set('page', pageNumber);
+    obUrl.searchParams.set("page", pageNumber);
   }
 
   return obUrl.toString();
@@ -43,7 +40,7 @@ const appendNextPageParam = (pageNumber: string | null, currentUrl: string) => {
 
 const getPageNumber = (baseWebsiteUrl: string, nextPageUrl?: string) => {
   if (!nextPageUrl) return null; // TODO throw new kind of error instead of null
-  return new URL(`${baseWebsiteUrl}${nextPageUrl}`).searchParams.get('page');
+  return new URL(`${baseWebsiteUrl}${nextPageUrl}`).searchParams.get("page");
 };
 
 function randomIntFromInterval(min: number, max: number) {
@@ -62,7 +59,7 @@ const createProducts = async (
   products: Product[],
   pageTotalAmount: string,
   currentPageNumber: string | null,
-  search: string
+  search: string,
 ) => {
   for (const product of products) {
     try {
@@ -80,7 +77,7 @@ const createProducts = async (
       });
       logger.info(
         { newProduct },
-        `Product created. Page ${currentPageNumber}/${pageTotalAmount}. Search: ${search}`
+        `Product created. Page ${currentPageNumber}/${pageTotalAmount}. Search: ${search}`,
       );
     } catch (e) {
       if (e instanceof Error) {
@@ -97,20 +94,17 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
     scrapeDate: new Date().toISOString(),
   };
 
-  _.remove(
-    requestsObjects,
-    (requestObject) => requestObject.search == updatedOb.search
-  );
+  _.remove(requestsObjects, (requestObject) => requestObject.search == updatedOb.search);
 
   requestsObjects = [updatedOb, ...requestsObjects];
 
   fs.writeFile(
-    path.join(__dirname, '../../requests/nike/stockx-nike-requests.json'),
+    path.join(__dirname, "../../requests/nike/stockx-nike-requests.json"),
     JSON.stringify(requestsObjects, null, 2),
     (err) => {
       if (err) console.log(err);
-      console.log('file updated');
-    }
+      console.log("file updated");
+    },
   );
 };
 
@@ -125,7 +119,7 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
 
     let currentAPIUrl: string | null = requestObject.APIUrl; // the first iteration doesn't have a page
     let pageTotalAmount = null;
-    let currentPageNumber: string | null = '1';
+    let currentPageNumber: string | null = "1";
     let firstTime = true;
 
     try {
@@ -133,34 +127,29 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
         await page.setUserAgent(randomUserAgent(userAgent));
         await page.goto(currentAPIUrl, { timeout: 0 });
         const data: StockxResponse = await page.evaluate(() => {
-          console.log(document.querySelector('body')!.innerText);
-          return JSON.parse(document.querySelector('body')!.innerText);
+          console.log(document.querySelector("body")!.innerText);
+          return JSON.parse(document.querySelector("body")!.innerText);
         });
         if (firstTime) {
-          pageTotalAmount = getPageNumber(
-            requestObject.baseWebsiteUrl,
-            data.Pagination.lastPage
-          );
+          pageTotalAmount = getPageNumber(requestObject.baseWebsiteUrl, data.Pagination.lastPage);
           firstTime = false;
         }
 
         createProducts(
-          data.Products.filter(
-            (product) => product.productCategory === 'sneakers'
-          ),
+          data.Products.filter((product) => product.productCategory === "sneakers"),
           pageTotalAmount!,
           currentPageNumber,
-          requestObject.search
+          requestObject.search,
         );
 
         logger.info(
           { url: currentAPIUrl },
-          `Page ${currentPageNumber}/${pageTotalAmount}. Search: ${requestObject.search}`
+          `Page ${currentPageNumber}/${pageTotalAmount}. Search: ${requestObject.search}`,
         );
 
         const nextPageNumber = getPageNumber(
           requestObject.baseWebsiteUrl,
-          data.Pagination.nextPage
+          data.Pagination.nextPage,
         ); // stockx nextPage url doesnt work, thats why need to append next page param manually
         currentPageNumber = nextPageNumber;
         currentAPIUrl = appendNextPageParam(nextPageNumber, currentAPIUrl);

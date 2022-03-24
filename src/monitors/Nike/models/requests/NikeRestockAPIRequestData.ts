@@ -1,5 +1,5 @@
 export type NikeRestockAPIRequestData = {
-	sneakerName: string;
-	url: string;
-	imgUrl: string;
+  sneakerName: string;
+  url: string;
+  imgUrl: string;
 };

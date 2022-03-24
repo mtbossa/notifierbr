@@ -1,15 +1,15 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { secToMs, waitTimeout } from '../../../../helpers/general';
-import { DiscordSneakerData } from '../../../../discord-bot/models/interfaces/DiscordSneakerData';
-import { prismaClient } from '../../../../prismaClient';
-import { NikeAPISearchRequest } from '../../models/requests/NikeAPISearchRequest';
+import axios, { AxiosRequestConfig } from "axios";
+import { secToMs, waitTimeout } from "../../../../helpers/general";
+import { DiscordSneakerData } from "../../../../discord-bot/models/interfaces/DiscordSneakerData";
+import { prismaClient } from "../../../../prismaClient";
+import { NikeAPISearchRequest } from "../../models/requests/NikeAPISearchRequest";
 import {
   NikeAPISearchResponse,
   Pagination,
   Product,
-} from '../../models/responses/NikeAPISearchResponse';
-import { NikeFlashDropsMonitorService } from '../../services/NikeFlashDropMonitorService';
-import { NikeFlashDropRepositoryInterface } from '../NikeFlashDropRepositoryInterface';
+} from "../../models/responses/NikeAPISearchResponse";
+import { NikeFlashDropsMonitorService } from "../../services/NikeFlashDropMonitorService";
+import { NikeFlashDropRepositoryInterface } from "../NikeFlashDropRepositoryInterface";
 
 export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterface {
   private _currentPage?: number;
@@ -22,9 +22,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
 
   private _baseAPIReferer?: string;
 
-  constructor(
-    private _nikeFlashDropMonitorService: NikeFlashDropsMonitorService
-  ) {
+  constructor(private _nikeFlashDropMonitorService: NikeFlashDropsMonitorService) {
     super();
   }
 
@@ -35,9 +33,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     this._baseAPIReferer = requestObject.request.headers!.Referer as string;
   }
 
-  public async getCurrentSearchSneakersData(
-    requestObject: NikeAPISearchRequest
-  ) {
+  public async getCurrentSearchSneakersData(requestObject: NikeAPISearchRequest) {
     this._setInitialConfig(requestObject);
 
     let sneakersData: Product[] = [];
@@ -45,9 +41,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     do {
       await waitTimeout({ min: secToMs(2), max: secToMs(5) });
 
-      const currentPageSneakers = await this._getCurrentSearchPageSneakers(
-        this._currentRequest!
-      );
+      const currentPageSneakers = await this._getCurrentSearchPageSneakers(this._currentRequest!);
 
       if (!currentPageSneakers) {
         continue;
@@ -60,7 +54,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
   }
 
   async getNewSneakersOfThisSearch(
-    requestObject: NikeAPISearchRequest
+    requestObject: NikeAPISearchRequest,
   ): Promise<DiscordSneakerData[]> {
     this._setInitialConfig(requestObject);
 
@@ -68,32 +62,20 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     do {
       await waitTimeout({ min: secToMs(2), max: secToMs(5) });
 
-      const currentPageSneakers = await this._currentPageDesiredSneakers(
-        this._currentRequest!
-      );
+      const currentPageSneakers = await this._currentPageDesiredSneakers(this._currentRequest!);
 
       if (!currentPageSneakers) {
         continue;
       }
 
-      const currentPageNewUniqueSneakers = await this.filterUniqueSneakers(
-        currentPageSneakers
-      );
+      const currentPageNewUniqueSneakers = await this.filterUniqueSneakers(currentPageSneakers);
 
-      if (
-        currentPageNewUniqueSneakers &&
-        currentPageNewUniqueSneakers.length > 0
-      ) {
+      if (currentPageNewUniqueSneakers && currentPageNewUniqueSneakers.length > 0) {
         const mappedCurrentPageNewUniqueSneakers: DiscordSneakerData[] =
           currentPageNewUniqueSneakers.map((sneaker: Product) =>
-            this._nikeFlashDropMonitorService.mapNeededDiscordSneakerDataForDiscord(
-              sneaker
-            )
+            this._nikeFlashDropMonitorService.mapNeededDiscordSneakerDataForDiscord(sneaker),
           );
-        newUniqueSneakers = [
-          ...newUniqueSneakers,
-          ...mappedCurrentPageNewUniqueSneakers,
-        ];
+        newUniqueSneakers = [...newUniqueSneakers, ...mappedCurrentPageNewUniqueSneakers];
       }
     } while (this._currentPage! <= this._maxPages!);
 
@@ -104,26 +86,23 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
     return this._currentPage === 1;
   }
 
-  private _updateCurrentRequest(
-    pageSearchRequest: AxiosRequestConfig,
-    pagination: Pagination
-  ) {
+  private _updateCurrentRequest(pageSearchRequest: AxiosRequestConfig, pagination: Pagination) {
     const nextAPIUrl = new URL(pageSearchRequest.url!);
     const nextAPIUrlSearchParams = nextAPIUrl.searchParams;
     const nextAPIRefererUrl = new URL(this._baseAPIReferer!);
     const nextRefererUrlSearchParams = nextAPIRefererUrl.searchParams;
-    let appendOrSet: keyof URLSearchParams = 'set';
+    let appendOrSet: keyof URLSearchParams = "set";
 
     if (this._firstRequest()) {
       this._maxPages = pagination.numberOfPages; // Get max pages on first request
-      appendOrSet = 'append';
+      appendOrSet = "append";
     }
 
     this.log.info(`Current page: ${this._currentPage}/${this._maxPages}`);
     this._currentPage!++;
 
-    nextAPIUrlSearchParams[appendOrSet]('page', String(this._currentPage));
-    nextRefererUrlSearchParams[appendOrSet]('page', String(this._currentPage));
+    nextAPIUrlSearchParams[appendOrSet]("page", String(this._currentPage));
+    nextRefererUrlSearchParams[appendOrSet]("page", String(this._currentPage));
 
     const newHeader = {
       headers: {
@@ -140,7 +119,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
   }
 
   private async _getCurrentSearchPageSneakers(
-    pageSearchRequest: AxiosRequestConfig
+    pageSearchRequest: AxiosRequestConfig,
   ): Promise<Product[]> {
     try {
       this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
@@ -152,7 +131,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
       this._updateCurrentRequest(pageSearchRequest, pagination);
 
       if (!products) {
-        throw new Error('Nike response had products empty!');
+        throw new Error("Nike response had products empty!");
       }
 
       return products;
@@ -169,7 +148,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
   }
 
   private async _currentPageDesiredSneakers(
-    pageSearchRequest: AxiosRequestConfig
+    pageSearchRequest: AxiosRequestConfig,
   ): Promise<Product[] | undefined> {
     try {
       this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
@@ -179,10 +158,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
       const { products } = nikeResponse.productsInfo;
 
       if (!products) {
-        this.log.error(
-          { responseData: response.data },
-          'Nike response had products empty!'
-        );
+        this.log.error({ responseData: response.data }, "Nike response had products empty!");
       }
       this._updateCurrentRequest(pageSearchRequest, pagination);
 
@@ -196,7 +172,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
         this.log.error({
           err: e,
           errorMsg: e.message,
-          method: 'NikeFlashDropAPIRespository._currentPageNewSneakers',
+          method: "NikeFlashDropAPIRespository._currentPageNewSneakers",
           pageSearchRequest,
         });
       }
@@ -213,7 +189,7 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
         this.log.error({
           err: e,
           errorMsg: e.message,
-          method: 'NikeFlashDropAPIRespository.findUniqueProduct',
+          method: "NikeFlashDropAPIRespository.findUniqueProduct",
           styleCode,
         });
       }
@@ -229,9 +205,9 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
   }): Promise<void> {
     try {
       const nikeStore = await prismaClient.store.findUnique({
-        where: { url: 'https://www.nike.com.br' },
+        where: { url: "https://www.nike.com.br" },
       });
-      if(!nikeStore) throw new Error ('Store not found');
+      if (!nikeStore) throw new Error("Store not found");
       const productCreated = await prismaClient.product.create({
         data: {
           name: productInfo.productName,
@@ -241,19 +217,15 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
           stores: {
             create: {
               stores_id: nikeStore?.id,
-              product_url:
-                this._nikeFlashDropMonitorService.changeUrlSlashesToHttps(
-                  productInfo.productUrl
-                ),
+              product_url: this._nikeFlashDropMonitorService.changeUrlSlashesToHttps(
+                productInfo.productUrl,
+              ),
               available: true,
             },
           },
         },
       });
-      this.log.info(
-        { ProductCreateName: productCreated.name },
-        'Product create!'
-      );
+      this.log.info({ ProductCreateName: productCreated.name }, "Product create!");
     } catch (e) {
       if (e instanceof Error) {
         this.log.error({
@@ -274,13 +246,13 @@ export class NikeFlashDropsAPIRepository extends NikeFlashDropRepositoryInterfac
       if (!foundProduct) {
         this.log.info(
           { APIProductName: product.name },
-          'Product name not found on database, Flash Drop!'
+          "Product name not found on database, Flash Drop!",
         );
         newSneakers = [...newSneakers, product];
         await this.createProduct({
           productName: product.name,
           styleCode,
-          brand: 'Nike',
+          brand: "Nike",
           productUrl: product.productUrl,
         });
       }

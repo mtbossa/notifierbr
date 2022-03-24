@@ -1,12 +1,12 @@
-import { Client, Collection, Intents } from 'discord.js';
-import { readdirSync } from 'fs';
-import logger from '../logger';
+import { Client, Collection, Intents } from "discord.js";
+import { readdirSync } from "fs";
+import logger from "../logger";
 
 const configureCommands = (client: Client) => {
   client.commands = new Collection();
 
   const commandFiles = readdirSync(`${__dirname}/commands`).filter(
-    (file) => file.endsWith('.ts') || file.endsWith('.js'),
+    (file) => file.endsWith(".ts") || file.endsWith(".js"),
   );
 
   for (const file of commandFiles) {
@@ -14,7 +14,7 @@ const configureCommands = (client: Client) => {
     client.commands.set(command.data.name, command);
   }
 
-  client.on('interactionCreate', async (interaction) => {
+  client.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
@@ -26,7 +26,7 @@ const configureCommands = (client: Client) => {
     } catch (e) {
       logger.error({ err: e });
       await interaction.reply({
-        content: 'Erro ao executar o comando!',
+        content: "Erro ao executar o comando!",
         ephemeral: true,
       });
     }
@@ -35,7 +35,7 @@ const configureCommands = (client: Client) => {
 
 const configureEvents = (client: Client) => {
   const eventFiles = readdirSync(`${__dirname}/events`).filter(
-    (file) => file.endsWith('.ts') || file.endsWith('.js'),
+    (file) => file.endsWith(".ts") || file.endsWith(".js"),
   );
 
   for (const file of eventFiles) {

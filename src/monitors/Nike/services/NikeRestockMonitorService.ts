@@ -1,4 +1,4 @@
-import { DiscordSneakerData } from '../../../discord-bot/models/interfaces/DiscordSneakerData';
+import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/DiscordSneakerData";
 
 export class NikeRestockMonitorService {
   public mapNeededDiscordSneakerDataForDiscord(DiscordSneakerData: {
