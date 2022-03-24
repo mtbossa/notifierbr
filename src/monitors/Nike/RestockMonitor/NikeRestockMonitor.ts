@@ -11,7 +11,7 @@ import Monitor from "../Monitor";
 export default class NikeRestockMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
-  protected maxTimeout: number = secToMs(60);
+  protected maxTimeout: number = secToMs(30);
 
   private _browser?: Browser;
 
@@ -76,7 +76,7 @@ export default class NikeRestockMonitor extends Monitor {
     try {
       do {
         this._setCurrentRequest();
-        await waitTimeout({ min: secToMs(5), max: secToMs(20) });
+        await waitTimeout({ min: secToMs(5), max: secToMs(10) });
         this.log.info(`Checking stock of ${this._currentRequest!.sneakerName}`);
         const isSneakerAvailable = await this.nikeRestockRepository.isSneakerAvailable(
           this._currentRequest!,
