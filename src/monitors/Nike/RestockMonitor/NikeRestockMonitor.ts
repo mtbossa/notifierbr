@@ -11,7 +11,7 @@ import Monitor from "../Monitor";
 export default class NikeRestockMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
-  protected maxTimeout: number = secToMs(30);
+  protected maxTimeout: number = secToMs(20);
 
   private _browser?: Browser;
 
@@ -39,20 +39,12 @@ export default class NikeRestockMonitor extends Monitor {
         blockedTypes: new Set(["image", "stylesheet", "media", "font"]),
       }),
     );
-    this._browser = await puppeteer.launch({});
-    this._page = await this._browser.newPage();
 
     return this;
   }
 
-  private async _resetBrowser() {
-    this.log.info(
-      `Got banned, stopped on index ${this._currentRequestIndex} on request ${
-        this.requestsObjects[this._currentRequestIndex].sneakerName
-      }. Reseting browser`,
-    );
-
-    this._browser!.close();
+  private async _startBrowser() {
+    if (this._browser) this._browser.close();
     this._browser = await puppeteer.launch({});
     this._page = await this._browser.newPage();
     await this._page.reload();
@@ -72,12 +64,23 @@ export default class NikeRestockMonitor extends Monitor {
     this._currentRequest = this.requestsObjects[this._currentRequestIndex];
   }
 
+  private async _handleRestock() {
+    const sneaker = await this.nikeRestockRepository.getSneaker(this._currentRequest!);
+    await this.nikeRestockRepository.setSneakerAvailability(this._currentRequest!, {
+      available: true,
+    });
+
+    this._discordClient.emit("nikeRestock", this._discordClient, sneaker);
+  }
+
   async check(): Promise<void> {
     try {
+      await this._startBrowser();
       do {
         this._setCurrentRequest();
         await waitTimeout({ min: secToMs(5), max: secToMs(10) });
-        this.log.info(`Checking stock of ${this._currentRequest!.sneakerName}`);
+        this.log.info(`Checking stock => [ ${this._currentRequest!.sneakerName} ]`);
+
         const isSneakerAvailable = await this.nikeRestockRepository.isSneakerAvailable(
           this._currentRequest!,
           this._page!,
@@ -95,24 +98,25 @@ export default class NikeRestockMonitor extends Monitor {
         if (await this.nikeRestockRepository.isCurrentlyAvailableOnStore(this._currentRequest!))
           continue;
 
-        const sneaker = await this.nikeRestockRepository.getSneaker(this._currentRequest!);
-        this._discordClient.emit("nikeRestock", this._discordClient, sneaker);
-        await this.nikeRestockRepository.setSneakerAvailability(this._currentRequest!, {
-          available: true,
-        });
+        await this._handleRestock();
       } while (this._notPassedThroughAllRequests());
 
       this._setCurrentIndexToFirstRequest();
-      this.reRunCheck();
-    } catch (e) {
-      if (e instanceof Error) {
-        if (e.message === "Banned") {
-          await this._resetBrowser();
-          this.reRunCheck();
-        } else {
-          this.reRunCheck();
+    } catch (err) {
+      this.log.error({ err });
+      if (err instanceof Error) {
+        if (err.message === "Banned") {
+          this.log.info(
+            { err },
+            `Got banned, stopped on index ${this._currentRequestIndex} on request ${
+              this.requestsObjects[this._currentRequestIndex].sneakerName
+            }.`,
+          );
+          await this._startBrowser();
         }
       }
+    } finally {
+      this.reRunCheck();
     }
   }
 }

@@ -5,7 +5,7 @@ import path from "path";
 import { NikeRestockAPIRequestData } from "../models/requests/NikeRestockAPIRequestData";
 import NikeRestockMonitorService from "../services/NikeRestockMonitorService";
 import NikeRestockMonitor from "./NikeRestockMonitor";
-import NikeRestockPuppeteerScrapeRepository from "../repositories/implementations/NikeRestockPuppeteerScrapeRepository";
+import NikeRestockDataLayerRepository from "../repositories/implementations/NikeRestockDataLayerRepository";
 
 export default async function createRestockDropMonitor(discordClient: Client) {
   const requestsObjects = JSON.parse(
@@ -16,7 +16,7 @@ export default async function createRestockDropMonitor(discordClient: Client) {
   ) as unknown as NikeRestockAPIRequestData[];
   const userAgent = new UserAgent({ deviceCategory: "desktop" });
   const nikeRestockMonitorService = new NikeRestockMonitorService();
-  const restockRepository = new NikeRestockPuppeteerScrapeRepository(
+  const restockRepository = new NikeRestockDataLayerRepository(
     nikeRestockMonitorService,
     userAgent,
   );
