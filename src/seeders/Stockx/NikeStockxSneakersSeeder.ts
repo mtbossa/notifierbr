@@ -48,7 +48,7 @@ function randomIntFromInterval(min: number, max: number) {
 }
 
 const timoutPromise = () =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     const timeoutTime = randomIntFromInterval(1000, 10000);
     setTimeout(() => {
       resolve(`waited ${timeoutTime}`);
@@ -61,12 +61,12 @@ const createProducts = async (
   currentPageNumber: string | null,
   search: string,
 ) => {
-  for (const product of products) {
+  products.forEach(async (product) => {
     try {
       const foundProduct = await prismaClient.product.findUnique({
         where: { style_code: product.styleId },
       });
-      if (foundProduct) continue;
+      if (foundProduct) return;
       const newProduct = await prismaClient.product.create({
         data: {
           name: product.title,
@@ -84,7 +84,7 @@ const createProducts = async (
         logger.error({ err: e });
       }
     }
-  }
+  });
 };
 
 const updateJSONFile = (requestObject: StockxAPIRequestData) => {
@@ -94,7 +94,7 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
     scrapeDate: new Date().toISOString(),
   };
 
-  _.remove(requestsObjects, (requestObject) => requestObject.search == updatedOb.search);
+  _.remove(requestsObjects, (reqOb) => reqOb.search === updatedOb.search);
 
   requestsObjects = [updatedOb, ...requestsObjects];
 
@@ -102,8 +102,7 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
     path.join(__dirname, "../../requests/nike/stockx-nike-requests.json"),
     JSON.stringify(requestsObjects, null, 2),
     (err) => {
-      if (err) console.log(err);
-      console.log("file updated");
+      if (err) logger.error({ err });
     },
   );
 };
@@ -127,7 +126,6 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
         await page.setUserAgent(randomUserAgent(userAgent));
         await page.goto(currentAPIUrl, { timeout: 0 });
         const data: StockxResponse = await page.evaluate(() => {
-          console.log(document.querySelector("body")!.innerText);
           return JSON.parse(document.querySelector("body")!.innerText);
         });
         if (firstTime) {
@@ -159,7 +157,7 @@ const updateJSONFile = (requestObject: StockxAPIRequestData) => {
           updateJSONFile(requestObject);
         }
 
-        await timoutPromise().then((res) => console.log(res));
+        await timoutPromise();
       } while (currentAPIUrl);
     } catch (e: unknown) {
       if (e instanceof Error) {

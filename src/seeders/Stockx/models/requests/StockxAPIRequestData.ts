@@ -1,5 +1,3 @@
-import { AxiosRequestConfig } from "axios";
-
 export type StockxAPIRequestData = {
   search: string;
   browserUrl: string;
