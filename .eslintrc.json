@@ -16,5 +16,7 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["@typescript-eslint", "prettier"],
-  "rules": {}
+  "rules": {
+    "react/jsx-filename-extension": 0
+  }
 }
