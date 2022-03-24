@@ -5,7 +5,7 @@
   },
   "extends": [
     "airbnb-base",
-    "airbnb-typescript",
+    "airbnb-typescript/base",
     "plugin:import/typescript",
     "plugin:prettier/recommended"
   ],
@@ -15,8 +15,5 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "prettier"],
-  "rules": {
-    "react/jsx-filename-extension": 0
-  }
+  "plugins": ["@typescript-eslint", "prettier"]
 }
