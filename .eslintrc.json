@@ -21,6 +21,7 @@
     "no-await-in-loop": "off",
     "no-restricted-syntax": ["off", "ForOfStatement"],
     "no-continue": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off"
   }
 }
