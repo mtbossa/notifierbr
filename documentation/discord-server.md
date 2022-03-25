@@ -1,0 +1,2 @@
+Text channel names
+🏭 ｜ restock
