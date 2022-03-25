@@ -1,4 +1,4 @@
-import { Page, TimeoutError } from "puppeteer";
+import { Page } from "puppeteer";
 import UserAgent from "user-agents";
 import logger from "../../../../logger";
 import { DiscordSneakerData } from "../../../../discord-bot/models/interfaces/DiscordSneakerData";
@@ -64,7 +64,7 @@ export default class NikeRestockDataLayerRepository extends NikeRestockRepositor
       await page.setUserAgent(this.userAgent.random().toString());
       const wantedUrl = "https://www.nike.com.br/DataLayer/dataLayer";
       const [dataLayerRes] = await Promise.all([
-        page.waitForResponse((res) => res.url() === wantedUrl, { timeout: 30000 }),
+        page.waitForResponse((res) => res.url() === wantedUrl, { timeout: 10000 }),
         page.goto(sneaker.url, { waitUntil: "domcontentloaded" }),
       ]);
       const dataLayerData: DataLayerResponse = await dataLayerRes.json();
@@ -75,10 +75,7 @@ export default class NikeRestockDataLayerRepository extends NikeRestockRepositor
       return dataLayerData.productInfo.availability === "yes";
     } catch (err) {
       this.log.error({ err });
-      if (err instanceof TimeoutError) {
-        throw new Error("Banned");
-      }
-      return false;
+      throw new Error("Banned");
     }
   }
 }
