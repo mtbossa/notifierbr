@@ -67,13 +67,13 @@ export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRep
   private _isAvailableByCheckingHTMLForKeywords(sneaker: NikeRestockAPIRequestData, html: string) {
     this.log.info(
       { url: sneaker.url },
-      "Selectors .esgotado and .label-indisponivel were not found",
+      `[ ${sneaker.sneakerName} ] Selectors .esgotado and .label-indisponivel were not found`,
     );
 
     if (html.includes("esgotado")) {
       this.log.warn(
         { url: sneaker.url, html },
-        "Found text 'esgotado' inside HTML, returning false (not available)",
+        `[ ${sneaker.sneakerName} ] Found text 'esgotado' inside HTML, returning false (not available)`,
       );
       return false;
     }
@@ -81,7 +81,7 @@ export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRep
     if (html.includes("indisponível")) {
       this.log.warn(
         { url: sneaker.url, html },
-        "Found text 'indisponível' inside HTML, returning false (not available)",
+        `[ ${sneaker.sneakerName} ] Found text 'indisponível' inside HTML, returning false (not available)`,
       );
       return false;
     }
@@ -89,14 +89,14 @@ export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRep
     if (html.includes(sneaker.sneakerName)) {
       this.log.warn(
         { sneakerName: sneaker.sneakerName, html },
-        "Didn't find 'esgotado' or 'indisponível' words but found sneaker name inside HTML, retuning true (considered available). Selectors changed.",
+        `[ ${sneaker.sneakerName} ] Didn't find 'esgotado' or 'indisponível' words but found sneaker name inside HTML, retuning true (considered available). Selectors changed.`,
       );
       return true;
     }
 
     this.log.info(
       { url: sneaker.url, html },
-      "Didn't find 'esgotado' or 'indisponível' and didn't find sneaker name inside HTML, retuning false (probably banned)",
+      `[ ${sneaker.sneakerName} ] Didn't find 'esgotado' or 'indisponível' and didn't find sneaker name inside HTML, retuning false (probably banned)`,
     );
 
     throw new Error("Banned");
@@ -117,7 +117,7 @@ export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRep
       const foundElementWithLabelIndisponivelClass = elementWithLabelIndisponivelClass.length > 0;
       if (foundElementWithLabelIndisponivelClass) {
         // if any element in the page has this class, means its out of stock (know this by analysing Nike's website pages)
-        this.log.info("Found .label-indiponivel, not available.");
+        this.log.info(`[ ${sneaker.sneakerName} ] Found .label-indiponivel, not available.`);
         return false;
       }
 
@@ -134,7 +134,7 @@ export default class NikeRestockPuppeteerScrapeRepository extends NikeRestockRep
       const isAvailable = elementWithEsgotadoClass.hasClass(".hidden");
 
       this.log.info(
-        `${sneaker.sneakerName} class .esgotado hasHiddenClass (.esgotado .hidden): ${isAvailable}`,
+        `[ ${sneaker.sneakerName} ] Class .esgotado has .hidden class (.esgotado .hidden): ${isAvailable}`,
       );
       return isAvailable; // if has class .hidden (true), means its available
     } catch (e: unknown) {
