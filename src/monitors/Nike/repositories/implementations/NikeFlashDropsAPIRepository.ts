@@ -22,11 +22,14 @@ export default class NikeFlashDropsAPIRepository extends NikeFlashDropRepository
 
   private _baseAPIReferer?: string;
 
+  private _search?: string;
+
   constructor(private _nikeFlashDropMonitorService: NikeFlashDropsMonitorService) {
     super();
   }
 
   private _setInitialConfig(requestObject: NikeAPISearchRequest) {
+    this._search = requestObject.search;
     this._currentPage = 1;
     this._currentRequest = requestObject.request;
     this._baseAPIUrl = requestObject.request.url!;
@@ -98,7 +101,10 @@ export default class NikeFlashDropsAPIRepository extends NikeFlashDropRepository
       appendOrSet = "append";
     }
 
-    this.log.info(`Current page: ${this._currentPage}/${this._maxPages}`);
+    this.log.info(
+      `[ Search => ${this._search} ] - [ Page => ${this._currentPage}/${this._maxPages} ] - [ URL => ${pageSearchRequest.url} ]`,
+    );
+
     this._currentPage! += 1;
 
     nextAPIUrlSearchParams[appendOrSet]("page", String(this._currentPage));
@@ -122,7 +128,6 @@ export default class NikeFlashDropsAPIRepository extends NikeFlashDropRepository
     pageSearchRequest: AxiosRequestConfig,
   ): Promise<Product[]> {
     try {
-      this.log.info(`Current page search URL: ${pageSearchRequest.url}`);
       const response = await axios(pageSearchRequest);
       const nikeResponse: NikeAPISearchResponse = response.data;
       const { pagination } = nikeResponse;

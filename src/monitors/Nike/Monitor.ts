@@ -6,7 +6,7 @@ export default abstract class Monitor {
 
   protected abstract maxTimeout: number;
 
-  protected log = logger.child({ monitor: `[${this.constructor.name}]` });
+  protected log = logger.child({ monitor: `<${this.constructor.name}>` });
 
   abstract check(): void;
 

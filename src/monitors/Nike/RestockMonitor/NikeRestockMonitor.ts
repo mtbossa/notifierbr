@@ -11,7 +11,7 @@ import Monitor from "../Monitor";
 export default class NikeRestockMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
 
-  protected maxTimeout: number = secToMs(20);
+  protected maxTimeout: number = secToMs(30);
 
   private _browser?: Browser;
 
@@ -78,7 +78,7 @@ export default class NikeRestockMonitor extends Monitor {
       await this._startBrowser();
       do {
         this._setCurrentRequest();
-        await waitTimeout({ min: secToMs(5), max: secToMs(10) });
+        await waitTimeout({ min: secToMs(10), max: secToMs(20) });
         this.log.info(`Checking stock => [ ${this._currentRequest!.sneakerName} ]`);
 
         const isSneakerAvailable = await this.nikeRestockRepository.isSneakerAvailable(
@@ -106,7 +106,7 @@ export default class NikeRestockMonitor extends Monitor {
       this.log.error({ err });
       if (err instanceof Error) {
         if (err.message === "Banned") {
-          this.log.info(
+          this.log.warn(
             { err },
             `Got banned, stopped on index ${this._currentRequestIndex} on request ${
               this.requestsObjects[this._currentRequestIndex].sneakerName

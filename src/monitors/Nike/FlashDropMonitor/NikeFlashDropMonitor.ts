@@ -37,7 +37,7 @@ export default class NikeFlashDropsMonitor extends Monitor {
     try {
       for (const requestObject of this._requestsObjects) {
         await waitTimeout({ min: secToMs(3), max: secToMs(10) });
-        this.log.info(`Getting search sneakers: ${requestObject.search}`);
+        this.log.info(`Searching => [ ${requestObject.search} ]`);
 
         const sneakers = await this._flashDropRepository.getCurrentSearchSneakersData(
           requestObject,

@@ -4,7 +4,7 @@ import { NikeAPISearchRequest } from "../models/requests/NikeAPISearchRequest";
 import { Product } from "../models/responses/NikeAPISearchResponse";
 
 export default abstract class NikeFlashDropRepositoryInterface {
-  protected log = logger.child({ monitor: "[NikeFlashDropMonitor]" });
+  protected log = logger.child({ monitor: "<NikeFlashDropMonitor>" });
 
   abstract getNewSneakersOfThisSearch(
     requestObject: NikeAPISearchRequest,

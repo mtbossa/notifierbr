@@ -51,7 +51,7 @@ const configureEvents = (client: Client) => {
   }
 };
 
-const configureBotClient = async (): Promise<Client> => {
+const configureDiscordBotClient = async (): Promise<Client> => {
   const client = new Client({
     intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
   });
@@ -65,4 +65,4 @@ const configureBotClient = async (): Promise<Client> => {
 
 const notifyTextChannel = process.env.DISCORD_NOTIFIER_TEXT_CHANNEL_NAME;
 
-export { configureBotClient, notifyTextChannel };
+export { configureDiscordBotClient, notifyTextChannel };

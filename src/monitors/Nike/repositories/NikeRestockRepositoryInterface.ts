@@ -4,7 +4,7 @@ import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/Disco
 import { NikeRestockAPIRequestData } from "../models/requests/NikeRestockAPIRequestData";
 
 export default abstract class NikeRestockRepositoryInterface {
-  protected log = logger.child({ monitor: "[NikeRestockMonitor]" });
+  protected log = logger.child({ monitor: "<NikeRestockMonitor>" });
 
   abstract isSneakerAvailable(
     requestObject: NikeRestockAPIRequestData,
