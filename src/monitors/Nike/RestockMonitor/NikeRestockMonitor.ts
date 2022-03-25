@@ -103,7 +103,7 @@ export default class NikeRestockMonitor extends Monitor {
 
       this._setCurrentIndexToFirstRequest();
     } catch (err) {
-      this.log.error({ err });
+      this.log.error({ err, currentRequest: this._currentRequest! });
       if (err instanceof Error) {
         if (err.message === "Banned") {
           this.log.warn(
