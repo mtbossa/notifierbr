@@ -7,11 +7,12 @@
   "scripts": {
     "dev": "NODE_ENV=dev ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/index.ts",
     "build": "npx tsc",
+    "start": "node -r dotenv/config dist/index.js",
     "lint": "eslint . ",
     "lint:fix": "eslint --fix .",
-    "start": "node -r dotenv/config dist/index.js",
+    "discord:deploy": "npx ts-node -r dotenv/config src/discord-bot/deploy-commands.ts",
     "dev:seed": "ts-node-dev --transpile-only --inspect=9229 --exit-child -r dotenv/config src/seeders/NikeStockxSneakersSeeder.ts | pino-pretty --colorize --translateTime='yyyy-mm-dd HH:MM:ss'",
-    "seed": "node -r dotenv/config dist/seeders/NikeSneakersSeeder.js"
+    "seed:stockx": "node -r dotenv/config dist/seeders/NikeSneakersSeeder.js"
   },
   "devDependencies": {
     "@types/nodemailer": "^6.4.4",
