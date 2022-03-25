@@ -64,7 +64,7 @@ export default class NikeRestockDataLayerRepository extends NikeRestockRepositor
       await page.setUserAgent(this.userAgent.random().toString());
       const wantedUrl = "https://www.nike.com.br/DataLayer/dataLayer";
       const [dataLayerRes] = await Promise.all([
-        page.waitForResponse((res) => res.url() === wantedUrl, { timeout: 10000 }),
+        page.waitForResponse((res) => res.url() === wantedUrl, { timeout: 20000 }),
         page.goto(sneaker.url, { waitUntil: "domcontentloaded" }),
       ]);
       const dataLayerData: DataLayerResponse = await dataLayerRes.json();

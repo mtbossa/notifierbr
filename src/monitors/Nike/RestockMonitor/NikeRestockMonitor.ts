@@ -75,9 +75,9 @@ export default class NikeRestockMonitor extends Monitor {
 
   async check(): Promise<void> {
     try {
-      await this._startBrowser();
       do {
-        await waitTimeout({ min: secToMs(5), max: secToMs(20) });
+        await this._startBrowser();
+        await waitTimeout({ min: secToMs(10), max: secToMs(20) });
         this._setCurrentRequest();
         this.log.info(`Checking stock => [ ${this._currentRequest!.sneakerName} ]`);
 
