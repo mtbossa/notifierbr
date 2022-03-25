@@ -45,8 +45,8 @@ export default class NikeRestockMonitor extends Monitor {
 
   private async _startBrowser() {
     if (this._browser) this._browser.close();
-    this._browser = await puppeteer.launch({});
-    this._page = await this._browser.newPage();
+    this._browser = await puppeteer.launch({ args: ["--incognito"] });
+    [this._page] = await this._browser.pages();
     await this._page.reload();
 
     return this;
@@ -77,8 +77,8 @@ export default class NikeRestockMonitor extends Monitor {
     try {
       await this._startBrowser();
       do {
+        await waitTimeout({ min: secToMs(5), max: secToMs(20) });
         this._setCurrentRequest();
-        await waitTimeout({ min: secToMs(10), max: secToMs(20) });
         this.log.info(`Checking stock => [ ${this._currentRequest!.sneakerName} ]`);
 
         const isSneakerAvailable = await this.nikeRestockRepository.isSneakerAvailable(
@@ -112,7 +112,6 @@ export default class NikeRestockMonitor extends Monitor {
               this.requestsObjects[this._currentRequestIndex].sneakerName
             }.`,
           );
-          await this._startBrowser();
         }
       }
     } finally {
