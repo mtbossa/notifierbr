@@ -40,7 +40,7 @@ export default class NikeRestockDataLayerRepository extends NikeRestockRepositor
 
       return productOnStore!.available;
     } catch (e) {
-      logger.error({ err: e });
+      logger.error({ err: e, requestObject });
       return false;
     }
   }
