@@ -3,7 +3,7 @@ import { secToMs, waitTimeout } from "../../../helpers/general";
 import NikeFlashDropRepositoryInterface from "../repositories/NikeFlashDropRepositoryInterface";
 import { NikeAPISearchRequest } from "../models/requests/NikeAPISearchRequest";
 import NikeFlashDropsMonitorService from "../services/NikeFlashDropMonitorService";
-import Monitor from "../Monitor";
+import Monitor from "../../Monitor";
 import { Product } from "../models/responses/NikeAPISearchResponse";
 
 export default class NikeFlashDropsMonitor extends Monitor {
