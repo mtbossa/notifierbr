@@ -6,7 +6,7 @@ import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { secToMs, waitTimeout } from "../../../helpers/general";
 import NikeRestockRepositoryInterface from "../repositories/NikeRestockRepositoryInterface";
 import { NikeRestockAPIRequestData } from "../models/requests/NikeRestockAPIRequestData";
-import Monitor from "../Monitor";
+import Monitor from "../../Monitor";
 
 export default class NikeRestockMonitor extends Monitor {
   protected minTimeout: number = secToMs(10);
