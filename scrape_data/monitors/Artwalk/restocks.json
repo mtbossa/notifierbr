@@ -1,0 +1,44 @@
+[
+  {
+    "sneakerName": "Air Jordan 1 Mid SE Feminino - BQ6472-601",
+    "styleCode": "BQ6472-601",
+    "url": "https://www.artwalk.com.br/tenis-air-jordan-1-mid-se-feminino-bq647-2-601/p",
+    "imgUrl": "https://artwalk.vteximg.com.br/arquivos/ids/228086-600-600/Tenis-Air-Jordan-1-Mid-SE-Feminino-Multicolor.jpg?v=637411428235830000",
+    "request": {
+      "method": "get",
+      "url": "https://www.artwalk.com.br/api/catalog_system/pub/products/search?&fq=skuId:2141237",
+      "headers": {
+        "authority": "www.artwalk.com.br",
+        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "accept": "*/*",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "accept-language": "en-US,en;q=0.9"
+      }
+    }
+  },
+  {
+    "sneakerName": "Air Jordan 1 Mid SE Feminino - BQ6472-500",
+    "styleCode": "BQ6472-500",
+    "url": "https://www.artwalk.com.br/tenis-air-jordan-1-mid-se-feminino-bq647-2-500/p",
+    "imgUrl": "https://artwalk.vteximg.com.br/arquivos/ids/243348-600-600/Tenis-Air-Jordan-1-Mid-SE-Feminino-Rosa.jpg?v=637811410090600000",
+    "request": {
+      "method": "get",
+      "url": "https://www.artwalk.com.br/api/catalog_system/pub/products/search?&fq=skuId:2141237",
+      "headers": {
+        "authority": "www.artwalk.com.br",
+        "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"99\", \"Google Chrome\";v=\"99\"",
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": "\"Windows\"",
+        "accept": "*/*",
+        "sec-fetch-site": "same-origin",
+        "sec-fetch-mode": "cors",
+        "sec-fetch-dest": "empty",
+        "accept-language": "en-US,en;q=0.9"
+      }
+    }
+  }
+]

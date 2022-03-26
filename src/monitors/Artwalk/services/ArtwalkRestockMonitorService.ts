@@ -1,6 +1,6 @@
 import { DiscordSneakerData } from "../../../discord-bot/models/interfaces/DiscordSneakerData";
 
-export default class NikeRestockMonitorService {
+export default class ArtwalkRestockMonitorService {
   public mapNeededDiscordSneakerDataForDiscord(discordSneakerData: {
     name: string;
     url: string;
