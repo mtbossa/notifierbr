@@ -7,17 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model HtmlsSelectors {
-  id                 Int     @default(autoincrement())
-  price              String?
-  stock_availability String?
-  store_id           Int
-  store              Store   @relation(fields: [store_id], references: [id], onDelete: Cascade)
-
-  @@id([id, store_id])
-  @@map("html_selectors")
-}
-
 model Monitor {
   id       Int                  @id @default(autoincrement())
   type     String               @unique @db.VarChar(100)
