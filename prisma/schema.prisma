@@ -8,14 +8,14 @@ datasource db {
 }
 
 model Product {
-  id                   BigInt               @id @default(autoincrement())
-  name                 String               @db.VarChar
-  brand                String               @db.VarChar
-  style_code           String?              @unique @db.VarChar
-  release_date         DateTime?            @db.Date
-  current_lowest_price Decimal?             @db.Decimal(12, 2)
-  created_at           DateTime             @default(now())
-  updated_at           DateTime             @updatedAt
+  id                   BigInt            @id @default(autoincrement())
+  name                 String            @db.VarChar
+  brand                String            @db.VarChar
+  style_code           String?           @unique @db.VarChar
+  release_date         DateTime?         @db.Date
+  current_lowest_price Decimal?          @db.Decimal(12, 2)
+  created_at           DateTime          @default(now())
+  updated_at           DateTime          @updatedAt
   stores               ProductsOnStore[]
 
   @@map("products")
@@ -32,32 +32,32 @@ model ProductsOnStore {
   updated_at    DateTime                      @updatedAt
   product       Product                       @relation(fields: [products_id], references: [id], onDelete: Cascade)
   store         Store                         @relation(fields: [stores_id], references: [id], onDelete: Cascade)
-  sneaker_stock ProductsOnStoreSneakerStock[]
+  sneaker_stock SneakerStoreStock[]
 
-  @@id([products_id, stores_id, id])
+  @@id([id, products_id, stores_id])
   @@map("products_stores")
 }
 
 model Store {
-  id                Int                  @id @default(autoincrement())
-  name              String               @unique @db.VarChar(255)
-  url               String               @unique @db.VarChar(255)
-  created_at        DateTime             @default(now())
-  updated_at        DateTime             @updatedAt
-  products          ProductsOnStore[]
+  id         Int               @id @default(autoincrement())
+  name       String            @unique @db.VarChar(255)
+  url        String            @unique @db.VarChar(255)
+  created_at DateTime          @default(now())
+  updated_at DateTime          @updatedAt
+  products   ProductsOnStore[]
 
   @@map("stores")
 }
 
-model ProductsOnStoreSneakerStock {
-  id                 BigInt          @unique @default(autoincrement())
+model SneakerStoreStock {
+  id                 BigInt          @id @default(autoincrement())
   products_stores_id BigInt
-  size               Int             @db.SmallInt
+  size               Decimal         @db.Decimal(12, 1)
   stock              Int             @db.SmallInt
   created_at         DateTime        @default(now())
   updated_at         DateTime        @updatedAt
   product_store      ProductsOnStore @relation(fields: [products_stores_id], references: [id], onDelete: Cascade)
 
-  @@id([id, products_stores_id, size])
-  @@map("products_stores_sneakers_stock")
+  @@unique([products_stores_id, size])
+  @@map("sneakers_stores_stocks")
 }
