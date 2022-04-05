@@ -1,42 +1,47 @@
 [
-	{
-		"sneakerName": "Nike SB Dunk Low Pro Red Plum",
-		"url": "https://www.nike.com.br/nike-sb-dunk-low-pro-513-514-515-332757",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-nike-sb-dunk-low-pro-BQ6817-501-1-11624978779.jpg"
-	},
-	{
-		"sneakerName": "SB Dunk High Pro Strawberry",
-		"url": "https://www.nike.com.br/sb-dunk-high-pro-513-514-515-222656",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/sb-dunk-high-pro-CW7093-600-1-11625230129.jpg"
-	},
-	{
-		"sneakerName": "Air Jordan 1 Patent Bred",
-		"url": "https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-351285",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-air-jordan-1-retro-high-og-masculino-555088-063-1-11637067284.jpg"
-	},
-	{
-		"sneakerName": "Women's Dunk Low Midnight Navy and White",
-		"url": "https://www.nike.com.br/snkrs/womens-dunk-low-1-16-210-387692",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-nike-dunk-low-feminino-DD1503-115-1-11640098779.jpg"
-	},
-	{
-		"sneakerName": "Nike x sacai VaporWaffle White and Gum",
-		"url": "https://www.nike.com.br/snkrs/nike-x-sacai-vaporwaffle-153-169-211-330608",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/nike-x-sacai-vaporwaffle-DD1875-100-1-11646853607.jpg"
-	},
-	{
-		"sneakerName": "Nike x sacai VaporWaffle Black and Gum",
-		"url": "https://www.nike.com.br/snkrs/nike-x-sacai-vaporwaffle-153-169-211-350131",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/nike-x-sacai-vaporwaffle-DD1875-001-1-11646853591.jpg"
-	},
-	{
-		"sneakerName": "Air Jordan 1 Rebellionaire",
-		"url": "https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-373954",
-		"imgUrl": "https://images.lojanike.com.br/515x515/produto/air-jordan-1-555088-036-1-11647013008.jpg"
-	},
-	{
-		"sneakerName": "Nike SB Dunk Low Pro Unissex",
-		"url": "https://www.nike.com.br/tenis-nike-sb-dunk-low-pro-unissex-153-169-229-284741",
-		"imgUrl": "https://images.lojanike.com.br/500x500/produto/tenis-nike-sb-dunk-low-pro-qs-2-CT2550-600-1.jpg"
-	}
+  {
+    "sneakerName": "Nike SB Dunk Low Polaroid",
+    "url": "https://www.nike.com.br/snkrs/nike-sb-dunk-low-153-169-211-372072",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/nike-sb-dunk-low-DH7722-001-1-11648587244.jpg"
+  },
+  {
+    "sneakerName": "Nike SB Dunk Low Pro Red Plum",
+    "url": "https://www.nike.com.br/nike-sb-dunk-low-pro-513-514-515-332757",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-nike-sb-dunk-low-pro-BQ6817-501-1-11624978779.jpg"
+  },
+  {
+    "sneakerName": "SB Dunk High Pro Strawberry",
+    "url": "https://www.nike.com.br/sb-dunk-high-pro-513-514-515-222656",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/sb-dunk-high-pro-CW7093-600-1-11625230129.jpg"
+  },
+  {
+    "sneakerName": "Air Jordan 1 Patent Bred",
+    "url": "https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-351285",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-air-jordan-1-retro-high-og-masculino-555088-063-1-11637067284.jpg"
+  },
+  {
+    "sneakerName": "Women's Dunk Low Midnight Navy and White",
+    "url": "https://www.nike.com.br/snkrs/womens-dunk-low-1-16-210-387692",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/tenis-nike-dunk-low-feminino-DD1503-115-1-11640098779.jpg"
+  },
+  {
+    "sneakerName": "Nike x sacai VaporWaffle White and Gum",
+    "url": "https://www.nike.com.br/snkrs/nike-x-sacai-vaporwaffle-153-169-211-330608",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/nike-x-sacai-vaporwaffle-DD1875-100-1-11646853607.jpg"
+  },
+  {
+    "sneakerName": "Nike x sacai VaporWaffle Black and Gum",
+    "url": "https://www.nike.com.br/snkrs/nike-x-sacai-vaporwaffle-153-169-211-350131",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/nike-x-sacai-vaporwaffle-DD1875-001-1-11646853591.jpg"
+  },
+  {
+    "sneakerName": "Air Jordan 1 Rebellionaire",
+    "url": "https://www.nike.com.br/snkrs/air-jordan-1-153-169-211-373954",
+    "imgUrl": "https://images.lojanike.com.br/515x515/produto/air-jordan-1-555088-036-1-11647013008.jpg"
+  },
+  {
+    "sneakerName": "Nike SB Dunk Low Pro Unissex",
+    "url": "https://www.nike.com.br/tenis-nike-sb-dunk-low-pro-unissex-153-169-229-284741",
+    "imgUrl": "https://images.lojanike.com.br/500x500/produto/tenis-nike-sb-dunk-low-pro-qs-2-CT2550-600-1.jpg"
+  }
 ]
